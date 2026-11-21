@@ -1,0 +1,912 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [6 0 R 8 0 R 10 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 5767 >>
+stream
+BT
+0.4 0.5 0.6 rg
+/F1 8 Tf
+1 0 0 1 45 818 Tm
+(InsureGuard AI   Master Development Log) Tj
+1 0 0 1 500 30 Tm
+(Page 1 of 3) Tj
+1 0 0 1 45 30 Tm
+(InsureGuard AI · Visionet Techthon 2026) Tj
+ET
+0.85 0.88 0.92 RG 0.5 w
+45 812 m 550 812 l S
+45 42 m 550 42 l S
+BT
+0.05 0.10 0.25 rg
+/F2 17 Tf
+1 0 0 1 45 775.00 Tm
+(InsureGuard AI   Master Development & Modification Log) Tj
+ET
+0.15 0.35 0.85 RG
+1.5 w
+45 769.00 m 550 769.00 l S
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 751.00 Tm
+(NOTE: File Purpose: Comprehensive, immutable tracker of all codebase updates,) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 738.00 Tm
+(architectural changes, additions, modifications, reversions, and subagent) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 725.00 Tm
+(assignments.) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 710.00 Tm
+(NOTE: Repository: `claimshield-ai` \(Transitioning to InsureGuard AI v2.0\)) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 695.00 Tm
+(NOTE: Master Coordinator: Antigravity Senior Technical Lead & Master Agent) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 680.00 Tm
+(NOTE: Last Updated: 2026-11-22T02:45:00+05:30) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 665.00 Tm
+(---) Tj
+ET
+BT
+0.10 0.20 0.50 rg
+/F2 13 Tf
+1 0 0 1 45 638.00 Tm
+(   Change Log Convention) Tj
+ET
+0.8 0.85 0.9 RG
+0.8 w
+45 634.00 m 550 634.00 l S
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 620.00 Tm
+(Every entry must document:) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 605.00 Tm
+(  Timestamp \(ISO / Local\): When the modification occurred.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 592.00 Tm
+(  Author / Agent: Who executed the change \(`Master Agent`, `Backend Lead`,) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 580.00 Tm
+(  `Frontend Lead`, `AI & Forensics Lead`\).) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 567.00 Tm
+(  Category: `ADDITION`, `MODIFICATION`, `REVERSION`, `REFACTOR`, `DEPRECATION`,) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 555.00 Tm
+(  `CONFIGURATION`.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 542.00 Tm
+(  Files Affected: Explicit list of file paths.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 529.00 Tm
+(  Description & Rationale: Why the change was made and what was modified.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 516.00 Tm
+(  Rollback / Reversion Instructions: How to revert the change if required.) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 503.00 Tm
+(---) Tj
+ET
+BT
+0.10 0.20 0.50 rg
+/F2 13 Tf
+1 0 0 1 45 476.00 Tm
+(   Chronological Log) Tj
+ET
+0.8 0.85 0.9 RG
+0.8 w
+45 472.00 m 550 472.00 l S
+BT
+0.15 0.20 0.30 rg
+/F2 11 Tf
+1 0 0 1 45 448.00 Tm
+([Entry 001]   2026-11-21   Baseline v1.0 Foundation) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 436.00 Tm
+(  Author: Master Agent \(Avdhesh, Ayush, Manaswi roles\)) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 423.00 Tm
+(  Category: `ADDITION`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 410.00 Tm
+(  Files Affected:) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 397.00 Tm
+(  `server/` \(Node.js/Express, Mongoose models, JWT auth, OCR service, Risk Engine,) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 385.00 Tm
+(  Gemini AI service\)) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 372.00 Tm
+(  `client/` \(React 18 + Vite, Tailwind CSS, Recharts\)) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 359.00 Tm
+(  `sample-data/` \(Scenarios A, B, C synthetic JSON claims and mock documents\)) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 346.00 Tm
+(  `docs/` \(`PROJECT_STATUS.md`, `ARCHITECTURE.md`, `API_CONTRACTS.md`,) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 334.00 Tm
+(  `TEAM_CONTRIBUTIONS.md`, `GITHUB_ISSUES.md`\)) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 321.00 Tm
+(  Description: Complete initial MERN prototype scaffolded, committed to Git) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 309.00 Tm
+(  \(`a0082c1`, `52c5cdf`\), and pushed to GitHub \(`main`, `development`\).) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 296.00 Tm
+(  Status: Baseline active and stable on GitHub.) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 283.00 Tm
+(---) Tj
+ET
+BT
+0.15 0.20 0.30 rg
+/F2 11 Tf
+1 0 0 1 45 258.00 Tm
+([Entry 002]   2026-11-22 02:45   Adoption of PRD v2.0 \(InsureGuard AI\) & Multi-Agent Architecture) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 246.00 Tm
+(  Author: Master Agent) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 233.00 Tm
+(  Category: `CONFIGURATION` & `ARCHITECTURE`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 220.00 Tm
+(  Files Affected:) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 207.00 Tm
+(  `docs/DEVELOPMENT_LOG.md` \(Created\)) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 194.00 Tm
+(  `docs/PRD_v2.0.md` \(Created to store full approved PRD\)) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 181.00 Tm
+(  Description:) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 168.00 Tm
+(  Approved transition from ClaimShield v1.0 \(motor insurance MERN MVP\) to) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 156.00 Tm
+(  InsureGuard AI v2.0 \(enterprise fraud detection, document forensics, Neo4j) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 144.00 Tm
+(  relationship graph, grounded AI copilot, customer transparency portal,) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 132.00 Tm
+(  FastAPI/PostgreSQL/Neo4j architecture\).) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 119.00 Tm
+(  Established Master Agent and Subagent operational hierarchy with automated) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 107.00 Tm
+(  cross-communication and audit tracking.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 94.00 Tm
+(  Rollback: Revert to branch `development` at commit `52c5cdf`.) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 81.00 Tm
+(---) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 9 0 R >>
+endobj
+9 0 obj
+<< /Length 6416 >>
+stream
+BT
+0.4 0.5 0.6 rg
+/F1 8 Tf
+1 0 0 1 45 818 Tm
+(InsureGuard AI   Master Development Log) Tj
+1 0 0 1 500 30 Tm
+(Page 2 of 3) Tj
+1 0 0 1 45 30 Tm
+(InsureGuard AI · Visionet Techthon 2026) Tj
+ET
+0.85 0.88 0.92 RG 0.5 w
+45 812 m 550 812 l S
+45 42 m 550 42 l S
+BT
+0.15 0.20 0.30 rg
+/F2 11 Tf
+1 0 0 1 45 780.00 Tm
+([Entry 003]   2026-11-22 02:50   Subagents Definition & Coordination Protocol) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 768.00 Tm
+(  Author: Master Agent) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 755.00 Tm
+(  Category: `CONFIGURATION`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 742.00 Tm
+(  Subagents Registered:) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 729.00 Tm
+(1. `backend-specialist`: Owns Python/FastAPI backend, PostgreSQL/pgvector, Neo4j) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 716.00 Tm
+(graph schemas, authentication, and REST APIs.) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 701.00 Tm
+(2. `frontend-specialist`: Owns React + TypeScript frontend, tri-portal architecture) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 688.00 Tm
+(\(Customer, Investigator, Admin\), vis-network relationship graph, and copilot UI.) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 673.00 Tm
+(3. `ai-forensics-specialist`: Owns document intelligence, PaddleOCR, image forensics) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 660.00 Tm
+(\(ELA, compression analysis\), rule engine, and Gemini/Ollama RAG copilot.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 645.00 Tm
+(  Documentation Created: `docs/AGENT_COORDINATION.md` detailing communication) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 633.00 Tm
+(  protocols and review steps.) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 620.00 Tm
+(---) Tj
+ET
+BT
+0.15 0.20 0.30 rg
+/F2 11 Tf
+1 0 0 1 45 595.00 Tm
+([Entry 004]   2026-11-22 03:00   InsureGuard AI v2.0 Full Stack Implementation) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 583.00 Tm
+(  Author: Master Agent \(incorporating Backend, Frontend, and AI Leads\)) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 570.00 Tm
+(  Category: `ADDITION`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 557.00 Tm
+(  Files Created:) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 544.00 Tm
+(  `docker-compose.yml`: Multi-container infrastructure \(pgvector, Neo4j, Redis,) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 532.00 Tm
+(  Backend, Frontend\).) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 519.00 Tm
+(  `database/postgres/init.sql`: 8 PostgreSQL tables with pgvector extension.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 506.00 Tm
+(  `database/neo4j/schema.cypher`: Constraints, indexes, and synthetic fraud) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 494.00 Tm
+(  syndicate seeds.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 481.00 Tm
+(  `backend/requirements.txt`: Python dependencies.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 468.00 Tm
+(  `backend/app/core/`: `config.py`, `security.py`, `database.py`,) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 456.00 Tm
+(  `neo4j_client.py`.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 443.00 Tm
+(  `backend/app/models/`: `user.py`, `policy.py`, `claim.py`, `document.py`,) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 431.00 Tm
+(  `finding.py`, `case.py`, `audit.py`.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 418.00 Tm
+(  `backend/app/schemas/`: `user.py`, `claim.py`, `document.py`, `finding.py`,) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 406.00 Tm
+(  `copilot.py`, `graph.py`.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 393.00 Tm
+(  `backend/app/services/`:) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 380.00 Tm
+(  `privacy/pii.py`: PII masking \(Aadhaar, phone, bank account\).) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 367.00 Tm
+(  `document_forensics/forensics.py`: Error Level Analysis \(ELA\) and PDF metadata) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 355.00 Tm
+(  analysis.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 342.00 Tm
+(  `fraud_detection/engine.py`: Explainable deterministic 10-rule scoring engine) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 330.00 Tm
+(  \(0-100 score\).) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 317.00 Tm
+(  `relationship_graph/graph_service.py`: Neo4j query builder & synthetic graph) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 305.00 Tm
+(  generator.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 292.00 Tm
+(  `copilot/rag_service.py`: Grounded RAG Copilot with citations and prompt) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 280.00 Tm
+(  injection defense.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 267.00 Tm
+(  `backend/app/api/v1/`: Endpoints for `auth`, `claims`, `documents`, `fraud`,) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 255.00 Tm
+(  `graph`, `copilot`, `customer`.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 242.00 Tm
+(  `backend/app/main.py`: FastAPI application entry point.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 229.00 Tm
+(  `frontend/`: React 18 + TypeScript, Tailwind CSS, typed Axios API client.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 216.00 Tm
+(  `frontend/src/pages/`:) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 203.00 Tm
+(  `investigator/InvestigatorDashboard.tsx`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 190.00 Tm
+(  `investigator/WhySuspiciousView.tsx` \(Evidence-backed indicators, page) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 178.00 Tm
+(  citations, alternative explanations\)) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 165.00 Tm
+(  `investigator/RelationshipGraphView.tsx` \(Vis-network entity graph\)) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 152.00 Tm
+(  `investigator/CopilotChatView.tsx` \(Grounded AI copilot chat with citations\)) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 139.00 Tm
+(  `customer/CustomerPortal.tsx` \(Customer-safe milestone timeline & document) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 127.00 Tm
+(  upload\)) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 114.00 Tm
+(  Description: Complete implementation of InsureGuard AI v2.0 architecture) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 102.00 Tm
+(  satisfying all 9 modules in the approved PRD.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 89.00 Tm
+(  Rollback: `git reset --hard 52c5cdf` \(returns to ClaimShield v1.0 MERN) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 77.00 Tm
+(  baseline\).) Tj
+ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 11 0 R >>
+endobj
+11 0 obj
+<< /Length 3881 >>
+stream
+BT
+0.4 0.5 0.6 rg
+/F1 8 Tf
+1 0 0 1 45 818 Tm
+(InsureGuard AI   Master Development Log) Tj
+1 0 0 1 500 30 Tm
+(Page 3 of 3) Tj
+1 0 0 1 45 30 Tm
+(InsureGuard AI · Visionet Techthon 2026) Tj
+ET
+0.85 0.88 0.92 RG 0.5 w
+45 812 m 550 812 l S
+45 42 m 550 42 l S
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 790.00 Tm
+(---) Tj
+ET
+BT
+0.15 0.20 0.30 rg
+/F2 11 Tf
+1 0 0 1 45 765.00 Tm
+([Entry 005]   2026-11-22 03:15   Final Master Alignment Documents & Specialized Integration Contracts) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 753.00 Tm
+(  Author: Master Agent) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 740.00 Tm
+(  Category: `DOCUMENTATION` & `INTEGRATION_CONTRACT`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 727.00 Tm
+(  Files Created:) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 714.00 Tm
+(  `docs/FINAL_PRD.md`: Master consolidated PRD v3.0 detailing all non-negotiable) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 702.00 Tm
+(  principles, user roles, DoD, and deep-dive specifications for the 5 specialized) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 690.00 Tm
+(  features:) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 677.00 Tm
+(1. "Why Suspicious?" Track: Deterministic 10-rule scoring engine, 0-100 risk bands,) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 664.00 Tm
+(finding data contract with page numbers, alternative explanations, and recommended) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 651.00 Tm
+(verification steps.) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 636.00 Tm
+(2. Fraud Relationship Graph: Neo4j entity graph model \(Customer, Claim, Vehicle,) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 623.00 Tm
+(Garage, Hospital, Phone, Bank Account\) and syndicate patterns \(recycled vehicles,) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 610.00 Tm
+(shared contacts, garage funneling\).) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 595.00 Tm
+(3. Document Tampering & Forensics: Cross-document text consistency, Error Level) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 582.00 Tm
+(Analysis \(ELA\), and PDF metadata anomaly detection.) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 567.00 Tm
+(4. AI Copilot for Investigations: Grounded RAG with strict document/page citations,) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 554.00 Tm
+(lack-of-evidence acknowledgments, and refusal to make autonomous fraud verdicts.) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 539.00 Tm
+(5. Investigation Privacy & PII Protection: Pre-LLM PII sanitization pipeline) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 526.00 Tm
+(\(Aadhaar, Phone, Bank, Email\) and customer data boundary enforcement.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 511.00 Tm
+(  `docs/FINAL_ARCHITECTURE.md`: Exhaustive architecture blueprint featuring) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 499.00 Tm
+(  modular data pipelines, sequence diagrams, PostgreSQL ER diagram, and Neo4j) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 487.00 Tm
+(  graph model.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 474.00 Tm
+(  `docs/TECH_STACK_AND_INTEGRATION.md`: Complete tech stack definition \(React+TS,) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 462.00 Tm
+(  FastAPI, PostgreSQL/pgvector, Neo4j, Redis, PyMuPDF, OpenCV\), integration) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 450.00 Tm
+(  contracts, run commands, and team Git branching workflow for Avdhesh, Ayush, and) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 438.00 Tm
+(  Manaswi.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 425.00 Tm
+(  Rationale: Establishes an unshakeable single source of truth allowing all 3 team) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 413.00 Tm
+(  members to build individual features in parallel and integrate seamlessly) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 401.00 Tm
+(  without architectural collisions.) Tj
+ET
+endstream
+endobj
+xref
+0 12
+0000000000 65535 f 
+0000000019 00000 n 
+0000000068 00000 n 
+0000000138 00000 n 
+0000000235 00000 n 
+0000000337 00000 n 
+0000000432 00000 n 
+0000000584 00000 n 
+0000006403 00000 n 
+0000006555 00000 n 
+0000013023 00000 n 
+0000013177 00000 n 
+trailer
+<< /Size 12 /Root 1 0 R >>
+startxref
+17111
+%%EOF

@@ -101,3 +101,16 @@ Every entry must document:
   - `docs/FINAL_ARCHITECTURE.md`: Exhaustive architecture blueprint featuring modular data pipelines, sequence diagrams, PostgreSQL ER diagram, and Neo4j graph model.
   - `docs/TECH_STACK_AND_INTEGRATION.md`: Complete tech stack definition (React+TS, FastAPI, PostgreSQL/pgvector, Neo4j, Redis, PyMuPDF, OpenCV), integration contracts, run commands, and team Git branching workflow for Avdhesh, Ayush, and Manaswi.
 - **Rationale:** Establishes an unshakeable single source of truth allowing all 3 team members to build individual features in parallel and integrate seamlessly without architectural collisions.
+
+---
+
+### [Entry 006] — 2026-11-22 03:30 — PDF Documentation Generation
+- **Author:** Master Agent
+- **Category:** `ADDITION`
+- **Files Created:**
+  - `docs/make_pdf.js`: Pure Node.js zero-dependency PDF compiler generating standard PDF 1.4 documents with running headers, footers, pagination, code blocks, and styled tables.
+  - `docs/FINAL_PRD.pdf`: Downloadable PDF (5 pages, 31 KB).
+  - `docs/FINAL_ARCHITECTURE.pdf`: Downloadable PDF (4 pages, 22 KB).
+  - `docs/TECH_STACK_AND_INTEGRATION.pdf`: Downloadable PDF (3 pages, 19 KB).
+  - `docs/DEVELOPMENT_LOG.pdf`: Downloadable PDF (3 pages, 17 KB).
+- **Rationale:** Enables direct download and sharing of reference documentation across teammates and reviewers.

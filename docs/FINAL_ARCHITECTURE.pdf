@@ -1,0 +1,1299 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [6 0 R 8 0 R 10 0 R 12 0 R] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 5638 >>
+stream
+BT
+0.4 0.5 0.6 rg
+/F1 8 Tf
+1 0 0 1 45 818 Tm
+(InsureGuard AI   Final System Architecture) Tj
+1 0 0 1 500 30 Tm
+(Page 1 of 4) Tj
+1 0 0 1 45 30 Tm
+(InsureGuard AI · Visionet Techthon 2026) Tj
+ET
+0.85 0.88 0.92 RG 0.5 w
+45 812 m 550 812 l S
+45 42 m 550 42 l S
+BT
+0.05 0.10 0.25 rg
+/F2 17 Tf
+1 0 0 1 45 775.00 Tm
+(InsureGuard AI   Final System Architecture Specification) Tj
+ET
+0.15 0.35 0.85 RG
+1.5 w
+45 769.00 m 550 769.00 l S
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 751.00 Tm
+(Document Version: 3.0 \(Master Blueprint\)) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 736.00 Tm
+(System Type: Decoupled Intelligence & Forensic Platform) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 721.00 Tm
+(Target: Modular Independent Development with Seamless Mainline Integration) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 706.00 Tm
+(---) Tj
+ET
+BT
+0.10 0.20 0.50 rg
+/F2 13 Tf
+1 0 0 1 45 679.00 Tm
+(1. High-Level Modular Architecture) Tj
+ET
+0.8 0.85 0.9 RG
+0.8 w
+45 675.00 m 550 675.00 l S
+0.94 0.96 0.98 rg
+41 213.00 513 450 re f
+0.85 0.88 0.92 RG
+0.5 w
+41 213.00 513 450 re S
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 655.00 Tm
+(flowchart TD) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 644.00 Tm
+(    subgraph UI_Layer ["Frontend Application \(React 18 + TypeScript + Vite\)"]) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 633.00 Tm
+(        CustomerPortal["Customer Transparency Portal\\n- Safe Milestones Timeline\\n- Document Up) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 622.00 Tm
+(        InvestigatorWorkspace["Investigator Command Center\\n- Queue & Filter\\n- 'Why Suspicious) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 611.00 Tm
+(        AdminConsole["Admin Console\\n- Fraud Rule Config\\n- System Audit Logs"]) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 600.00 Tm
+(    end) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 589.00 Tm
+() Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 578.00 Tm
+(    subgraph API_Gateway ["API Gateway & Core Application \(Python FastAPI\)"]) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 567.00 Tm
+(        AuthMiddleware["JWT Authentication & RBAC Middleware"]) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 556.00 Tm
+(        Router["API v1 Routers \(/auth, /claims, /documents, /fraud, /graph, /copilot, /customer) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 545.00 Tm
+(        PIIMasker["Privacy Engine \(PII Masking Pipeline\)"]) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 534.00 Tm
+(    end) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 523.00 Tm
+() Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 512.00 Tm
+(    subgraph Intelligence_Pipeline ["Specialized Feature Engines"]) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 501.00 Tm
+(        ForensicsEngine["Document Forensics Module\\n- PyMuPDF Metadata Analyzer\\n- OpenCV Error) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 490.00 Tm
+(        FraudEngine["Explainable Fraud Engine \('Why Suspicious?'\)\\n- Deterministic 10-Rule Eval) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 479.00 Tm
+(        GraphEngine["Relationship Graph Engine\\n- Neo4j Cypher Query Builder\\n- Shared Contact ) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 468.00 Tm
+(        CopilotRAG["AI Copilot Module\\n- Grounded RAG with Document Citations\\n- Prompt Injecti) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 457.00 Tm
+(    end) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 446.00 Tm
+() Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 435.00 Tm
+(    subgraph Persistence_Layer ["Data & Storage Layer"]) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 424.00 Tm
+(        PostgreSQL[\("PostgreSQL 16 + pgvector\\n- Relational Claims, Users, Findings\\n- Vector E) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 413.00 Tm
+(        Neo4j[\("Neo4j 5.19 Graph Database\\n- Customer, Claim, Vehicle, Garage, Phone\\n- Graph D) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 402.00 Tm
+(        FileStorage[\("Secure Document Storage\\n/uploads/:claim_id/"\)]) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 391.00 Tm
+(    end) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 380.00 Tm
+() Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 369.00 Tm
+(    UI_Layer -->|HTTP / REST JSON| AuthMiddleware) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 358.00 Tm
+(    AuthMiddleware --> Router) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 347.00 Tm
+(    Router --> PIIMasker) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 336.00 Tm
+(    Router --> Persistence_Layer) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 325.00 Tm
+(    ) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 314.00 Tm
+(    Router --> ForensicsEngine) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 303.00 Tm
+(    Router --> FraudEngine) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 292.00 Tm
+(    Router --> GraphEngine) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 281.00 Tm
+(    Router --> CopilotRAG) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 270.00 Tm
+() Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 259.00 Tm
+(    ForensicsEngine --> FileStorage) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 248.00 Tm
+(    FraudEngine --> PostgreSQL) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 237.00 Tm
+(    GraphEngine --> Neo4j) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 226.00 Tm
+(    CopilotRAG --> PostgreSQL) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 209.00 Tm
+(---) Tj
+ET
+BT
+0.10 0.20 0.50 rg
+/F2 13 Tf
+1 0 0 1 45 182.00 Tm
+(2. Special Features: Data Pipelines & Sequence) Tj
+ET
+0.8 0.85 0.9 RG
+0.8 w
+45 178.00 m 550 178.00 l S
+BT
+0.15 0.20 0.30 rg
+/F2 11 Tf
+1 0 0 1 45 154.00 Tm
+(2.1 The "Why Suspicious?" Evaluation Pipeline) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 9 0 R >>
+endobj
+9 0 obj
+<< /Length 6550 >>
+stream
+BT
+0.4 0.5 0.6 rg
+/F1 8 Tf
+1 0 0 1 45 818 Tm
+(InsureGuard AI   Final System Architecture) Tj
+1 0 0 1 500 30 Tm
+(Page 2 of 4) Tj
+1 0 0 1 45 30 Tm
+(InsureGuard AI · Visionet Techthon 2026) Tj
+ET
+0.85 0.88 0.92 RG 0.5 w
+45 812 m 550 812 l S
+45 42 m 550 42 l S
+0.94 0.96 0.98 rg
+41 573.00 513 219 re f
+0.85 0.88 0.92 RG
+0.5 w
+41 573.00 513 219 re S
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 784.00 Tm
+(sequenceDiagram) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 773.00 Tm
+(    autonumber) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 762.00 Tm
+(    actor Officer as Claims Investigator) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 751.00 Tm
+(    participant API as FastAPI Server) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 740.00 Tm
+(    participant DB as PostgreSQL) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 729.00 Tm
+(    participant Fraud as Fraud Detection Engine) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 718.00 Tm
+(    participant Forensics as Forensics Service) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 707.00 Tm
+() Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 696.00 Tm
+(    Officer->>API: POST /api/v1/claims/{id}/analyze) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 685.00 Tm
+(    API->>DB: Fetch Claim Record & Extracted Document Metadata) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 674.00 Tm
+(    API->>Forensics: Inspect Files for ELA variance & Metadata flags) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 663.00 Tm
+(    Forensics-->>API: Forensic Indicators \(Tampering Boolean + Flags\)) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 652.00 Tm
+(    API->>DB: Check Historical Invoice # & SHA-256 Duplicates) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 641.00 Tm
+(    DB-->>API: Duplicate Matches) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 630.00 Tm
+(    API->>Fraud: Evaluate 10 Deterministic Rules) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 619.00 Tm
+(    Fraud->>Fraud: Compute Capped Score \(0-100\) & Assign Band \(Low/Med/High/Very High\)) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 608.00 Tm
+(    Fraud-->>API: Itemized Findings \(Observation, Evidence, Explanations, Actions\)) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 597.00 Tm
+(    API->>DB: Persist Findings to fraud_findings table) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 586.00 Tm
+(    API-->>Officer: Return Complete Why Suspicious Report) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 569.00 Tm
+(---) Tj
+ET
+BT
+0.15 0.20 0.30 rg
+/F2 11 Tf
+1 0 0 1 45 544.00 Tm
+(2.2 The Fraud Relationship Graph Pipeline) Tj
+ET
+0.94 0.96 0.98 rg
+41 348.00 513 186 re f
+0.85 0.88 0.92 RG
+0.5 w
+41 348.00 513 186 re S
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 526.00 Tm
+(sequenceDiagram) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 515.00 Tm
+(    autonumber) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 504.00 Tm
+(    actor Officer as Claims Investigator) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 493.00 Tm
+(    participant API as FastAPI Server) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 482.00 Tm
+(    participant Neo4j as Neo4j Graph DB) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 471.00 Tm
+(    participant Formatter as Graph Formatter) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 460.00 Tm
+() Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 449.00 Tm
+(    Officer->>API: GET /api/v1/claims/{id}/graph) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 438.00 Tm
+(    API->>Neo4j: Execute 2-Hop Neighborhood Cypher Query \($claim_number\)) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 427.00 Tm
+(    Neo4j->>Neo4j: Traverse: Claim -> Customer -> Phone/Address -> Other Claims) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 416.00 Tm
+(    Neo4j->>Neo4j: Traverse: Claim -> Garage / Vehicle -> Other Claims) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 405.00 Tm
+(    Neo4j-->>API: Raw Cypher Record Stream) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 394.00 Tm
+(    API->>Formatter: Map entities to vis-network format \(Nodes, Edges, Groups\)) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 383.00 Tm
+(    Formatter->>Formatter: Detect Syndicates \(Shared Phones / Garage Funneling\)) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 372.00 Tm
+(    Formatter-->>API: Formatted Graph Payload) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 361.00 Tm
+(    API-->>Officer: Interactive Canvas Render) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 344.00 Tm
+(---) Tj
+ET
+BT
+0.15 0.20 0.30 rg
+/F2 11 Tf
+1 0 0 1 45 319.00 Tm
+(2.3 The Privacy-First AI Copilot Pipeline) Tj
+ET
+0.94 0.96 0.98 rg
+41 123.00 513 186 re f
+0.85 0.88 0.92 RG
+0.5 w
+41 123.00 513 186 re S
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 301.00 Tm
+(sequenceDiagram) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 290.00 Tm
+(    autonumber) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 279.00 Tm
+(    actor Officer as Claims Investigator) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 268.00 Tm
+(    participant API as FastAPI Server) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 257.00 Tm
+(    participant DB as PostgreSQL) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 246.00 Tm
+(    participant PII as PII Sanitizer) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 235.00 Tm
+(    participant Gemini as Google Gemini / Ollama) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 224.00 Tm
+() Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 213.00 Tm
+(    Officer->>API: POST /api/v1/copilot/chat { claim_id, question }) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 202.00 Tm
+(    API->>DB: Retrieve Verified Claim & Findings Records) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 191.00 Tm
+(    API->>PII: Sanitize Claim Context \(Mask Aadhaar, Phone, Bank, Email\)) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 180.00 Tm
+(    PII-->>API: Safe Fact-Constrained Context) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 169.00 Tm
+(    API->>Gemini: Send Prompt \(Safe Facts + Question + Strict Citation Instruction\)) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 158.00 Tm
+(    Gemini-->>API: Structured Response \(Answer Text + Citations\)) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 147.00 Tm
+(    API->>API: Attach Verified Evidence Document & Page References) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 136.00 Tm
+(    API-->>Officer: Return Grounded Response with Citations & Action Steps) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 119.00 Tm
+(---) Tj
+ET
+BT
+0.10 0.20 0.50 rg
+/F2 13 Tf
+1 0 0 1 45 92.00 Tm
+(3. Database Entity Relationship \(PostgreSQL\)) Tj
+ET
+0.8 0.85 0.9 RG
+0.8 w
+45 88.00 m 550 88.00 l S
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 11 0 R >>
+endobj
+11 0 obj
+<< /Length 5647 >>
+stream
+BT
+0.4 0.5 0.6 rg
+/F1 8 Tf
+1 0 0 1 45 818 Tm
+(InsureGuard AI   Final System Architecture) Tj
+1 0 0 1 500 30 Tm
+(Page 3 of 4) Tj
+1 0 0 1 45 30 Tm
+(InsureGuard AI · Visionet Techthon 2026) Tj
+ET
+0.85 0.88 0.92 RG 0.5 w
+45 812 m 550 812 l S
+45 42 m 550 42 l S
+0.94 0.96 0.98 rg
+41 144.00 513 648 re f
+0.85 0.88 0.92 RG
+0.5 w
+41 144.00 513 648 re S
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 784.00 Tm
+(erDiagram) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 773.00 Tm
+(    USERS ||--o{ CLAIMS : "submits") Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 762.00 Tm
+(    USERS ||--o{ POLICIES : "owns") Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 751.00 Tm
+(    POLICIES ||--o{ CLAIMS : "covers") Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 740.00 Tm
+(    CLAIMS ||--o{ DOCUMENTS : "attaches") Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 729.00 Tm
+(    CLAIMS ||--o{ FRAUD_FINDINGS : "generates") Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 718.00 Tm
+(    CLAIMS ||--o{ INVESTIGATION_CASES : "initiates") Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 707.00 Tm
+(    INVESTIGATION_CASES ||--o{ CASE_NOTES : "contains") Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 696.00 Tm
+(    USERS ||--o{ AUDIT_LOGS : "triggers") Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 685.00 Tm
+() Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 674.00 Tm
+(    USERS {) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 663.00 Tm
+(        uuid id PK) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 652.00 Tm
+(        string email UK) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 641.00 Tm
+(        string full_name) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 630.00 Tm
+(        string role "ADMIN | INVESTIGATOR | CUSTOMER") Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 619.00 Tm
+(        string phone_number) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 608.00 Tm
+(        boolean is_active) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 597.00 Tm
+(    }) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 586.00 Tm
+() Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 575.00 Tm
+(    CLAIMS {) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 564.00 Tm
+(        uuid id PK) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 553.00 Tm
+(        string claim_number UK) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 542.00 Tm
+(        uuid customer_id FK) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 531.00 Tm
+(        uuid policy_id FK) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 520.00 Tm
+(        string category "MOTOR | HEALTH | PROPERTY") Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 509.00 Tm
+(        string status) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 498.00 Tm
+(        datetime incident_date) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 487.00 Tm
+(        decimal claimed_amount) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 476.00 Tm
+(        string vehicle_registration) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 465.00 Tm
+(        string garage_name) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 454.00 Tm
+(        int risk_score) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 443.00 Tm
+(        string risk_band) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 432.00 Tm
+(    }) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 421.00 Tm
+() Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 410.00 Tm
+(    DOCUMENTS {) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 399.00 Tm
+(        uuid id PK) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 388.00 Tm
+(        uuid claim_id FK) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 377.00 Tm
+(        string document_type) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 366.00 Tm
+(        string original_filename) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 355.00 Tm
+(        string sha256_hash) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 344.00 Tm
+(        jsonb extracted_metadata) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 333.00 Tm
+(        boolean has_tampering_indicators) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 322.00 Tm
+(        jsonb forensic_details) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 311.00 Tm
+(        vector embedding) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 300.00 Tm
+(    }) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 289.00 Tm
+() Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 278.00 Tm
+(    FRAUD_FINDINGS {) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 267.00 Tm
+(        uuid id PK) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 256.00 Tm
+(        uuid claim_id FK) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 245.00 Tm
+(        string rule_id) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 234.00 Tm
+(        string rule_name) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 223.00 Tm
+(        string severity) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 212.00 Tm
+(        int points) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 201.00 Tm
+(        text observation) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 190.00 Tm
+(        text potential_alternative_explanation) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 179.00 Tm
+(        text recommended_action) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 168.00 Tm
+(        string investigator_feedback) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 157.00 Tm
+(    }) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 140.00 Tm
+(---) Tj
+ET
+BT
+0.10 0.20 0.50 rg
+/F2 13 Tf
+1 0 0 1 45 113.00 Tm
+(4. Neo4j Graph Model Definition) Tj
+ET
+0.8 0.85 0.9 RG
+0.8 w
+45 109.00 m 550 109.00 l S
+BT
+0.15 0.20 0.30 rg
+/F2 11 Tf
+1 0 0 1 45 85.00 Tm
+(Nodes:) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 73.00 Tm
+(  `\(:Customer {id, name, risk_tag}\)`) Tj
+ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 13 0 R >>
+endobj
+13 0 obj
+<< /Length 2504 >>
+stream
+BT
+0.4 0.5 0.6 rg
+/F1 8 Tf
+1 0 0 1 45 818 Tm
+(InsureGuard AI   Final System Architecture) Tj
+1 0 0 1 500 30 Tm
+(Page 4 of 4) Tj
+1 0 0 1 45 30 Tm
+(InsureGuard AI · Visionet Techthon 2026) Tj
+ET
+0.85 0.88 0.92 RG 0.5 w
+45 812 m 550 812 l S
+45 42 m 550 42 l S
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 790.00 Tm
+(  `\(:Claim {claim_number, amount, date, status, risk_score}\)`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 777.00 Tm
+(  `\(:Vehicle {registration, make, model}\)`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 764.00 Tm
+(  `\(:Garage {name, license, location}\)`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 751.00 Tm
+(  `\(:Hospital {name, registration}\)`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 738.00 Tm
+(  `\(:Phone {number}\)`) Tj
+ET
+BT
+0.15 0.20 0.30 rg
+/F2 11 Tf
+1 0 0 1 45 715.00 Tm
+(Edges:) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 703.00 Tm
+(  `\(:Customer\)-[:SUBMITTED]->\(:Claim\)`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 690.00 Tm
+(  `\(:Customer\)-[:OWNS]->\(:Vehicle\)`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 677.00 Tm
+(  `\(:Claim\)-[:INVOLVES_VEHICLE]->\(:Vehicle\)`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 664.00 Tm
+(  `\(:Claim\)-[:REPAIRED_AT]->\(:Garage\)`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 651.00 Tm
+(  `\(:Claim\)-[:TREATED_AT]->\(:Hospital\)`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 638.00 Tm
+(  `\(:Customer\)-[:SHARES_CONTACT]->\(:Phone\)`) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 625.00 Tm
+(---) Tj
+ET
+BT
+0.10 0.20 0.50 rg
+/F2 13 Tf
+1 0 0 1 45 598.00 Tm
+(5. Security & Isolation Architecture) Tj
+ET
+0.8 0.85 0.9 RG
+0.8 w
+45 594.00 m 550 594.00 l S
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 580.00 Tm
+(1. Token Authentication: Bearer JWT with HMAC-SHA256. Roles enforced on FastAPI) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 567.00 Tm
+(routers via `get_current_user` dependency.) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 552.00 Tm
+(2. Customer Isolation: Customer endpoints query solely by `WHERE customer_id ==) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 539.00 Tm
+(current_user.id`.) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 524.00 Tm
+(3. Data Masking Layer: Centralized in `app.services.privacy.pii.PIIMasker`.) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 509.00 Tm
+(4. Audit Logging: Every status change and officer finding modification writes an) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 496.00 Tm
+(immutable record to `audit_logs`.) Tj
+ET
+endstream
+endobj
+xref
+0 14
+0000000000 65535 f 
+0000000019 00000 n 
+0000000068 00000 n 
+0000000145 00000 n 
+0000000242 00000 n 
+0000000344 00000 n 
+0000000439 00000 n 
+0000000591 00000 n 
+0000006281 00000 n 
+0000006433 00000 n 
+0000013035 00000 n 
+0000013189 00000 n 
+0000018889 00000 n 
+0000019043 00000 n 
+trailer
+<< /Size 14 /Root 1 0 R >>
+startxref
+21600
+%%EOF
