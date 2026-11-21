@@ -1,21 +1,43 @@
-import React, { useState, useRef } from 'react';
-import { CheckCircle2, Clock, UploadCloud, HelpCircle, FileText, X, Send, AlertCircle, ChevronRight, Shield } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import {
+  CheckCircle2, Clock, UploadCloud, HelpCircle,
+  FileText, X, Send, Shield, ChevronRight, RefreshCw, Inbox
+} from 'lucide-react';
+import api from '../../services/api';
 
 type UploadedFile = { file: File; id: string };
+type ClaimStatus = {
+  claim_number: string;
+  status: string;
+  milestones: { title: string; date: string; done: boolean; current?: boolean }[];
+  action_required?: string;
+};
 
 export default function CustomerPortal() {
+  const [claimStatus, setClaimStatus] = useState<ClaimStatus | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [appealRequested, setAppealRequested] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const milestones = [
-    { title: 'Claim Submitted', date: '21 Oct 2024', done: true },
-    { title: 'Document Verification', date: '22 Oct 2024', done: true },
-    { title: 'Review & Assessment', date: 'In Progress', done: false, current: true },
-    { title: 'Final Settlement', date: 'Pending', done: false },
-  ];
+  const fetchStatus = async () => {
+    setLoading(true);
+    setError(false);
+    try {
+      const res = await api.get('/customer/claim-status');
+      setClaimStatus(res.data);
+    } catch {
+      setClaimStatus(null);
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => { fetchStatus(); }, []);
 
   const handleFiles = (files: FileList | null) => {
     if (!files) return;
@@ -35,6 +57,40 @@ export default function CustomerPortal() {
     setSubmitted(true);
   };
 
+  /* ── Loading ─── */
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full gap-3">
+        <RefreshCw className="h-6 w-6 text-blue-400 animate-spin" />
+        <p className="text-sm text-slate-500">Loading your claim status...</p>
+      </div>
+    );
+  }
+
+  /* ── Empty / Error ─── */
+  if (!claimStatus) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full text-center px-8">
+        <div className="w-20 h-20 rounded-2xl bg-white/3 border border-white/8 flex items-center justify-center mb-5">
+          <Inbox className="h-9 w-9 text-slate-700" />
+        </div>
+        <h2 className="text-lg font-bold text-slate-400 mb-2">No Claim Found</h2>
+        <p className="text-sm text-slate-600 max-w-sm leading-relaxed">
+          {error
+            ? 'Could not reach the backend. Make sure the FastAPI service is running and you are logged in as a customer.'
+            : 'No active claim is linked to your account.'}
+        </p>
+        <button
+          onClick={fetchStatus}
+          className="mt-5 flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-sm text-slate-400 hover:text-white transition"
+        >
+          <RefreshCw className="h-4 w-4" /> Retry
+        </button>
+      </div>
+    );
+  }
+
+  /* ── Main view (live data from API) ─── */
   return (
     <div className="min-h-full bg-[#0f1117] py-8 px-6">
       <div className="max-w-3xl mx-auto space-y-6">
@@ -46,7 +102,7 @@ export default function CustomerPortal() {
             <p className="text-sm text-slate-500 mt-0.5">Track progress, upload documents, and request human review</p>
           </div>
           <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-500/10 border border-blue-500/25 rounded-xl">
-            <span className="font-mono text-xs font-bold text-blue-400">CS-2026-00002</span>
+            <span className="font-mono text-xs font-bold text-blue-400">{claimStatus.claim_number}</span>
           </div>
         </div>
 
@@ -54,12 +110,20 @@ export default function CustomerPortal() {
         <div className="bg-[#161b27] border border-white/8 rounded-2xl p-6">
           <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-6">Processing Milestones</p>
           <div className="relative">
-            {/* Line connector */}
             <div className="absolute top-5 left-5 right-5 h-0.5 bg-white/5" />
-            <div className="absolute top-5 left-5 h-0.5 bg-blue-500 transition-all" style={{ width: '50%' }} />
-
-            <div className="relative grid grid-cols-4 gap-4">
-              {milestones.map((m, i) => (
+            {claimStatus.milestones.length > 0 && (
+              <div
+                className="absolute top-5 left-5 h-0.5 bg-blue-500 transition-all"
+                style={{
+                  width: `${
+                    (claimStatus.milestones.filter(m => m.done).length /
+                    Math.max(claimStatus.milestones.length - 1, 1)) * 100
+                  }%`
+                }}
+              />
+            )}
+            <div className={`relative grid gap-4`} style={{ gridTemplateColumns: `repeat(${claimStatus.milestones.length}, 1fr)` }}>
+              {claimStatus.milestones.map((m, i) => (
                 <div key={i} className="flex flex-col items-center text-center">
                   <div className={`relative z-10 w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm mb-3 border-2 transition-all ${
                     m.done
@@ -83,72 +147,69 @@ export default function CustomerPortal() {
           </div>
         </div>
 
-        {/* Action Required */}
-        <div className="bg-amber-500/6 border border-amber-500/20 rounded-2xl p-6">
-          <div className="flex items-center gap-2 mb-2">
-            <div className="w-7 h-7 rounded-lg bg-amber-500/15 border border-amber-500/25 flex items-center justify-center">
-              <Clock className="h-3.5 w-3.5 text-amber-400" />
-            </div>
-            <span className="text-sm font-bold text-amber-300">Action Required from Claims Team</span>
-          </div>
-          <p className="text-sm text-slate-400 leading-relaxed mb-4">
-            Please provide: <span className="text-slate-200">①</span> A clear photograph of your vehicle's physical chassis VIN plate, and{' '}
-            <span className="text-slate-200">②</span> An itemized breakdown of repair charges from the workshop to finalize your review.
-          </p>
-
-          {/* Upload Zone */}
-          {!submitted ? (
-            <div className="space-y-3">
-              <div
-                onClick={() => fileInputRef.current?.click()}
-                onDragOver={e => { e.preventDefault(); setIsDragging(true); }}
-                onDragLeave={() => setIsDragging(false)}
-                onDrop={e => { e.preventDefault(); setIsDragging(false); handleFiles(e.dataTransfer.files); }}
-                className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all ${
-                  isDragging ? 'border-amber-400 bg-amber-500/10' : 'border-white/10 hover:border-white/25 hover:bg-white/3'
-                }`}
-              >
-                <UploadCloud className={`h-8 w-8 mx-auto mb-2 ${isDragging ? 'text-amber-400' : 'text-slate-600'}`} />
-                <p className="text-sm font-medium text-slate-300">Drop files here or <span className="text-amber-400 underline underline-offset-2">browse</span></p>
-                <p className="text-xs text-slate-600 mt-1">Supported: PDF · JPG · PNG · Max 10MB per file</p>
+        {/* Action Required / Upload */}
+        {claimStatus.action_required && (
+          <div className="bg-amber-500/6 border border-amber-500/20 rounded-2xl p-6">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-7 h-7 rounded-lg bg-amber-500/15 border border-amber-500/25 flex items-center justify-center">
+                <Clock className="h-3.5 w-3.5 text-amber-400" />
               </div>
-              <input ref={fileInputRef} type="file" multiple accept=".pdf,.jpg,.jpeg,.png" className="hidden" onChange={e => handleFiles(e.target.files)} />
+              <span className="text-sm font-bold text-amber-300">Action Required</span>
+            </div>
+            <p className="text-sm text-slate-400 leading-relaxed mb-4">{claimStatus.action_required}</p>
 
-              {uploadedFiles.length > 0 && (
-                <div className="space-y-2">
-                  {uploadedFiles.map(uf => (
-                    <div key={uf.id} className="flex items-center gap-3 bg-white/4 border border-white/8 rounded-xl px-4 py-2.5">
-                      <FileText className="h-4 w-4 text-blue-400 shrink-0" />
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm text-slate-200 truncate">{uf.file.name}</p>
-                        <p className="text-[10px] text-slate-600">{(uf.file.size / 1024).toFixed(1)} KB</p>
-                      </div>
-                      <button onClick={() => removeFile(uf.id)} className="text-slate-600 hover:text-red-400 transition">
-                        <X className="h-4 w-4" />
-                      </button>
-                    </div>
-                  ))}
-
-                  <button
-                    onClick={submitDocuments}
-                    className="w-full py-2.5 bg-amber-500 hover:bg-amber-400 text-black font-bold text-sm rounded-xl transition flex items-center justify-center gap-2"
-                  >
-                    <Send className="h-4 w-4" />
-                    Submit {uploadedFiles.length} Document{uploadedFiles.length > 1 ? 's' : ''} to Claims Team
-                  </button>
+            {!submitted ? (
+              <div className="space-y-3">
+                <div
+                  onClick={() => fileInputRef.current?.click()}
+                  onDragOver={e => { e.preventDefault(); setIsDragging(true); }}
+                  onDragLeave={() => setIsDragging(false)}
+                  onDrop={e => { e.preventDefault(); setIsDragging(false); handleFiles(e.dataTransfer.files); }}
+                  className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all ${
+                    isDragging ? 'border-amber-400 bg-amber-500/10' : 'border-white/10 hover:border-white/25 hover:bg-white/3'
+                  }`}
+                >
+                  <UploadCloud className={`h-8 w-8 mx-auto mb-2 ${isDragging ? 'text-amber-400' : 'text-slate-600'}`} />
+                  <p className="text-sm font-medium text-slate-300">Drop files here or <span className="text-amber-400 underline underline-offset-2">browse</span></p>
+                  <p className="text-xs text-slate-600 mt-1">PDF · JPG · PNG · Max 10MB per file</p>
                 </div>
-              )}
-            </div>
-          ) : (
-            <div className="flex items-center gap-3 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
-              <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
-              <div>
-                <p className="text-sm font-bold text-emerald-300">Documents Submitted Successfully</p>
-                <p className="text-xs text-slate-500 mt-0.5">Your investigator will review them within 2 business days.</p>
+                <input ref={fileInputRef} type="file" multiple accept=".pdf,.jpg,.jpeg,.png" className="hidden" onChange={e => handleFiles(e.target.files)} />
+
+                {uploadedFiles.length > 0 && (
+                  <div className="space-y-2">
+                    {uploadedFiles.map(uf => (
+                      <div key={uf.id} className="flex items-center gap-3 bg-white/4 border border-white/8 rounded-xl px-4 py-2.5">
+                        <FileText className="h-4 w-4 text-blue-400 shrink-0" />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm text-slate-200 truncate">{uf.file.name}</p>
+                          <p className="text-[10px] text-slate-600">{(uf.file.size / 1024).toFixed(1)} KB</p>
+                        </div>
+                        <button onClick={() => removeFile(uf.id)} className="text-slate-600 hover:text-red-400 transition">
+                          <X className="h-4 w-4" />
+                        </button>
+                      </div>
+                    ))}
+                    <button
+                      onClick={submitDocuments}
+                      className="w-full py-2.5 bg-amber-500 hover:bg-amber-400 text-black font-bold text-sm rounded-xl transition flex items-center justify-center gap-2"
+                    >
+                      <Send className="h-4 w-4" />
+                      Submit {uploadedFiles.length} Document{uploadedFiles.length > 1 ? 's' : ''} to Claims Team
+                    </button>
+                  </div>
+                )}
               </div>
-            </div>
-          )}
-        </div>
+            ) : (
+              <div className="flex items-center gap-3 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
+                <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
+                <div>
+                  <p className="text-sm font-bold text-emerald-300">Documents Submitted Successfully</p>
+                  <p className="text-xs text-slate-500 mt-0.5">Your investigator will review them within 2 business days.</p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Request human review */}
         <div className="bg-[#161b27] border border-white/8 rounded-2xl p-6 flex items-center justify-between">

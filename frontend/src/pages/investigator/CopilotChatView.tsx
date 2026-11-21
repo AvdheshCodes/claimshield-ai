@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Sparkles, Send, BookOpen, User, Lock } from 'lucide-react';
 import { Claim } from '../../types';
+import api from '../../services/api';
 
 interface Props { claim: Claim; }
 type Msg = { sender: 'user' | 'copilot'; text: string; citations?: string[] };
@@ -17,8 +18,8 @@ export default function CopilotChatView({ claim }: Props) {
   const [messages, setMessages] = useState<Msg[]>([
     {
       sender: 'copilot',
-      text: `Hello Investigator 👋\n\nI am your InsureGuard AI Copilot, grounded exclusively on verified claim evidence for **${claim.claim_number}**.\n\nI can compare dates, cross-check registrations, or summarize discrepancies — with citations for every statement. What would you like to investigate?`,
-      citations: ['System Context', 'Claim Evidence Index'],
+      text: `Hello Investigator 👋\n\nI am your InsureGuard AI Copilot, grounded exclusively on verified claim evidence for **${claim.claim_number}**.\n\nUpload and process claim documents first, then ask me to compare dates, cross-check registrations, or summarize discrepancies. I cite every source.`,
+      citations: ['System Context'],
     },
   ]);
   const [loading, setLoading] = useState(false);
@@ -28,29 +29,44 @@ export default function CopilotChatView({ claim }: Props) {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, loading]);
 
-  const sendMessage = (text: string) => {
+  const sendMessage = async (text: string) => {
     if (!text.trim() || loading) return;
     setMessages(prev => [...prev, { sender: 'user', text }]);
     setQuery('');
     setLoading(true);
 
-    setTimeout(() => {
+    try {
+      const res = await api.post('/copilot/query', {
+        claim_id: claim.id,
+        question: text,
+      });
+      const data = res.data;
       setMessages(prev => [
         ...prev,
         {
           sender: 'copilot',
-          text: `Based on verified document evidence for **${claim.claim_number}**:\n\n• **Invoice vs Claim:** Repair invoice #INV-REPAIR-999 totals ₹60,000. The submitted claim requests ₹95,000 — a **36.8% variance** requiring justification.\n• **Vehicle Registration:** Repair bill specifies *DL05MN9999*, mismatching policy schedule *DL05MN5678*.\n• **Date Discrepancy:** Claim form states collision on 20/10/2024; Police Diary registers 25/10/2024.\n\n*Recommended next step:* Commission an independent surveyor inspection and verify invoice ledger directly with Metro Speed Auto Garage.`,
-          citations: ['Repair_Invoice_999.pdf (p.1)', 'Police_Diary_Report.pdf (p.1)', 'Policy_Schedule.pdf (p.1)'],
+          text: data.answer ?? 'No answer returned.',
+          citations: data.citations?.map((c: any) => c.source_reference ?? c.document_type ?? 'Source') ?? [],
         },
       ]);
+    } catch {
+      setMessages(prev => [
+        ...prev,
+        {
+          sender: 'copilot',
+          text: 'The AI Copilot backend is not reachable. Please ensure the FastAPI service is running and claim documents have been processed.',
+          citations: [],
+        },
+      ]);
+    } finally {
       setLoading(false);
-    }, 900);
+    }
   };
 
   return (
     <div className="flex flex-col h-[calc(100vh-200px)] max-w-3xl">
 
-      {/* Privacy badge */}
+      {/* Header */}
       <div className="shrink-0 flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-purple-400" />
@@ -79,8 +95,7 @@ export default function CopilotChatView({ claim }: Props) {
       <div className="flex-1 overflow-y-auto space-y-4 pr-1 mb-4">
         {messages.map((m, idx) => (
           <div key={idx} className={`flex gap-3 ${m.sender === 'user' ? 'flex-row-reverse' : ''}`}>
-            {/* Avatar */}
-            <div className={`w-7 h-7 rounded-full shrink-0 flex items-center justify-center text-xs font-bold ${
+            <div className={`w-7 h-7 rounded-full shrink-0 flex items-center justify-center ${
               m.sender === 'user'
                 ? 'bg-blue-600 text-white'
                 : 'bg-gradient-to-br from-purple-500 to-indigo-600 text-white'
@@ -96,7 +111,7 @@ export default function CopilotChatView({ claim }: Props) {
               }`}>
                 {m.text}
               </div>
-              {m.citations && (
+              {m.citations && m.citations.length > 0 && (
                 <div className="flex items-center gap-1.5 mt-1.5 text-[10px] text-slate-600">
                   <BookOpen className="h-3 w-3" />
                   <span>{m.citations.join(' · ')}</span>
