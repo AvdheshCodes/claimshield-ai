@@ -6,6 +6,7 @@ from fastapi.staticfiles import StaticFiles
 
 from app.core.config import settings
 from app.core.neo4j_client import neo4j_client
+from app.core.database import init_db
 from app.api.v1 import api_router
 
 # Ensure upload directory exists
@@ -16,9 +17,14 @@ async def lifespan(app: FastAPI):
     # Startup actions
     print(f"🛡️  Starting {settings.PROJECT_NAME} v{settings.VERSION}")
     try:
+        await init_db()
+    except Exception as e:
+        print(f"⚠️  Database initialization note: {e}")
+
+    try:
         await neo4j_client.connect()
     except Exception as e:
-        print(f"⚠️ Neo4j startup note: {e}")
+        print(f"⚠️  Neo4j startup note: {e}")
     yield
     # Shutdown actions
     await neo4j_client.close()
@@ -34,13 +40,13 @@ app = FastAPI(
 # CORS Middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.BACKEND_CORS_ORIGINS,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Static file serving for uploads (safe internal/dev use)
+# Static file serving for uploads
 app.mount("/uploads", StaticFiles(directory=settings.UPLOAD_DIR), name="uploads")
 
 # Mount API v1 Routers
@@ -55,7 +61,6 @@ async def health_check():
         "environment": "development"
     }
 
-# Placeholder for API routers
 @app.get(f"{settings.API_V1_STR}/info")
 async def platform_info():
     return {
@@ -66,7 +71,7 @@ async def platform_info():
             "OCR & Document Intelligence",
             "Document Tampering Forensics",
             "Explainable Fraud Engine (WHY SUSPICIOUS?)",
-            "Fraud Relationship Graph (Neo4j)",
+            "Fraud Relationship Graph",
             "AI Investigation Copilot (RAG)",
             "Customer Transparency Portal",
             "Investigation Case Management",

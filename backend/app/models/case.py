@@ -1,16 +1,15 @@
 import uuid
 from datetime import datetime, timezone
-from sqlalchemy import Column, String, DateTime, Enum, ForeignKey, Text
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Column, String, DateTime, Enum, ForeignKey, Text, Uuid
 from app.core.database import Base
 
 class InvestigationCase(Base):
     __tablename__ = "investigation_cases"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(Uuid, primary_key=True, default=uuid.uuid4)
     case_number = Column(String(100), unique=True, nullable=False, index=True)
-    claim_id = Column(UUID(as_uuid=True), ForeignKey("claims.id", ondelete="CASCADE"), nullable=False, index=True)
-    assigned_investigator_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
+    claim_id = Column(Uuid, ForeignKey("claims.id", ondelete="CASCADE"), nullable=False, index=True)
+    assigned_investigator_id = Column(Uuid, ForeignKey("users.id"), nullable=True)
     status = Column(
         Enum("OPEN", "ASSIGNED", "IN_PROGRESS", "PENDING_INFORMATION", "PENDING_REVIEW", "RESOLVED", "CLOSED", name="case_status"),
         default="OPEN",
@@ -27,9 +26,9 @@ class InvestigationCase(Base):
 class CaseNote(Base):
     __tablename__ = "case_notes"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    case_id = Column(UUID(as_uuid=True), ForeignKey("investigation_cases.id", ondelete="CASCADE"), nullable=False, index=True)
-    author_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    id = Column(Uuid, primary_key=True, default=uuid.uuid4)
+    case_id = Column(Uuid, ForeignKey("investigation_cases.id", ondelete="CASCADE"), nullable=False, index=True)
+    author_id = Column(Uuid, ForeignKey("users.id"), nullable=False)
     note_text = Column(Text, nullable=False)
     is_confidential = Column(String(10), default="TRUE")
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))

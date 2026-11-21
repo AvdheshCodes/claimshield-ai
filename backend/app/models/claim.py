@@ -1,16 +1,15 @@
 import uuid
 from datetime import datetime, timezone
-from sqlalchemy import Column, String, Numeric, DateTime, Integer, Enum, ForeignKey, Text
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Column, String, Numeric, DateTime, Integer, Enum, ForeignKey, Text, Uuid
 from app.core.database import Base
 
 class Claim(Base):
     __tablename__ = "claims"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(Uuid, primary_key=True, default=uuid.uuid4)
     claim_number = Column(String(100), unique=True, nullable=False, index=True)
-    customer_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-    policy_id = Column(UUID(as_uuid=True), ForeignKey("policies.id"), nullable=True)
+    customer_id = Column(Uuid, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    policy_id = Column(Uuid, ForeignKey("policies.id"), nullable=True)
     category = Column(Enum("MOTOR", "HEALTH", "PROPERTY", name="claim_category"), nullable=False)
     status = Column(
         Enum(
@@ -38,7 +37,7 @@ class Claim(Base):
     # Risk Engine
     risk_score = Column(Integer, nullable=True)
     risk_band = Column(Enum("LOW", "MEDIUM", "HIGH", "VERY_HIGH", name="risk_band"), nullable=True)
-    assigned_investigator_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
+    assigned_investigator_id = Column(Uuid, ForeignKey("users.id"), nullable=True)
 
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
     updated_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))

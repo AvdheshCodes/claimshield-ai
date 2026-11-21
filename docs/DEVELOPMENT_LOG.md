@@ -1,4 +1,4 @@
-# InsureGuard AI — Master Development & Modification Log
+# InsureGuard AI â€” Master Development & Modification Log
 
 > **File Purpose:** Comprehensive, immutable tracker of all codebase updates, architectural changes, additions, modifications, reversions, and subagent assignments.  
 > **Repository:** `claimshield-ai` (Transitioning to InsureGuard AI v2.0)  
@@ -7,7 +7,7 @@
 
 ---
 
-## 📌 Change Log Convention
+## ðŸ“Œ Change Log Convention
 Every entry must document:
 - **Timestamp (ISO / Local):** When the modification occurred.
 - **Author / Agent:** Who executed the change (`Master Agent`, `Backend Lead`, `Frontend Lead`, `AI & Forensics Lead`).
@@ -18,9 +18,9 @@ Every entry must document:
 
 ---
 
-## 📜 Chronological Log
+## ðŸ“œ Chronological Log
 
-### [Entry 001] — 2026-11-21 — Baseline v1.0 Foundation
+### [Entry 001] â€” 2026-11-21 â€” Baseline v1.0 Foundation
 - **Author:** Master Agent (Avdhesh, Ayush, Manaswi roles)
 - **Category:** `ADDITION`
 - **Files Affected:**
@@ -33,7 +33,7 @@ Every entry must document:
 
 ---
 
-### [Entry 002] — 2026-11-22 02:45 — Adoption of PRD v2.0 (InsureGuard AI) & Multi-Agent Architecture
+### [Entry 002] â€” 2026-11-22 02:45 â€” Adoption of PRD v2.0 (InsureGuard AI) & Multi-Agent Architecture
 - **Author:** Master Agent
 - **Category:** `CONFIGURATION` & `ARCHITECTURE`
 - **Files Affected:**
@@ -46,7 +46,7 @@ Every entry must document:
 
 ---
 
-### [Entry 003] — 2026-11-22 02:50 — Subagents Definition & Coordination Protocol
+### [Entry 003] â€” 2026-11-22 02:50 â€” Subagents Definition & Coordination Protocol
 - **Author:** Master Agent
 - **Category:** `CONFIGURATION`
 - **Subagents Registered:**
@@ -57,7 +57,7 @@ Every entry must document:
 
 ---
 
-### [Entry 004] — 2026-11-22 03:00 — InsureGuard AI v2.0 Full Stack Implementation
+### [Entry 004] â€” 2026-11-22 03:00 â€” InsureGuard AI v2.0 Full Stack Implementation
 - **Author:** Master Agent (incorporating Backend, Frontend, and AI Leads)
 - **Category:** `ADDITION`
 - **Files Created:**
@@ -88,7 +88,7 @@ Every entry must document:
 
 ---
 
-### [Entry 005] — 2026-11-22 03:15 — Final Master Alignment Documents & Specialized Integration Contracts
+### [Entry 005] â€” 2026-11-22 03:15 â€” Final Master Alignment Documents & Specialized Integration Contracts
 - **Author:** Master Agent
 - **Category:** `DOCUMENTATION` & `INTEGRATION_CONTRACT`
 - **Files Created:**
@@ -104,7 +104,7 @@ Every entry must document:
 
 ---
 
-### [Entry 006] — 2026-11-22 03:30 — PDF Documentation Generation
+### [Entry 006] â€” 2026-11-22 03:30 â€” PDF Documentation Generation
 - **Author:** Master Agent
 - **Category:** `ADDITION`
 - **Files Created:**
@@ -117,7 +117,7 @@ Every entry must document:
 
 ---
 
-### [Entry 007] — 2026-11-22 03:40 — Frontend Dependency Fix
+### [Entry 007] â€” 2026-11-22 03:40 â€” Frontend Dependency Fix
 - **Author:** Master Agent
 - **Category:** `FIX`
 - **Files Affected:**
@@ -128,7 +128,7 @@ Every entry must document:
 
 ---
 
-### [Entry 008] — 2026-11-22 03:55 — Remote Git Synchronization & Live Frontend Deployment
+### [Entry 008] â€” 2026-11-22 03:55 â€” Remote Git Synchronization & Live Frontend Deployment
 - **Author:** Master Agent
 - **Category:** `DEPLOYMENT` & `SYNCHRONIZATION`
 - **Actions Executed:**
@@ -140,9 +140,9 @@ Every entry must document:
 
 ---
 
-## [Entry 9] � 2026-11-22 04:08 IST
+## [Entry 9] — 2026-11-22 04:08 IST
 **Author:** Avdhesh (AI Agent)
-**Category:** Bug Fix � Frontend
+**Category:** Bug Fix — Frontend
 **Commit:** 8389126
 
 ### Problem
@@ -155,5 +155,69 @@ Created rontend/postcss.config.js with tailwindcss + autoprefixer plugins.
 - rontend/postcss.config.js ? **NEW FILE CREATED**
 
 ### Rollback
-Delete rontend/postcss.config.js � but doing so will break Tailwind styling again.
+Delete rontend/postcss.config.js — but doing so will break Tailwind styling again.
 
+
+---
+
+## [Entry 10] — 2026-11-22 04:32 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Frontend Data Decoupling  
+**Commit:** be188fc  
+
+### Problem
+The frontend views were displaying hardcoded pre-seeded demo data instead of empty states and live data from the backend.
+
+### Fix
+1. Removed all hardcoded static claims from `InvestigatorDashboard.tsx`.
+2. Created clean empty states in `WhySuspiciousView`, `RelationshipGraphView`, `CopilotChatView`, and `CustomerPortal`.
+3. Added live polling and refresh capability from the backend API.
+
+### Files Affected
+- `frontend/src/pages/investigator/InvestigatorDashboard.tsx`
+- `frontend/src/pages/investigator/WhySuspiciousView.tsx`
+- `frontend/src/pages/investigator/RelationshipGraphView.tsx`
+- `frontend/src/pages/investigator/CopilotChatView.tsx`
+- `frontend/src/pages/customer/CustomerPortal.tsx`
+
+### Rollback
+Revert commit `be188fc`.
+
+---
+
+## [Entry 11] — 2026-11-22 05:05 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Backend & AI Engine Architecture  
+
+### Problem
+The AI fraud detection engine, document forensics OCR pipeline, and backend services needed to be implemented and connected end-to-end with the frontend.
+
+### Fix
+1. **Python Environment**: Initialized virtual environment `.venv` with Python 3.13 and installed all dependencies (`fastapi`, `uvicorn`, `pymupdf`, `sqlalchemy`, `aiosqlite`, `greenlet`, `email-validator`, `pillow`, `google-generativeai`, `neo4j`).
+2. **Resilient Database Layer**: Configured `app/core/database.py` with automatic SQLite fallback (`aiosqlite`) when PostgreSQL is not running in local development, ensuring zero-configuration startup.
+3. **OCR & Forensics Engine**: Upgraded `DocumentForensicsService` in `app/services/document_forensics/forensics.py` to extract text blocks, parse invoice numbers, vehicle registration plates, accident dates, and invoice amounts via PyMuPDF. Added metadata tampering detection for graphics editing tools.
+4. **Explainable Fraud Engine**: Fully implemented all 10 PRD rules in `ExplainableFraudEngine` (`app/services/fraud_detection/engine.py`), outputting exact risk scores, risk bands, itemized observations, evidence snippets, alternative explanations, and recommended actions.
+5. **End-to-End Pipeline**: Added `POST /api/v1/claims/upload-and-analyze` in `app/api/v1/claims.py` enabling 1-click document ingestion, OCR parsing, forensic inspection, and immediate deterministic fraud scoring.
+6. **AI Copilot & Graph**: Added flexible routing to `app/api/v1/copilot.py` (`/copilot/query` and `/copilot/chat`) with PII sanitization and grounded citations. Expanded `app/api/v1/graph.py` to serve 2-hop entity neighborhood graphs.
+7. **Frontend Integration**: Wired the "Submit & Analyze Files" button in `InvestigatorDashboard.tsx` and dynamic findings loading in `WhySuspiciousView.tsx`.
+8. **End-to-End Verification**: Tested uploading 3 sample PDFs (`Repair_Invoice_INV-REPAIR-999.pdf`, `Police_Traffic_Diary_Report.pdf`, `Insurance_Policy_Schedule.pdf`). Successfully produced claim `CS-2026-68595` with risk score 80 (VERY_HIGH) and 4 evidence findings.
+
+### Files Affected
+- `backend/app/api/v1/claims.py`
+- `backend/app/api/v1/documents.py`
+- `backend/app/api/v1/copilot.py`
+- `backend/app/api/v1/graph.py`
+- `backend/app/api/v1/auth.py`
+- `backend/app/api/v1/customer.py`
+- `backend/app/core/database.py`
+- `backend/app/main.py`
+- `backend/app/models/*.py`
+- `backend/app/services/document_forensics/forensics.py`
+- `backend/app/services/fraud_detection/engine.py`
+- `backend/requirements.txt`
+- `frontend/src/pages/investigator/InvestigatorDashboard.tsx`
+- `frontend/src/pages/investigator/WhySuspiciousView.tsx`
+- `.gitignore`
+
+### Rollback
+`git revert HEAD` to return to commit `be188fc`.

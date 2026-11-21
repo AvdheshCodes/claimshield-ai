@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   AlertTriangle, Share2, MessageSquare, RefreshCw,
-  FileText, UploadCloud, X, Car, Inbox, Plus
+  FileText, UploadCloud, X, Car, Inbox, Loader2
 } from 'lucide-react';
 import api from '../../services/api';
 import { Claim } from '../../types';
@@ -23,17 +23,24 @@ export default function InvestigatorDashboard() {
   const [selectedClaim, setSelectedClaim] = useState<Claim | null>(null);
   const [activeTab, setActiveTab] = useState<'why-suspicious' | 'graph' | 'copilot'>('why-suspicious');
   const [loading, setLoading] = useState(false);
+  const [analyzing, setAnalyzing] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    refreshClaims();
+  }, []);
 
   const refreshClaims = async () => {
     setLoading(true);
     try {
       const res = await api.get('/claims');
-      if (res.data?.length > 0) {
+      if (res.data && res.data.length > 0) {
         setClaims(res.data);
-        setSelectedClaim(res.data[0]);
+        if (!selectedClaim) {
+          setSelectedClaim(res.data[0]);
+        }
       } else {
         setClaims([]);
         setSelectedClaim(null);
@@ -59,7 +66,31 @@ export default function InvestigatorDashboard() {
 
   const removeFile = (id: string) => setUploadedFiles(prev => prev.filter(f => f.id !== id));
 
-  const riskColors = selectedClaim?.risk_band ? RISK_COLOR[selectedClaim.risk_band] : RISK_COLOR['LOW'];
+  const submitEvidence = async () => {
+    if (uploadedFiles.length === 0 || analyzing) return;
+    setAnalyzing(true);
+    try {
+      const formData = new FormData();
+      uploadedFiles.forEach(uf => {
+        formData.append('files', uf.file);
+      });
+      const res = await api.post('/claims/upload-and-analyze', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      if (res.data) {
+        setClaims(prev => [res.data, ...prev]);
+        setSelectedClaim(res.data);
+        setUploadedFiles([]);
+        setActiveTab('why-suspicious');
+      }
+    } catch (err) {
+      console.error("Evidence analysis failed:", err);
+    } finally {
+      setAnalyzing(false);
+    }
+  };
+
+  const riskColors = selectedClaim?.risk_band ? (RISK_COLOR[selectedClaim.risk_band] ?? RISK_COLOR['LOW']) : RISK_COLOR['LOW'];
 
   const tabs = [
     { key: 'why-suspicious', label: 'WHY SUSPICIOUS?', icon: AlertTriangle, color: 'text-red-400' },
@@ -96,19 +127,13 @@ export default function InvestigatorDashboard() {
                 <Inbox className="h-6 w-6 text-slate-600" />
               </div>
               <p className="text-xs font-semibold text-slate-500">No claims yet</p>
-              <p className="text-[11px] text-slate-700 mt-1 leading-relaxed">
-                Connect the backend or submit a claim to see the queue populate.
+              <p className="text-[11px] text-slate-600 mt-1 leading-relaxed">
+                Upload sample PDFs below to trigger OCR extraction and explainable fraud analysis.
               </p>
-              <button
-                onClick={refreshClaims}
-                className="mt-3 flex items-center gap-1.5 text-[11px] font-medium text-blue-400 hover:text-blue-300 transition"
-              >
-                <RefreshCw className="h-3 w-3" /> Retry
-              </button>
             </div>
           ) : (
             claims.map(claim => {
-              const c = RISK_COLOR[claim.risk_band ?? 'LOW'];
+              const c = RISK_COLOR[claim.risk_band ?? 'LOW'] ?? RISK_COLOR['LOW'];
               const isSelected = selectedClaim?.id === claim.id;
               return (
                 <button
@@ -124,7 +149,7 @@ export default function InvestigatorDashboard() {
                     <span className="font-mono text-xs font-bold text-blue-400">{claim.claim_number}</span>
                     <div className={`flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full ${c.bg} ${c.text}`}>
                       <span className={`w-1.5 h-1.5 rounded-full ${c.dot}`} />
-                      {claim.risk_score}/100
+                      {claim.risk_score ?? 0}/100
                     </div>
                   </div>
                   <p className="text-sm font-semibold text-slate-200">₹{claim.claimed_amount.toLocaleString('en-IN')}</p>
@@ -180,9 +205,22 @@ export default function InvestigatorDashboard() {
                   </button>
                 </div>
               ))}
-              <button className="w-full mt-1 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-bold rounded-lg transition flex items-center justify-center gap-1.5">
-                <UploadCloud className="h-3 w-3" />
-                Submit {uploadedFiles.length} File{uploadedFiles.length > 1 ? 's' : ''}
+              <button
+                onClick={submitEvidence}
+                disabled={analyzing}
+                className="w-full mt-1 py-1.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white text-[11px] font-bold rounded-lg transition flex items-center justify-center gap-1.5"
+              >
+                {analyzing ? (
+                  <>
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                    Analyzing Evidence...
+                  </>
+                ) : (
+                  <>
+                    <UploadCloud className="h-3 w-3" />
+                    Submit & Analyze {uploadedFiles.length} File{uploadedFiles.length > 1 ? 's' : ''}
+                  </>
+                )}
               </button>
             </div>
           )}
@@ -256,14 +294,8 @@ export default function InvestigatorDashboard() {
             </div>
             <h2 className="text-lg font-bold text-slate-400 mb-2">No Claim Selected</h2>
             <p className="text-sm text-slate-600 max-w-sm leading-relaxed">
-              Select a claim from the queue on the left, or connect the backend to load live claims. Use the refresh button to pull from the API.
+              Upload documents using the "Upload Evidence" panel on the left to create and analyze a new claim.
             </p>
-            <button
-              onClick={refreshClaims}
-              className="mt-5 flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-sm text-slate-400 hover:text-white transition"
-            >
-              <RefreshCw className="h-4 w-4" /> Load Claims from API
-            </button>
           </div>
         )}
       </div>

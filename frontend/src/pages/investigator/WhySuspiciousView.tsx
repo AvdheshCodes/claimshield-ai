@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { ShieldAlert, HelpCircle, FileCheck, ChevronDown, ChevronUp, CheckCircle2, AlertCircle, Inbox } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ShieldAlert, HelpCircle, FileCheck, ChevronDown, ChevronUp, CheckCircle2, AlertCircle, Inbox, RefreshCw } from 'lucide-react';
 import { Claim, FraudFinding } from '../../types';
+import api from '../../services/api';
 
 interface Props { claim: Claim; }
 
@@ -14,15 +15,48 @@ const SEV_CONFIG: Record<string, { label: string; cls: string }> = {
 type Feedback = 'UNRESOLVED' | 'VERIFIED' | 'DISMISSED';
 
 export default function WhySuspiciousView({ claim }: Props) {
-  // Real findings come from the backend via the claim object (claim.findings or fetched separately).
-  // For now render whatever findings the API provides, or an empty state.
-  const findings: FraudFinding[] = (claim as any).findings ?? [];
-  const [expanded, setExpanded] = useState<string | null>(findings[0]?.id ?? null);
+  const [findings, setFindings] = useState<FraudFinding[]>((claim as any).findings ?? []);
+  const [loading, setLoading] = useState(false);
+  const [expanded, setExpanded] = useState<string | null>(null);
   const [feedbacks, setFeedbacks] = useState<Record<string, Feedback>>({});
+
+  useEffect(() => {
+    if ((claim as any).findings && (claim as any).findings.length > 0) {
+      setFindings((claim as any).findings);
+      setExpanded((claim as any).findings[0]?.id ?? null);
+    } else {
+      fetchFindings();
+    }
+  }, [claim.id]);
+
+  const fetchFindings = async () => {
+    setLoading(true);
+    try {
+      const res = await api.get(`/claims/${claim.id}/findings`);
+      if (res.data) {
+        setFindings(res.data);
+        if (res.data.length > 0) {
+          setExpanded(res.data[0].id);
+        }
+      }
+    } catch {
+      // keep current findings
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const totalPoints = findings.reduce((s, f) => s + f.points, 0);
 
-  /* ── Empty state ─────────────────────────── */
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center h-64 gap-3">
+        <RefreshCw className="h-6 w-6 text-blue-400 animate-spin" />
+        <p className="text-sm text-slate-500">Loading fraud findings...</p>
+      </div>
+    );
+  }
+
   if (findings.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-64 text-center">
@@ -31,7 +65,7 @@ export default function WhySuspiciousView({ claim }: Props) {
         </div>
         <h3 className="text-base font-bold text-slate-400">No Fraud Findings Yet</h3>
         <p className="text-sm text-slate-600 mt-1 max-w-xs leading-relaxed">
-          Fraud indicators will appear here once the backend processes and scores the uploaded claim documents.
+          Upload and submit claim documents on the left panel to trigger explainable fraud indicators.
         </p>
       </div>
     );
@@ -39,7 +73,6 @@ export default function WhySuspiciousView({ claim }: Props) {
 
   return (
     <div className="space-y-5 max-w-4xl">
-
       {/* Risk Banner */}
       <div className="relative overflow-hidden rounded-2xl border border-red-500/25 bg-red-500/8 p-5">
         <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 to-transparent pointer-events-none" />
@@ -50,7 +83,7 @@ export default function WhySuspiciousView({ claim }: Props) {
             </div>
             <div>
               <h3 className="text-base font-bold text-white">
-                Deterministic Risk Score: <span className="text-red-400">{claim.risk_score}/100</span>
+                Deterministic Risk Score: <span className="text-red-400">{claim.risk_score ?? totalPoints}/100</span>
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
                 {findings.length} evidence indicator{findings.length !== 1 ? 's' : ''} · {totalPoints} cumulative risk points
@@ -64,7 +97,7 @@ export default function WhySuspiciousView({ claim }: Props) {
         <div className="mt-4 h-2 bg-white/5 rounded-full overflow-hidden">
           <div
             className="h-full rounded-full bg-gradient-to-r from-orange-500 to-red-600 transition-all"
-            style={{ width: `${claim.risk_score}%` }}
+            style={{ width: `${claim.risk_score ?? totalPoints}%` }}
           />
         </div>
         <div className="flex justify-between text-[9px] text-slate-600 mt-1 font-mono">
@@ -110,7 +143,7 @@ export default function WhySuspiciousView({ claim }: Props) {
                     <p className="text-sm text-slate-200 leading-relaxed">{f.observation}</p>
                     {f.evidence_snippet && (
                       <div className="mt-2 font-mono text-[11px] bg-white/4 border border-white/8 rounded-lg px-3 py-2 text-slate-400">
-                        📎 {f.evidence_snippet} · Page {f.evidence_page_number}
+                        📎 {f.evidence_snippet}
                       </div>
                     )}
                   </div>
