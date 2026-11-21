@@ -1,0 +1,64 @@
+{
+  "scenario": "Scenario A — Normal Claim (Routine Review)",
+  "expectedOutcome": {
+    "scoreRange": "0 - 24",
+    "riskCategory": "low",
+    "expectedFlagsCount": 0,
+    "recommendedStatus": "approved"
+  },
+  "claim": {
+    "claimantName": "Rahul Sharma",
+    "policyNumber": "POL-2024-NORMAL-001",
+    "vehicleRegistration": "MH12AB1234",
+    "accidentDate": "2024-10-15T00:00:00.000Z",
+    "accidentDescription": "Front bumper and headlight damage caused by impact with stray animal on expressway. Vehicle towed to authorized garage.",
+    "claimedAmount": 45000,
+    "contactPhone": "9876543210",
+    "contactEmail": "rahul@demo.com"
+  },
+  "documents": [
+    {
+      "documentType": "policy",
+      "fileName": "Policy_Schedule_POL-2024-NORMAL-001.txt",
+      "fields": {
+        "policyNumber": "POL-2024-NORMAL-001",
+        "policyholderName": "Rahul Sharma",
+        "vehicleRegistration": "MH12AB1234",
+        "insurerName": "National General Insurance Co.",
+        "policyStartDate": "01/01/2024",
+        "policyEndDate": "31/12/2024"
+      }
+    },
+    {
+      "documentType": "claim_form",
+      "fileName": "Claim_Form_CS-2026-00001.txt",
+      "fields": {
+        "claimNumber": "CS-2026-00001",
+        "policyNumber": "POL-2024-NORMAL-001",
+        "policyholderName": "Rahul Sharma",
+        "vehicleRegistration": "MH12AB1234",
+        "accidentDate": "15/10/2024"
+      }
+    },
+    {
+      "documentType": "repair_invoice",
+      "fileName": "Invoice_AutoFix_INV-REPAIR-001.txt",
+      "fields": {
+        "invoiceNumber": "INV-REPAIR-001",
+        "invoiceAmount": 45000,
+        "invoiceDate": "18/10/2024",
+        "vehicleRegistration": "MH12AB1234",
+        "repairDescription": "Front bumper replacement, headlamp assembly renewal, paint and alignment."
+      }
+    },
+    {
+      "documentType": "accident_report",
+      "fileName": "Accident_Report_Police_Diary.txt",
+      "fields": {
+        "accidentDate": "15/10/2024",
+        "vehicleRegistration": "MH12AB1234",
+        "policyholderName": "Rahul Sharma"
+      }
+    }
+  ]
+}

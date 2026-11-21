@@ -68,8 +68,8 @@ const parseFields = (text) => {
     || t.match(/\b(CS[-\/]?[0-9]{4,12})\b/i);
   if (claimMatch) fields.claimNumber = claimMatch[1].trim().toUpperCase();
 
-  // Policyholder name
-  const nameMatch = t.match(/(?:insured|policyholder|policy\s*holder|name\s*of\s*insured)[.\s:]*([A-Za-z\s]{3,50}?)(?:\n|,|DOB|Date|Vehicle|Policy)/i);
+  // Policyholder / Insured name
+  const nameMatch = t.match(/(?:insured\s*name|name\s*of\s*insured|policyholder(?:\s*name)?|customer(?:\s*name)?|insured)[.\s:]+([A-Za-z\s]{3,35}?)(?=\s+(?:Vehicle|DOB|Date|Policy|Make|Chassis|Address|Ph|Contact|Total|\d|\$|Rs|INV|DL|MH|KA|Customer))/i);
   if (nameMatch) fields.policyholderName = nameMatch[1].trim();
 
   // Vehicle registration (Indian format)
@@ -87,7 +87,7 @@ const parseFields = (text) => {
   if (amtMatch) fields.invoiceAmount = parseFloat(amtMatch[1].replace(/,/g, ''));
 
   // Accident date
-  const accidentDateMatch = t.match(/(?:accident\s*date|date\s*of\s*accident|incident\s*date)[.\s:]*([0-3]?[0-9][\/\-][0-1]?[0-9][\/\-][12][09][0-9]{2})/i);
+  const accidentDateMatch = t.match(/(?:incident\s*date\s*reported|accident\s*date|date\s*of\s*accident|incident\s*date)[.\s:]*([0-3]?[0-9][\/\-][0-1]?[0-9][\/\-][12][09][0-9]{2})/i);
   if (accidentDateMatch) fields.accidentDate = accidentDateMatch[1];
 
   // Invoice date

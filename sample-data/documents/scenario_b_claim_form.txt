@@ -1,0 +1,19 @@
+================================================================================
+                    MOTOR INSURANCE CLAIM FORM
+================================================================================
+
+Claim Number: CS-2026-00002
+Policy Number: POL-2024-SUSP-002
+Name of Insured: Priya Verma
+Vehicle Registration: DL05MN5678
+
+Accident Details:
+  Accident Date: 20/10/2024
+  Location: Barakhamba Road, Connaught Place, New Delhi
+  Description of Incident: Rear-end collision at traffic signal resulting in
+  boot and suspension damage.
+  Amount Claimed: Rs. 95000
+
+Claimant Signature: Priya Verma
+Date: 21/10/2024
+================================================================================

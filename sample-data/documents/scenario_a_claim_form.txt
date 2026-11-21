@@ -1,0 +1,20 @@
+================================================================================
+                    MOTOR INSURANCE CLAIM FORM
+================================================================================
+
+Claim Number: CS-2026-00001
+Policy Number: POL-2024-NORMAL-001
+Name of Insured: Rahul Sharma
+Vehicle Registration: MH12AB1234
+Contact Phone: 9876543210
+
+Accident Details:
+  Accident Date: 15/10/2024
+  Time of Accident: 09:30 AM
+  Location: Mumbai-Pune Expressway, near Khalapur Toll
+  Description of Incident: Front bumper and headlight damage caused by impact with
+  stray animal on expressway. Vehicle safely pulled over and towed to workshop.
+
+Claimant Signature: Rahul Sharma
+Date of Submission: 16/10/2024
+================================================================================
