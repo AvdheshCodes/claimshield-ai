@@ -137,3 +137,23 @@ Every entry must document:
   - Verified production build via `npx vite build` (1,642 modules transformed, built in 10.46s).
   - Started Vite live development server on `http://localhost:3000/`.
 - **Status:** Application is active and accessible via browser.
+
+---
+
+## [Entry 9] — 2026-11-22 04:08 IST
+**Author:** Avdhesh (AI Agent)
+**Category:** Bug Fix — Frontend
+**Commit:** 8389126
+
+### Problem
+Frontend UI was completely invisible (blank white page). Tailwind CSS was not processing because postcss.config.js was missing from the frontend directory.
+
+### Fix
+Created rontend/postcss.config.js with tailwindcss + autoprefixer plugins.
+
+### Files Affected
+- rontend/postcss.config.js ? **NEW FILE CREATED**
+
+### Rollback
+Delete rontend/postcss.config.js — but doing so will break Tailwind styling again.
+
