@@ -114,3 +114,14 @@ Every entry must document:
   - `docs/TECH_STACK_AND_INTEGRATION.pdf`: Downloadable PDF (3 pages, 19 KB).
   - `docs/DEVELOPMENT_LOG.pdf`: Downloadable PDF (3 pages, 17 KB).
 - **Rationale:** Enables direct download and sharing of reference documentation across teammates and reviewers.
+
+---
+
+### [Entry 007] — 2026-11-22 03:40 — Frontend Dependency Fix
+- **Author:** Master Agent
+- **Category:** `FIX`
+- **Files Affected:**
+  - `frontend/package.json`: Removed invalid `@types/vis-network` (vis-network bundles its own declarations).
+  - `frontend/src/types/vis-network.d.ts`: Created explicit TypeScript declaration shims for `vis-network/standalone`.
+  - `frontend/src/pages/investigator/RelationshipGraphView.tsx`: Updated import to `vis-network/standalone` for optimal browser bundling.
+- **Rationale:** Resolves npm 404 installation error when running `npm install` in `frontend/`.
