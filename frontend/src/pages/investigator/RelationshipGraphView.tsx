@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Network } from 'vis-network';
+import { Network } from 'vis-network/standalone';
 import { Share2, Info } from 'lucide-react';
 
 interface Props {
