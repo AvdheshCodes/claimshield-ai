@@ -10,6 +10,8 @@ export interface Claim {
   id: string;
   claim_number: string;
   customer_id: string;
+  policy_number?: string;
+  claimant_name?: string;
   category: 'MOTOR' | 'HEALTH' | 'PROPERTY';
   status: string;
   incident_date: string;

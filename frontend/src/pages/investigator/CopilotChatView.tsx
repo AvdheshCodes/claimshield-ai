@@ -1,16 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Sparkles, Send, BookOpen, User, Lock } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Send, FileSearch, Lock, BookOpen, RefreshCw } from 'lucide-react';
 import { Claim } from '../../types';
 import api from '../../services/api';
 
 interface Props { claim: Claim; }
-type Msg = { sender: 'user' | 'copilot'; text: string; citations?: string[] };
+type Msg = { sender: 'user' | 'copilot'; text: string; citations?: string[]; timestamp?: string };
 
 const QUICK_QUESTIONS = [
   'Compare the accident date and invoice date',
-  'Is the vehicle registration consistent?',
-  'Summarize all detected discrepancies',
-  'What action is recommended next?',
+  'Is the vehicle registration consistent across all documents?',
+  'Summarize all detected line-item discrepancies',
+  'What investigation action is recommended next?',
 ];
 
 export default function CopilotChatView({ claim }: Props) {
@@ -23,8 +23,9 @@ export default function CopilotChatView({ claim }: Props) {
     setMessages([
       {
         sender: 'copilot',
-        text: `Hello Investigator 👋\n\nI am your InsureGuard AI Copilot, grounded exclusively on verified claim evidence for **${claim.claim_number}**.\n\nAsk me to compare incident and invoice dates, cross-check vehicle registrations, summarize financial discrepancies, or inspect repair items. I cite verified evidence for every answer.`,
-        citations: ['System Context · Verified Claim Evidence Base'],
+        text: `**INVESTIGATION MEMORANDUM**\n\n**Subject:** Automated Evidence Analysis for Claim ${claim.claim_number}\n**Status:** Grounded against policy records and uploaded forensic artifacts.\n\nYou may query cross-document dates, invoice line-item math, registration consistency, or request recommended verification actions. All responses cite verified source records.`,
+        citations: ['Primary Policy Record', 'PyMuPDF Document Extraction Base'],
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       },
     ]);
   }, [claim.id, claim.claim_number]);
@@ -35,7 +36,8 @@ export default function CopilotChatView({ claim }: Props) {
 
   const sendMessage = async (text: string) => {
     if (!text.trim() || loading) return;
-    setMessages(prev => [...prev, { sender: 'user', text }]);
+    const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    setMessages(prev => [...prev, { sender: 'user', text, timestamp: now }]);
     setQuery('');
     setLoading(true);
 
@@ -49,8 +51,9 @@ export default function CopilotChatView({ claim }: Props) {
         ...prev,
         {
           sender: 'copilot',
-          text: data.answer ?? 'No answer returned.',
+          text: data.answer ?? 'No findings returned for this query.',
           citations: data.citations?.map((c: any) => c.source_reference ?? c.document_type ?? 'Source') ?? [],
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         },
       ]);
     } catch {
@@ -58,8 +61,9 @@ export default function CopilotChatView({ claim }: Props) {
         ...prev,
         {
           sender: 'copilot',
-          text: 'The AI Copilot backend is not reachable. Please ensure the FastAPI service is running and claim documents have been processed.',
+          text: 'The AI Copilot service could not be reached. Please ensure the backend is running and claim documents have been processed.',
           citations: [],
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         },
       ]);
     } finally {
@@ -68,57 +72,76 @@ export default function CopilotChatView({ claim }: Props) {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-200px)] max-w-3xl">
+    <div className="flex flex-col h-[calc(100vh-220px)] max-w-4xl bg-white border border-[#E1E6EB] rounded-xl shadow-sm p-5">
 
-      {/* Header */}
-      <div className="shrink-0 flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-purple-400" />
-          <span className="text-sm font-bold text-slate-200">Evidence-Grounded AI Copilot</span>
+      {/* ── HEADER: INTERNAL INVESTIGATION MEMO HEADER ───────── */}
+      <div className="shrink-0 flex items-center justify-between pb-3.5 border-b border-[#E1E6EB]">
+        <div className="flex items-center gap-2.5">
+          <FileSearch className="h-4 w-4 text-[#245B85]" />
+          <div>
+            <h4 className="text-sm font-semibold text-[#0D1B2A]">AI-Assisted Investigation Notes</h4>
+            <p className="text-[11px] text-[#526477]">
+              Case Dossier Intelligence · Grounded on Verified Claim Evidence
+            </p>
+          </div>
         </div>
-        <div className="flex items-center gap-1.5 text-[10px] text-slate-500 bg-white/4 border border-white/8 rounded-lg px-2.5 py-1.5">
-          <Lock className="h-3 w-3 text-emerald-400" />
-          PII masked · Citation-only · No hallucinated verdicts
+
+        <div className="flex items-center gap-1.5 text-[11px] text-[#526477] bg-[#F4F6F8] border border-[#E1E6EB] rounded px-2.5 py-1">
+          <Lock className="h-3 w-3 text-[#25845A]" />
+          <span>PII Masked · Fact-Checked Grounding</span>
         </div>
       </div>
 
-      {/* Quick prompts */}
-      <div className="shrink-0 flex gap-2 flex-wrap mb-3">
+      {/* ── QUICK PROMPTS BAR ───────────────────────────────── */}
+      <div className="shrink-0 py-3 border-b border-[#E1E6EB] flex items-center gap-2 overflow-x-auto">
+        <span className="text-[11px] font-semibold text-[#718096] uppercase shrink-0">Inquiries:</span>
         {QUICK_QUESTIONS.map(q => (
           <button
             key={q}
             onClick={() => sendMessage(q)}
-            className="text-[11px] px-3 py-1.5 rounded-lg bg-white/4 border border-white/8 text-slate-400 hover:text-white hover:border-white/20 hover:bg-white/8 transition"
+            className="text-xs px-2.5 py-1 rounded bg-[#F4F6F8] hover:bg-[#E1E6EB] border border-[#E1E6EB] text-[#526477] hover:text-[#0D1B2A] transition shrink-0 whitespace-nowrap"
           >
             {q}
           </button>
         ))}
       </div>
 
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto space-y-4 pr-1 mb-4">
+      {/* ── MESSAGES LIST ───────────────────────────────────── */}
+      <div className="flex-1 overflow-y-auto py-4 space-y-4 pr-1">
         {messages.map((m, idx) => (
-          <div key={idx} className={`flex gap-3 ${m.sender === 'user' ? 'flex-row-reverse' : ''}`}>
-            <div className={`w-7 h-7 rounded-full shrink-0 flex items-center justify-center ${
-              m.sender === 'user'
-                ? 'bg-blue-600 text-white'
-                : 'bg-gradient-to-br from-purple-500 to-indigo-600 text-white'
-            }`}>
-              {m.sender === 'user' ? <User className="h-3.5 w-3.5" /> : <Sparkles className="h-3.5 w-3.5" />}
+          <div
+            key={idx}
+            className={`flex flex-col ${m.sender === 'user' ? 'items-end' : 'items-start'}`}
+          >
+            <div className="flex items-center gap-2 mb-1 px-1">
+              <span className="text-[11px] font-semibold text-[#526477]">
+                {m.sender === 'user' ? 'Claims Officer' : 'Investigation Copilot'}
+              </span>
+              {m.timestamp && <span className="text-[10px] text-[#718096]">{m.timestamp}</span>}
             </div>
 
-            <div className={`flex flex-col max-w-xl ${m.sender === 'user' ? 'items-end' : 'items-start'}`}>
-              <div className={`px-4 py-3 rounded-2xl text-sm leading-relaxed whitespace-pre-line ${
+            <div
+              className={`max-w-2xl rounded-xl p-3.5 text-xs leading-relaxed ${
                 m.sender === 'user'
-                  ? 'bg-blue-600 text-white rounded-br-sm'
-                  : 'bg-[#1a2033] border border-white/8 text-slate-200 rounded-bl-sm'
-              }`}>
-                {m.text}
-              </div>
+                  ? 'bg-[#142B45] text-white'
+                  : 'bg-[#F4F6F8] border border-[#E1E6EB] text-[#0D1B2A]'
+              }`}
+            >
+              <div className="whitespace-pre-wrap">{m.text}</div>
+
               {m.citations && m.citations.length > 0 && (
-                <div className="flex items-center gap-1.5 mt-1.5 text-[10px] text-slate-600">
-                  <BookOpen className="h-3 w-3" />
-                  <span>{m.citations.join(' · ')}</span>
+                <div className="mt-3 pt-2.5 border-t border-[#E1E6EB] flex items-center gap-1.5 flex-wrap">
+                  <span className="text-[10px] font-semibold text-[#718096] uppercase tracking-wider flex items-center gap-1">
+                    <BookOpen className="h-3 w-3" /> Cited Sources:
+                  </span>
+                  {m.citations.map((c, cIdx) => (
+                    <span
+                      key={cIdx}
+                      className="text-[10px] font-mono bg-white border border-[#E1E6EB] text-[#245B85] px-1.5 py-0.5 rounded"
+                    >
+                      {c}
+                    </span>
+                  ))}
                 </div>
               )}
             </div>
@@ -126,40 +149,38 @@ export default function CopilotChatView({ claim }: Props) {
         ))}
 
         {loading && (
-          <div className="flex gap-3">
-            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center">
-              <Sparkles className="h-3.5 w-3.5 text-white animate-spin" />
-            </div>
-            <div className="bg-[#1a2033] border border-white/8 rounded-2xl rounded-bl-sm px-4 py-3 flex items-center gap-2">
-              <div className="flex gap-1">
-                {[0,1,2].map(i => (
-                  <div key={i} className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: `${i * 150}ms` }} />
-                ))}
-              </div>
-              <span className="text-xs text-slate-500">Grounding evidence...</span>
-            </div>
+          <div className="flex items-center gap-2 text-xs text-[#526477] bg-[#F4F6F8] border border-[#E1E6EB] p-3 rounded-xl max-w-sm">
+            <RefreshCw className="h-3.5 w-3.5 animate-spin text-[#245B85]" />
+            <span>Analyzing claim records and cross-referencing citations...</span>
           </div>
         )}
         <div ref={bottomRef} />
       </div>
 
-      {/* Input */}
-      <div className="shrink-0 flex gap-2">
+      {/* ── INPUT BOX ───────────────────────────────────────── */}
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          sendMessage(query);
+        }}
+        className="shrink-0 pt-3 border-t border-[#E1E6EB] flex items-center gap-2"
+      >
         <input
+          type="text"
           value={query}
           onChange={e => setQuery(e.target.value)}
-          onKeyDown={e => e.key === 'Enter' && sendMessage(query)}
-          placeholder="Ask about dates, amounts, registrations, or patterns..."
-          className="flex-1 bg-[#1a2033] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-purple-500/50 focus:bg-[#1f2840] transition"
+          placeholder="Ask an investigative inquiry regarding dates, parts, repair amounts, or evidence..."
+          className="flex-1 bg-[#F4F6F8] border border-[#E1E6EB] rounded-lg px-3.5 py-2 text-xs text-[#0D1B2A] placeholder-[#718096] focus:outline-none focus:border-[#245B85] transition"
         />
         <button
-          onClick={() => sendMessage(query)}
+          type="submit"
           disabled={!query.trim() || loading}
-          className="px-4 py-2.5 bg-purple-600 hover:bg-purple-500 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl font-medium transition flex items-center gap-2 text-sm"
+          className="px-4 py-2 bg-[#142B45] hover:bg-[#0D1B2A] disabled:opacity-50 text-white rounded-lg text-xs font-semibold transition flex items-center gap-1.5"
         >
-          <Send className="h-4 w-4" />
+          <Send className="h-3.5 w-3.5" />
+          <span>Inquire</span>
         </button>
-      </div>
+      </form>
     </div>
   );
 }

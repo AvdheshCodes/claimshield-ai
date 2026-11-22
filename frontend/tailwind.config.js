@@ -4,11 +4,32 @@ export default {
   theme: {
     extend: {
       colors: {
-        navy: { 900: '#0a192f', 800: '#112240', 700: '#233554' },
-        brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+        bfsi: {
+          darkNavy: '#0D1B2A',
+          deepNavy: '#142B45',
+          proBlue: '#245B85',
+          infoBlue: '#3478B8',
+          slate: '#526477',
+          muted: '#718096',
+          bg: '#F4F6F8',
+          card: '#FFFFFF',
+          border: '#E1E6EB',
+          borderLight: '#EDF2F7',
+          green: '#25845A',
+          greenLight: '#EBF5F0',
+          amber: '#C58A27',
+          amberLight: '#FEF8EC',
+          red: '#C44747',
+          redLight: '#FDF2F2',
+          blueLight: '#EFF6FC',
+        }
       },
-      animation: {
-        'bounce-slow': 'bounce 1.5s infinite',
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+      },
+      boxShadow: {
+        card: '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03)',
+        dropdown: '0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04)',
       }
     }
   },

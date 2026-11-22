@@ -444,3 +444,64 @@ Previously, when policyholders or administrators logged in, they shared elements
 
 ### Rollback
 `git revert HEAD`
+
+
+---
+
+## [Entry 19] — 2026-11-23 04:18 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** UI/UX Redesign — Complete Institutional Enterprise BFSI Redesign of ClaimShield AI  
+
+### Problem
+The frontend interface exhibited generic AI tropes (dark neon gradients, glowing borders, purple AI motifs, oversized decorative badges, and unstructured layouts) that did not reflect the maturity, restrained authority, and audit readiness of a genuine institutional BFSI / insurance core operations platform (such as Guidewire, Shift Technology, or Palantir Foundry).
+
+### Fix
+1. **Institutional BFSI Design Tokens & Palette**:
+   - Primary: Deep Navy `#142B45`, Dark Navy `#0D1B2A`, Professional Blue `#245B85`.
+   - Neutral & Structural: Slate `#526477`, Muted `#718096`, Light Base Background `#F4F6F8`, Card Background `#FFFFFF`, Clean Borders `#E1E6EB`.
+   - Restrained Status Semantics: Green `#25845A` (Verified / Settled / Low Risk), Amber `#C58A27` (Pending Review / Warning), Red `#C44747` (Critical Priority / Tampering), Blue `#3478B8` (Informational).
+   - Removed all neon glow shadows, glassmorphism, floating decorative orbs, and emoji-based icons.
+2. **Fixed-Width Enterprise Sidebar & Hierarchical Layout**:
+   - Created fixed sidebar in `InvestigatorDashboard.tsx` with logo `ClaimShield AI` and subtitle `Insurance Intelligence Platform`.
+   - Structured navigation:
+     - **WORKSPACE**: Overview, All Claims, Submit Claim, Document Verification.
+     - **INTELLIGENCE**: Risk Assessment, Syndicate Graph, Investigation Notes.
+     - **MANAGEMENT**: Audit Trail, Governance & Rules.
+   - Active Case indicator in sidebar with current case number, vehicle registration, and risk score.
+   - Clean top navigation with breadcrumbs (`ClaimShield AI / Case Management / CS-2026-68595`), global search, notifications, last sync trigger, and officer profile with Log Out action.
+3. **Claims Overview Dashboard**:
+   - 4 institutional KPI cards: Total Claims, Pending Review, High-Priority Investigations, Completed Claims.
+   - Analytical summaries: Claims Processing Overview and Risk Distribution (Low Risk, Standard Review, Enhanced Review, High Priority).
+   - Recent Claims Queue: compact table with right-aligned currency formatting (`₹95,000.00`, `tabular-nums`), restrained risk badges, and `Inspect Case` actions.
+4. **Comprehensive Case Management & Details Interface**:
+   - Enterprise Case Header Bar with Claim ID, Policy Number, Claimant Name, Vehicle Reg, Incident Date, Claimed Amount, Risk Score Progress Bar, and actions (`Export Dossier (PDF)`, `Record Case Decision`).
+   - Cross-Document Validation Matrix: Structured comparison table (`Field | Policy / Claim Data | Extracted Document Data | Reconciliation Result | Forensic Notes`).
+   - PyMuPDF OCR Inspector: Document selector with SHA-256 hashes, clean file rows, tampering badges, and searchable monospace raw text stream.
+   - Deterministic 10-Rule Risk Assessment: Itemized finding cards with points, evidence quotes, alternative non-fraud explanations, and verification actions (`Verify Finding`, `Dismiss as False Positive`).
+   - 2-Hop Syndicate Graph (`RelationshipGraphView.tsx`): Clean white canvas `#FFFFFF`, crisp border `#E1E6EB`, institutional entity palette, and floating node inspector.
+   - AI-Assisted Investigation Notes (`CopilotChatView.tsx`): Structured internal investigation memorandum format, evidence-grounded queries, cited sources, and PII masking indicator.
+5. **Intake & Submission Form**:
+   - 5-section enterprise claim intake: Policyholder Details, Vehicle & Repair Details, Incident & Financial Parameters, Supporting Documents Dropzone with file queuing, size validation, and multi-file analysis trigger.
+6. **Dual-Dialog Gateway & Customer Portal**:
+   - Redesigned `AuthPage.tsx` with side-by-side institutional dialog cards for Enterprise Operations (Navy) vs Policyholder Portal (Green).
+   - Redesigned `CustomerPortal.tsx` with white cards, milestone progress tracking, and supplemental evidence upload dropzone.
+7. **Production Build & Verification**:
+   - Built full production bundle via `tsc && vite build`: compiled 1,645 modules with 0 errors.
+
+### Files Affected
+- `frontend/src/index.css`
+- `frontend/tailwind.config.js`
+- `frontend/src/types/index.ts`
+- `frontend/src/App.tsx`
+- `frontend/src/pages/auth/AuthPage.tsx`
+- `frontend/src/pages/customer/CustomerPortal.tsx`
+- `frontend/src/pages/admin/AdminDashboard.tsx`
+- `frontend/src/pages/investigator/InvestigatorDashboard.tsx`
+- `frontend/src/pages/investigator/WhySuspiciousView.tsx`
+- `frontend/src/pages/investigator/DocumentsView.tsx`
+- `frontend/src/pages/investigator/RelationshipGraphView.tsx`
+- `frontend/src/pages/investigator/CopilotChatView.tsx`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`

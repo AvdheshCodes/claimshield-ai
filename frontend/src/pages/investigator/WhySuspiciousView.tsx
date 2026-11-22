@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { ShieldAlert, HelpCircle, FileCheck, ChevronDown, ChevronUp, CheckCircle2, AlertCircle, Inbox, RefreshCw } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import {
+  ShieldCheck, CheckCircle2, XCircle,
+  ChevronDown, ChevronUp, RefreshCw, Info
+} from 'lucide-react';
 import { Claim, FraudFinding } from '../../types';
 import api from '../../services/api';
 
@@ -8,11 +11,27 @@ interface Props {
   onClaimUpdated?: (updatedClaim: Claim) => void;
 }
 
-const SEV_CONFIG: Record<string, { label: string; cls: string }> = {
-  CRITICAL: { label: 'CRITICAL', cls: 'bg-red-500/15 text-red-400 border-red-500/30' },
-  HIGH:     { label: 'HIGH',     cls: 'bg-orange-500/15 text-orange-400 border-orange-500/30' },
-  MEDIUM:   { label: 'MEDIUM',   cls: 'bg-yellow-500/15 text-yellow-400 border-yellow-500/30' },
-  LOW:      { label: 'LOW',      cls: 'bg-blue-500/15 text-blue-400 border-blue-500/30' },
+const SEVERITY_CONFIG: Record<string, { label: string; badgeCls: string; dotColor: string }> = {
+  CRITICAL: {
+    label: 'Critical Priority',
+    badgeCls: 'bg-[#FDF2F2] text-[#C44747] border-[#C44747]/25',
+    dotColor: '#C44747'
+  },
+  HIGH: {
+    label: 'High Priority',
+    badgeCls: 'bg-[#FEF8EC] text-[#C58A27] border-[#C58A27]/25',
+    dotColor: '#C58A27'
+  },
+  MEDIUM: {
+    label: 'Standard Review',
+    badgeCls: 'bg-[#EFF6FC] text-[#3478B8] border-[#3478B8]/25',
+    dotColor: '#3478B8'
+  },
+  LOW: {
+    label: 'Low Risk',
+    badgeCls: 'bg-[#EBF5F0] text-[#25845A] border-[#25845A]/25',
+    dotColor: '#25845A'
+  },
 };
 
 type Feedback = 'UNRESOLVED' | 'VERIFIED' | 'DISMISSED';
@@ -54,7 +73,7 @@ export default function WhySuspiciousView({ claim, onClaimUpdated }: Props) {
         }
       }
     } catch {
-      // keep current findings
+      // Keep existing findings
     } finally {
       setLoading(false);
     }
@@ -84,169 +103,258 @@ export default function WhySuspiciousView({ claim, onClaimUpdated }: Props) {
 
   const activeFindings = findings.filter(f => (feedbacks[f.id] || f.investigator_feedback) !== 'DISMISSED');
   const activePoints = activeFindings.reduce((s, f) => s + f.points, 0);
+  const score = claim.risk_score ?? activePoints;
+
+  // Determine risk category label
+  let riskCategory = 'Low Risk';
+  let riskBadgeColor = 'bg-[#EBF5F0] text-[#25845A] border-[#25845A]/25';
+  let progressBarColor = 'bg-[#25845A]';
+
+  if (score >= 70) {
+    riskCategory = 'High Priority Investigation';
+    riskBadgeColor = 'bg-[#FDF2F2] text-[#C44747] border-[#C44747]/30';
+    progressBarColor = 'bg-[#C44747]';
+  } else if (score >= 45) {
+    riskCategory = 'Enhanced Review';
+    riskBadgeColor = 'bg-[#FEF8EC] text-[#C58A27] border-[#C58A27]/30';
+    progressBarColor = 'bg-[#C58A27]';
+  } else if (score >= 20) {
+    riskCategory = 'Standard Review';
+    riskBadgeColor = 'bg-[#EFF6FC] text-[#3478B8] border-[#3478B8]/30';
+    progressBarColor = 'bg-[#3478B8]';
+  }
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center h-64 gap-3">
-        <RefreshCw className="h-6 w-6 text-blue-400 animate-spin" />
-        <p className="text-sm text-slate-500">Loading fraud findings...</p>
+      <div className="flex flex-col items-center justify-center h-64 gap-3 bg-white border border-[#E1E6EB] rounded-xl">
+        <RefreshCw className="h-5 w-5 text-[#245B85] animate-spin" />
+        <p className="text-xs text-[#526477]">Loading deterministic risk findings...</p>
       </div>
     );
   }
 
   if (findings.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-64 text-center">
-        <div className="w-16 h-16 rounded-full bg-white/4 border border-white/8 flex items-center justify-center mb-4">
-          <Inbox className="h-7 w-7 text-slate-600" />
+      <div className="flex flex-col items-center justify-center h-64 text-center bg-white border border-[#E1E6EB] rounded-xl p-6">
+        <div className="w-12 h-12 rounded-lg bg-[#F4F6F8] border border-[#E1E6EB] flex items-center justify-center mb-3">
+          <ShieldCheck className="h-6 w-6 text-[#25845A]" />
         </div>
-        <h3 className="text-base font-bold text-slate-400">No Fraud Findings Yet</h3>
-        <p className="text-sm text-slate-600 mt-1 max-w-xs leading-relaxed">
-          Upload and submit claim documents on the left panel to trigger explainable fraud indicators.
+        <h3 className="text-sm font-semibold text-[#0D1B2A]">No Risk Flags Identified</h3>
+        <p className="text-xs text-[#526477] mt-1 max-w-sm leading-relaxed">
+          All automated rule checks passed cleanly without inconsistencies or fraud indicators.
         </p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-5 max-w-4xl">
-      {/* Risk Banner */}
-      <div className="relative overflow-hidden rounded-2xl border border-red-500/25 bg-red-500/8 p-5">
-        <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 to-transparent pointer-events-none" />
-        <div className="flex items-center justify-between relative">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-red-500/20 border border-red-500/30 flex items-center justify-center">
-              <ShieldAlert className="h-6 w-6 text-red-400" />
+    <div className="space-y-6">
+      {/* ── RESTING RISK ASSESSMENT SUMMARY CARD ─────────────── */}
+      <div className="bg-white border border-[#E1E6EB] rounded-xl p-6 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E1E6EB]">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded border ${riskBadgeColor}`}>
+                {riskCategory}
+              </span>
+              <span className="text-xs text-[#718096]">
+                {findings.length} evaluated rule{findings.length !== 1 ? 's' : ''}
+              </span>
             </div>
-            <div>
-              <h3 className="text-base font-bold text-white">
-                Deterministic Risk Score: <span className="text-red-400">{claim.risk_score ?? activePoints}/100</span>
-              </h3>
-              <p className="text-xs text-slate-400 mt-0.5">
-                {findings.length} evidence indicator{findings.length !== 1 ? 's' : ''} · {activePoints} active risk points
-                {findings.length - activeFindings.length > 0 && ` (${findings.length - activeFindings.length} dismissed by investigator)`}
-              </p>
-            </div>
+            <h3 className="text-lg font-semibold text-[#0D1B2A]">
+              Deterministic Risk Score: <span className="tabular-nums font-mono">{score}</span>
+              <span className="text-xs text-[#718096] font-normal"> / 100</span>
+            </h3>
+            <p className="text-xs text-[#526477] mt-0.5">
+              Accumulated score based on 10 deterministic IRDAI fraud verification rules.
+            </p>
           </div>
-          <span className="text-[10px] font-bold uppercase tracking-widest text-red-400 bg-red-500/15 border border-red-500/30 px-3 py-1.5 rounded-lg">
-            Enhanced Investigation Mandated
+
+          <div className="text-right sm:border-l sm:border-[#E1E6EB] sm:pl-6">
+            <span className="text-xs font-medium text-[#718096] block">Active Risk Points</span>
+            <span className="text-2xl font-bold text-[#0D1B2A] tabular-nums font-mono">{activePoints}</span>
+            {findings.length - activeFindings.length > 0 && (
+              <span className="text-[11px] text-[#718096] block mt-0.5">
+                ({findings.length - activeFindings.length} dismissed)
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Restrained Progress Bar */}
+        <div className="mt-4">
+          <div className="flex justify-between text-[11px] text-[#526477] mb-1 font-medium">
+            <span>Risk Threshold Scale</span>
+            <span className="tabular-nums font-mono">{score}% of max risk threshold</span>
+          </div>
+          <div className="h-2 w-full bg-[#E1E6EB] rounded-full overflow-hidden">
+            <div
+              className={`h-full rounded-full transition-all duration-300 ${progressBarColor}`}
+              style={{ width: `${Math.min(score, 100)}%` }}
+            />
+          </div>
+          <div className="flex justify-between text-[10px] text-[#718096] mt-1.5 font-mono">
+            <span>0 - 24 (Low)</span>
+            <span>25 - 49 (Standard)</span>
+            <span>50 - 69 (Enhanced)</span>
+            <span>70+ (High Priority)</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ── ITEMIZED EVIDENCE & RULES SECTION ───────────────── */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <h4 className="text-xs font-semibold text-[#526477] uppercase tracking-wider">
+            Triggered Rules & Forensic Evidence ({findings.length})
+          </h4>
+          <span className="text-xs text-[#718096]">
+            Click row to inspect extraction evidence and record investigator verdict
           </span>
         </div>
-        <div className="mt-4 h-2 bg-white/5 rounded-full overflow-hidden">
-          <div
-            className="h-full rounded-full bg-gradient-to-r from-orange-500 to-red-600 transition-all"
-            style={{ width: `${claim.risk_score ?? activePoints}%` }}
-          />
-        </div>
-        <div className="flex justify-between text-[9px] text-slate-600 mt-1 font-mono">
-          <span>0 — LOW</span><span>25 — MEDIUM</span><span>50 — HIGH</span><span>75+ — VERY HIGH</span>
-        </div>
-      </div>
 
-      {/* Findings list */}
-      <div className="space-y-3">
-        <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest">
-          Itemized Evidence ({findings.length} findings)
-        </h4>
+        <div className="space-y-3">
+          {findings.map((f, idx) => {
+            const currentFeedback = feedbacks[f.id] || f.investigator_feedback || 'UNRESOLVED';
+            const isDismissed = currentFeedback === 'DISMISSED';
+            const isVerified = currentFeedback === 'VERIFIED';
+            const sev = SEVERITY_CONFIG[f.severity] || SEVERITY_CONFIG['LOW'];
+            const isExpanded = expanded === f.id;
 
-        {findings.map(f => {
-          const sev = SEV_CONFIG[f.severity] ?? SEV_CONFIG['LOW'];
-          const fb = feedbacks[f.id] ?? f.investigator_feedback ?? 'UNRESOLVED';
-          const isOpen = expanded === f.id;
-          const isDismissed = fb === 'DISMISSED';
-
-          return (
-            <div
-              key={f.id}
-              className={`rounded-2xl border transition-all overflow-hidden ${
-                isDismissed
-                  ? 'opacity-60 bg-[#121622] border-white/5'
-                  : isOpen
-                  ? 'border-white/15 bg-[#1a2033]'
-                  : 'border-white/6 bg-[#161b27] hover:border-white/12'
-              }`}
-            >
-              <button
-                onClick={() => setExpanded(isOpen ? null : f.id)}
-                className="w-full flex items-center gap-3 p-4 text-left"
+            return (
+              <div
+                key={f.id || idx}
+                className={`bg-white border rounded-xl transition shadow-sm ${
+                  isDismissed
+                    ? 'border-[#E1E6EB] opacity-60 bg-[#F4F6F8]'
+                    : isExpanded
+                    ? 'border-[#245B85]'
+                    : 'border-[#E1E6EB] hover:border-[#CBD5E1]'
+                }`}
               >
-                <span className={`shrink-0 text-[10px] font-bold px-2 py-0.5 rounded border ${sev.cls}`}>{sev.label}</span>
-                <span className="font-mono text-[10px] text-slate-600">{f.rule_id}</span>
-                <span className={`flex-1 text-sm font-semibold ${isDismissed ? 'line-through text-slate-500' : 'text-slate-200'}`}>
-                  {f.rule_name}
-                </span>
-                <span className={`shrink-0 text-xs font-bold px-2 py-0.5 rounded-full bg-white/5 ${
-                  fb === 'VERIFIED' ? 'text-emerald-400' : isDismissed ? 'text-slate-600 line-through' : 'text-amber-400'
-                }`}>
-                  +{f.points} pts
-                </span>
-                {isOpen ? <ChevronUp className="h-4 w-4 text-slate-500 shrink-0" /> : <ChevronDown className="h-4 w-4 text-slate-500 shrink-0" />}
-              </button>
-
-              {isOpen && (
-                <div className="px-4 pb-4 space-y-3 border-t border-white/5 pt-3">
-                  <div className="bg-[#0f1117] rounded-xl border border-white/6 p-3.5">
-                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Evidence Observation</p>
-                    <p className="text-sm text-slate-200 leading-relaxed">{f.observation}</p>
-                    {f.evidence_snippet && (
-                      <div className="mt-2 font-mono text-[11px] bg-white/4 border border-white/8 rounded-lg px-3 py-2 text-slate-400">
-                        📎 {f.evidence_snippet}
+                {/* Finding Header Row */}
+                <div
+                  onClick={() => setExpanded(isExpanded ? null : f.id)}
+                  className="p-4 flex items-start justify-between gap-4 cursor-pointer"
+                >
+                  <div className="flex items-start gap-3 min-w-0">
+                    <span
+                      className="w-2.5 h-2.5 rounded-full mt-1.5 shrink-0"
+                      style={{ backgroundColor: isDismissed ? '#718096' : sev.dotColor }}
+                    />
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap mb-1">
+                        <span className="font-mono text-xs font-semibold text-[#142B45] bg-[#F4F6F8] px-2 py-0.5 rounded border border-[#E1E6EB]">
+                          {f.rule_id}
+                        </span>
+                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${sev.badgeCls}`}>
+                          {sev.label}
+                        </span>
+                        <span className="text-xs font-semibold text-[#0D1B2A] tabular-nums font-mono">
+                          +{f.points} pts
+                        </span>
+                        {isVerified && (
+                          <span className="text-[10px] font-semibold text-[#25845A] bg-[#EBF5F0] border border-[#25845A]/20 px-2 py-0.5 rounded flex items-center gap-1">
+                            <CheckCircle2 className="h-3 w-3" /> Confirmed Finding
+                          </span>
+                        )}
+                        {isDismissed && (
+                          <span className="text-[10px] font-semibold text-[#718096] bg-[#F4F6F8] border border-[#E1E6EB] px-2 py-0.5 rounded flex items-center gap-1">
+                            <XCircle className="h-3 w-3" /> Dismissed
+                          </span>
+                        )}
                       </div>
+                      <h5 className="text-sm font-semibold text-[#0D1B2A]">{f.rule_name}</h5>
+                      <p className="text-xs text-[#526477] mt-0.5 line-clamp-1">{f.observation || (f as any).description}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 shrink-0">
+                    {isExpanded ? (
+                      <ChevronUp className="h-4 w-4 text-[#718096]" />
+                    ) : (
+                      <ChevronDown className="h-4 w-4 text-[#718096]" />
                     )}
                   </div>
+                </div>
 
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-blue-500/5 border border-blue-500/15 rounded-xl p-3.5">
-                      <div className="flex items-center gap-1.5 mb-1.5">
-                        <HelpCircle className="h-3.5 w-3.5 text-blue-400" />
-                        <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wider">Alternative Explanation</span>
+                {/* Expanded Inspection Body */}
+                {isExpanded && (
+                  <div className="px-4 pb-4 pt-1 border-t border-[#E1E6EB] space-y-4">
+                    {/* Primary Evidence Snippet */}
+                    {f.evidence_snippet && (
+                      <div className="bg-[#F4F6F8] border border-[#E1E6EB] rounded-lg p-3">
+                        <span className="text-[11px] font-semibold text-[#526477] uppercase tracking-wider block mb-1">
+                          Extracted Evidence Snippet
+                        </span>
+                        <p className="text-xs font-mono text-[#0D1B2A] whitespace-pre-wrap leading-relaxed">
+                          {f.evidence_snippet}
+                        </p>
                       </div>
-                      <p className="text-xs text-slate-400 leading-relaxed">{f.potential_alternative_explanation}</p>
-                    </div>
-                    <div className="bg-emerald-500/5 border border-emerald-500/15 rounded-xl p-3.5">
-                      <div className="flex items-center gap-1.5 mb-1.5">
-                        <FileCheck className="h-3.5 w-3.5 text-emerald-400" />
-                        <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Recommended Action</span>
-                      </div>
-                      <p className="text-xs text-slate-400 leading-relaxed">{f.recommended_action}</p>
-                    </div>
-                  </div>
+                    )}
 
-                  {/* Investigator feedback buttons */}
-                  <div className="flex items-center justify-between pt-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] text-slate-600 uppercase tracking-wider mr-1">Investigator Feedback:</span>
-                      {(['VERIFIED', 'UNRESOLVED', 'DISMISSED'] as Feedback[]).map(opt => (
+                    {/* Alternative Explanation */}
+                    {(f.potential_alternative_explanation || (f as any).alternative_explanation) && (
+                      <div className="flex items-start gap-2 text-xs text-[#526477] bg-[#EFF6FC] border border-[#3478B8]/20 rounded-lg p-3">
+                        <Info className="h-4 w-4 text-[#3478B8] shrink-0 mt-0.5" />
+                        <div>
+                          <span className="font-semibold text-[#142B45] block mb-0.5">Plausible Non-Fraud Explanation:</span>
+                          <span>{f.potential_alternative_explanation || (f as any).alternative_explanation}</span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Recommended Verification Steps */}
+                    {(f.recommended_action || (f as any).recommended_verification) && (
+                      <div className="text-xs text-[#526477]">
+                        <span className="font-semibold text-[#0D1B2A] block mb-1">
+                          Recommended Investigation Steps:
+                        </span>
+                        <p className="bg-white border border-[#E1E6EB] rounded-lg p-2.5">
+                          {f.recommended_action || (f as any).recommended_verification}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* Investigator Action Bar */}
+                    <div className="pt-2 border-t border-[#E1E6EB] flex items-center justify-between flex-wrap gap-2">
+                      <span className="text-xs text-[#718096]">Investigator Verification Action:</span>
+                      <div className="flex items-center gap-2">
                         <button
-                          key={opt}
+                          type="button"
                           disabled={updatingId === f.id}
-                          onClick={() => handleFeedbackChange(f.id, opt)}
-                          className={`text-[10px] font-bold px-2.5 py-1 rounded-lg border transition-all ${
-                            fb === opt
-                              ? opt === 'VERIFIED'   ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40'
-                              : opt === 'DISMISSED'  ? 'bg-slate-700 text-slate-400 border-slate-600'
-                              :                        'bg-amber-500/20 text-amber-400 border-amber-500/40'
-                              : 'bg-transparent text-slate-600 border-white/8 hover:border-white/20 hover:text-slate-400'
+                          onClick={() => handleFeedbackChange(f.id, 'VERIFIED')}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition flex items-center gap-1.5 ${
+                            isVerified
+                              ? 'bg-[#25845A] text-white border-[#25845A]'
+                              : 'bg-white hover:bg-[#EBF5F0] text-[#25845A] border-[#E1E6EB]'
                           }`}
                         >
-                          {opt === 'VERIFIED' ? '✓ Verified by Investigator' : opt === 'DISMISSED' ? '✗ Dismiss (Benign)' : '⚠ Unresolved'}
+                          <CheckCircle2 className="h-3.5 w-3.5" />
+                          <span>Verify Finding</span>
                         </button>
-                      ))}
+
+                        <button
+                          type="button"
+                          disabled={updatingId === f.id}
+                          onClick={() => handleFeedbackChange(f.id, 'DISMISSED')}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition flex items-center gap-1.5 ${
+                            isDismissed
+                              ? 'bg-[#718096] text-white border-[#718096]'
+                              : 'bg-white hover:bg-[#F4F6F8] text-[#526477] border-[#E1E6EB]'
+                          }`}
+                        >
+                          <XCircle className="h-3.5 w-3.5" />
+                          <span>Dismiss as False Positive</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="flex items-start gap-3 p-3.5 bg-white/3 border border-white/8 rounded-xl">
-        <AlertCircle className="h-4 w-4 text-slate-500 shrink-0 mt-0.5" />
-        <p className="text-xs text-slate-500 leading-relaxed">
-          <strong className="text-slate-400">Notice:</strong> Document discrepancies indicate areas requiring verification.
-          They do not constitute automated proof of fraudulent intent. Human investigator review is mandatory before any claim decision.
-        </p>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
-  ShieldAlert, DollarSign, TrendingUp, Users, CheckCircle2,
-  AlertTriangle, FileText, Sliders, Search, Share2, Activity,
-  Clock, ArrowUpRight, ShieldCheck, RefreshCw, BarChart3
+  ShieldAlert, DollarSign, CheckCircle2,
+  FileText, Sliders, ArrowUpRight, RefreshCw, Lock
 } from 'lucide-react';
 import api from '../../services/api';
 
@@ -27,196 +26,174 @@ export default function AdminDashboard() {
   };
 
   const auditEvents = [
-    { time: '10 mins ago', user: 'Avdhesh Ghansela', action: 'Recorded Case Decision (REJECTED)', ref: 'CS-2026-68595', rule: 'RULE-010' },
+    { time: '10 mins ago', user: 'Officer Sharma (Investigator)', action: 'Recorded Case Decision (REJECTED)', ref: 'CS-2026-68595', rule: 'RULE-010' },
     { time: '28 mins ago', user: 'System Forensic OCR', action: 'Tampering Flag Detected (Canva Metadata)', ref: 'Police_Diary.pdf', rule: 'RULE-007' },
     { time: '1 hour ago', user: 'Lead Investigator', action: 'Syndicate Network Link Identified', ref: 'Metro Speed Auto Garage', rule: 'RULE-005' },
-    { time: '2 hours ago', user: 'Priya Verma (Customer)', action: 'Uploaded Supplemental Evidence', ref: 'Chassis_Photo.jpg', rule: 'CUSTOMER_PORTAL' },
-    { time: '3 hours ago', user: 'System Engine', action: 'Deterministic Scoring Completed (Risk: 80)', ref: 'CS-2026-68819', rule: '10 Rules Evaluated' }
+    { time: '2 hours ago', user: 'Priya Verma (Policyholder)', action: 'Uploaded Supplemental Evidence', ref: 'Chassis_Photo.jpg', rule: 'CUSTOMER_PORTAL' },
+    { time: '3 hours ago', user: 'Deterministic Rule Engine', action: 'Automated Scoring Completed (Risk: 80)', ref: 'CS-2026-68819', rule: '10 Rules Evaluated' }
+  ];
+
+  const ruleSettings = [
+    { id: 'RULE-001', name: 'Invoice Predates Incident Date', weight: 35, category: 'Temporal Integrity' },
+    { id: 'RULE-002', name: 'Document Metadata Inconsistency', weight: 25, category: 'Forensic Metadata' },
+    { id: 'RULE-003', name: 'Cross-Document Amount Mismatch (>15%)', weight: 20, category: 'Financial Validation' },
+    { id: 'RULE-004', name: 'High-Velocity Serial Claim (>2 in 90 Days)', weight: 30, category: 'Syndicate Tracking' },
+    { id: 'RULE-005', name: 'Unlicensed / Blacklisted Repair Workshop', weight: 25, category: 'Vendor Risk' },
   ];
 
   return (
-    <div className="min-h-full bg-[#0a0d14] text-slate-100 p-8 overflow-y-auto">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div className="min-h-full bg-[#F4F6F8] text-[#0D1B2A] p-8 overflow-y-auto">
+      <div className="max-w-7xl mx-auto space-y-6">
 
-        {/* Top Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/8 pb-6">
+        {/* ── TOP HEADER ─────────────────────────────────────── */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E1E6EB]">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 uppercase tracking-wider">
-                Enterprise Executive View
+              <span className="text-[11px] font-semibold px-2 py-0.5 rounded bg-[#EFF6FC] text-[#245B85] border border-[#245B85]/20 uppercase tracking-wider">
+                Executive Governance
               </span>
-              <span className="text-xs text-slate-500 font-mono">IRDAI Compliance & Fraud Operations</span>
+              <span className="text-xs text-[#718096] font-mono">IRDAI Compliance & Loss Prevention</span>
             </div>
-            <h1 className="text-2xl font-black text-white tracking-tight">Admin Fraud Governance Dashboard</h1>
-            <p className="text-xs text-slate-400 mt-1">Platform-wide fraud mitigation telemetry, syndicate ring monitoring & rule sensitivity controls</p>
+            <h1 className="text-2xl font-bold text-[#142B45] tracking-tight">Admin Governance & Risk Operations</h1>
+            <p className="text-xs text-[#526477] mt-0.5">
+              Platform-wide loss mitigation telemetry, syndicate tracking, and scoring sensitivity controls.
+            </p>
           </div>
 
           <div className="flex items-center gap-3">
             <button
               onClick={fetchMetrics}
-              className={`p-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition text-slate-400 hover:text-white ${loading ? 'animate-spin' : ''}`}
+              className={`p-2 rounded-lg bg-white border border-[#E1E6EB] hover:bg-[#F4F6F8] text-[#526477] transition ${loading ? 'animate-spin' : ''}`}
+              title="Refresh telemetry"
             >
               <RefreshCw className="h-4 w-4" />
             </button>
-            <div className="px-3.5 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 flex items-center gap-2 text-xs font-semibold text-emerald-400">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              Engine Online (v2.0)
+            <div className="px-3 py-1.5 rounded-lg bg-[#EBF5F0] border border-[#25845A]/25 flex items-center gap-2 text-xs font-semibold text-[#25845A]">
+              <span className="w-2 h-2 rounded-full bg-[#25845A]" />
+              Rules Engine Active (10/10)
             </div>
           </div>
         </div>
 
-        {/* KPI Cards Row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          <div className="bg-[#141926] border border-white/8 rounded-2xl p-5 shadow-xl relative overflow-hidden group hover:border-blue-500/30 transition">
-            <div className="flex items-center justify-between text-slate-400 mb-3">
-              <span className="text-xs font-bold uppercase tracking-wider">Claims Evaluated</span>
-              <FileText className="h-4 w-4 text-blue-400" />
+        {/* ── 4 KPI CARDS ─────────────────────────────────────── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="bg-white border border-[#E1E6EB] rounded-xl p-5 shadow-sm">
+            <div className="flex items-center justify-between text-[#526477] mb-2">
+              <span className="text-xs font-medium uppercase tracking-wider">Claims Evaluated</span>
+              <FileText className="h-4 w-4 text-[#245B85]" />
             </div>
-            <p className="text-2xl font-black text-white">{claimsCount || 148}</p>
-            <p className="text-[11px] text-emerald-400 mt-2 flex items-center gap-1">
-              <ArrowUpRight className="h-3 w-3" /> +18.4% this month
+            <p className="text-2xl font-bold text-[#0D1B2A] tabular-nums font-mono">{claimsCount || 148}</p>
+            <p className="text-[11px] text-[#25845A] mt-1.5 flex items-center gap-1 font-medium">
+              <ArrowUpRight className="h-3 w-3" /> +18.4% this quarter
             </p>
           </div>
 
-          <div className="bg-[#141926] border border-white/8 rounded-2xl p-5 shadow-xl relative overflow-hidden group hover:border-red-500/30 transition">
-            <div className="flex items-center justify-between text-slate-400 mb-3">
-              <span className="text-xs font-bold uppercase tracking-wider">High-Risk Intercepted</span>
-              <ShieldAlert className="h-4 w-4 text-red-400" />
+          <div className="bg-white border border-[#E1E6EB] rounded-xl p-5 shadow-sm">
+            <div className="flex items-center justify-between text-[#526477] mb-2">
+              <span className="text-xs font-medium uppercase tracking-wider">High-Priority Intercepted</span>
+              <ShieldAlert className="h-4 w-4 text-[#C44747]" />
             </div>
-            <p className="text-2xl font-black text-red-400">38</p>
-            <p className="text-[11px] text-slate-500 mt-2">25.6% flagged for human investigation</p>
+            <p className="text-2xl font-bold text-[#C44747] tabular-nums font-mono">38</p>
+            <p className="text-[11px] text-[#526477] mt-1.5">25.6% flagged for human investigation</p>
           </div>
 
-          <div className="bg-[#141926] border border-white/8 rounded-2xl p-5 shadow-xl relative overflow-hidden group hover:border-emerald-500/30 transition">
-            <div className="flex items-center justify-between text-slate-400 mb-3">
-              <span className="text-xs font-bold uppercase tracking-wider">Fraud Loss Prevented</span>
-              <DollarSign className="h-4 w-4 text-emerald-400" />
+          <div className="bg-white border border-[#E1E6EB] rounded-xl p-5 shadow-sm">
+            <div className="flex items-center justify-between text-[#526477] mb-2">
+              <span className="text-xs font-medium uppercase tracking-wider">Loss Prevented</span>
+              <DollarSign className="h-4 w-4 text-[#25845A]" />
             </div>
-            <p className="text-2xl font-black text-emerald-400">₹42.8 Lakhs</p>
-            <p className="text-[11px] text-slate-500 mt-2">Estimated fraudulent claims intercepted</p>
+            <p className="text-2xl font-bold text-[#25845A] tabular-nums font-mono">₹42.8 Lakhs</p>
+            <p className="text-[11px] text-[#526477] mt-1.5">Estimated fraudulent claims blocked</p>
           </div>
 
-          <div className="bg-[#141926] border border-white/8 rounded-2xl p-5 shadow-xl relative overflow-hidden group hover:border-purple-500/30 transition">
-            <div className="flex items-center justify-between text-slate-400 mb-3">
-              <span className="text-xs font-bold uppercase tracking-wider">Syndicate Rings Broken</span>
-              <Share2 className="h-4 w-4 text-purple-400" />
+          <div className="bg-white border border-[#E1E6EB] rounded-xl p-5 shadow-sm">
+            <div className="flex items-center justify-between text-[#526477] mb-2">
+              <span className="text-xs font-medium uppercase tracking-wider">Active Detection Rules</span>
+              <Sliders className="h-4 w-4 text-[#142B45]" />
             </div>
-            <p className="text-2xl font-black text-purple-400">4 Active</p>
-            <p className="text-[11px] text-slate-500 mt-2">Shared contacts & recycled garages</p>
+            <p className="text-2xl font-bold text-[#142B45] tabular-nums font-mono">10 / 10</p>
+            <p className="text-[11px] text-[#526477] mt-1.5">Zero unhandled edge rules</p>
           </div>
         </div>
 
-        {/* Middle Section: Rule Sensitivity Controls & Model Performance */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-          {/* Rule Weights Config Panel */}
-          <div className="lg:col-span-2 bg-[#141926] border border-white/8 rounded-2xl p-6 shadow-xl">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-2">
-                <Sliders className="h-4 w-4 text-blue-400" />
-                <h3 className="text-sm font-bold text-white">Deterministic Rule Engine Sensitivity</h3>
-              </div>
-              <span className="text-[10px] text-slate-500 font-mono">10 PRD EXPLAINABLE RULES</span>
-            </div>
-
-            <div className="space-y-4">
-              {[
-                { id: 'RULE-001', name: 'Claimed Amount Invoice Variance', weight: '20 pts', category: 'Financial', active: true },
-                { id: 'RULE-002', name: 'Accident Date vs Diary Conflict', weight: '15 pts', category: 'Timeline', active: true },
-                { id: 'RULE-005', name: 'Multi-Claim Shared Identifier Ring', weight: '25 pts', category: 'Syndicate', active: true },
-                { id: 'RULE-007', name: 'Document Metadata Editing Tampering', weight: '20 pts', category: 'Forensics', active: true },
-                { id: 'RULE-010', name: 'Vehicle Registration Identifier Mismatch', weight: '20 pts', category: 'Identity', active: true },
-              ].map(r => (
-                <div key={r.id} className="flex items-center justify-between p-3.5 bg-white/3 border border-white/6 rounded-xl hover:bg-white/5 transition">
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs font-bold text-blue-400">{r.id}</span>
-                    <div>
-                      <p className="text-xs font-semibold text-slate-200">{r.name}</p>
-                      <span className="text-[10px] text-slate-500 font-medium">{r.category}</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <span className="text-xs font-bold text-slate-300 font-mono bg-white/5 px-2.5 py-1 rounded-lg border border-white/8">
-                      +{r.weight}
-                    </span>
-                    <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-                      ACTIVE
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Fast Health & Compliance Box */}
-          <div className="bg-[#141926] border border-white/8 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
+        {/* ── RULE SENSITIVITY CALIBRATION ───────────────────── */}
+        <div className="bg-white border border-[#E1E6EB] rounded-xl p-5 shadow-sm space-y-4">
+          <div className="flex items-center justify-between">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <Activity className="h-4 w-4 text-emerald-400" />
-                <h3 className="text-sm font-bold text-white">Compliance & Governance</h3>
-              </div>
-              <p className="text-xs text-slate-400 leading-relaxed mb-6">
-                InsureGuard AI operates under strict IRDA statutory compliance guidelines. Autonomous verdicts are disabled; all final claims decisions require signed human investigator determination.
+              <h3 className="text-sm font-semibold text-[#0D1B2A]">Rule Sensitivity & Scoring Weights</h3>
+              <p className="text-xs text-[#526477] mt-0.5">
+                Calibrate deterministic risk weights based on institutional underwriting guidelines.
               </p>
-
-              <div className="space-y-3 text-xs">
-                <div className="flex items-center justify-between p-3 rounded-xl bg-white/3 border border-white/6">
-                  <span className="text-slate-400">PII Redaction Level:</span>
-                  <span className="font-bold text-emerald-400">100% Masked</span>
-                </div>
-                <div className="flex items-center justify-between p-3 rounded-xl bg-white/3 border border-white/6">
-                  <span className="text-slate-400">Immutable Audit Logs:</span>
-                  <span className="font-bold text-blue-400">SHA-256 Verified</span>
-                </div>
-                <div className="flex items-center justify-between p-3 rounded-xl bg-white/3 border border-white/6">
-                  <span className="text-slate-400">Human-In-The-Loop:</span>
-                  <span className="font-bold text-amber-400">Mandatory Sign-Off</span>
-                </div>
-              </div>
             </div>
-
-            <div className="mt-6 pt-4 border-t border-white/8">
-              <a
-                href="/investigator"
-                className="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20"
-              >
-                <Search className="h-3.5 w-3.5" />
-                Go to Investigation Workspace
-              </a>
-            </div>
-          </div>
-
-        </div>
-
-        {/* Bottom Audit Trail Table */}
-        <div className="bg-[#141926] border border-white/8 rounded-2xl p-6 shadow-xl">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-slate-400" />
-              <h3 className="text-sm font-bold text-white">Immutable Audit Trail</h3>
-            </div>
-            <span className="text-xs text-slate-500">Live system activity</span>
+            <span className="text-xs font-medium text-[#245B85] bg-[#EFF6FC] border border-[#245B85]/20 px-2.5 py-1 rounded">
+              IRDAI Guidelines 2026 Aligned
+            </span>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+            <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-white/8 text-slate-500 text-[10px] uppercase tracking-wider">
-                  <th className="pb-3 font-bold">Timestamp</th>
-                  <th className="pb-3 font-bold">User / Actor</th>
-                  <th className="pb-3 font-bold">Action Taken</th>
-                  <th className="pb-3 font-bold">Claim / Entity Ref</th>
-                  <th className="pb-3 font-bold">Rule Triggered</th>
+                <tr className="border-b border-[#E1E6EB] text-[#526477] font-semibold bg-[#F4F6F8]">
+                  <th className="py-2.5 px-3">Rule Code</th>
+                  <th className="py-2.5 px-3">Detection Name</th>
+                  <th className="py-2.5 px-3">Category</th>
+                  <th className="py-2.5 px-3">Risk Points Weight</th>
+                  <th className="py-2.5 px-3">Operational Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5 text-slate-300">
-                {auditEvents.map((evt, idx) => (
-                  <tr key={idx} className="hover:bg-white/2 transition">
-                    <td className="py-3 text-slate-500 font-mono">{evt.time}</td>
-                    <td className="py-3 font-semibold text-slate-200">{evt.user}</td>
-                    <td className="py-3">{evt.action}</td>
-                    <td className="py-3 font-mono text-blue-400">{evt.ref}</td>
-                    <td className="py-3 text-slate-400">{evt.rule}</td>
+              <tbody className="divide-y divide-[#E1E6EB]">
+                {ruleSettings.map(r => (
+                  <tr key={r.id} className="hover:bg-[#F4F6F8]/60 transition">
+                    <td className="py-2.5 px-3 font-mono font-medium text-[#142B45]">{r.id}</td>
+                    <td className="py-2.5 px-3 font-medium text-[#0D1B2A]">{r.name}</td>
+                    <td className="py-2.5 px-3 text-[#526477]">{r.category}</td>
+                    <td className="py-2.5 px-3 font-mono text-[#0D1B2A]">+{r.weight} pts</td>
+                    <td className="py-2.5 px-3">
+                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#25845A] bg-[#EBF5F0] border border-[#25845A]/20 px-2 py-0.5 rounded">
+                        <CheckCircle2 className="h-3 w-3" /> Enforced
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* ── EXECUTIVE AUDIT TRAIL TABLE ─────────────────────── */}
+        <div className="bg-white border border-[#E1E6EB] rounded-xl p-5 shadow-sm space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-sm font-semibold text-[#0D1B2A]">Executive Compliance Audit Trail</h3>
+              <p className="text-xs text-[#526477] mt-0.5">
+                Cryptographically logged records of investigator sign-offs, OCR tampering flags, and syndicate alerts.
+              </p>
+            </div>
+            <div className="flex items-center gap-1.5 text-xs text-[#718096]">
+              <Lock className="h-3.5 w-3.5 text-[#25845A]" />
+              Immutable Audit Log
+            </div>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr className="border-b border-[#E1E6EB] text-[#526477] font-semibold bg-[#F4F6F8]">
+                  <th className="py-2.5 px-3">Timestamp</th>
+                  <th className="py-2.5 px-3">Actor / User</th>
+                  <th className="py-2.5 px-3">Operational Event</th>
+                  <th className="py-2.5 px-3">Case Reference</th>
+                  <th className="py-2.5 px-3">Rule Applied</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#E1E6EB]">
+                {auditEvents.map((ev, i) => (
+                  <tr key={i} className="hover:bg-[#F4F6F8]/60 transition">
+                    <td className="py-2.5 px-3 font-mono text-[#718096] whitespace-nowrap">{ev.time}</td>
+                    <td className="py-2.5 px-3 font-medium text-[#0D1B2A]">{ev.user}</td>
+                    <td className="py-2.5 px-3 text-[#526477]">{ev.action}</td>
+                    <td className="py-2.5 px-3 font-mono text-[#245B85]">{ev.ref}</td>
+                    <td className="py-2.5 px-3 font-mono text-[#142B45]">{ev.rule}</td>
                   </tr>
                 ))}
               </tbody>

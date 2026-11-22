@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { Shield, Search, Users, LogOut, Bell, ShieldCheck, Sliders, Car } from 'lucide-react';
+import { useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { LogOut, ShieldCheck, Car } from 'lucide-react';
 import InvestigatorDashboard from './pages/investigator/InvestigatorDashboard';
 import CustomerPortal from './pages/customer/CustomerPortal';
-import AdminDashboard from './pages/admin/AdminDashboard';
 import AuthPage from './pages/auth/AuthPage';
 import { User } from './types';
 
@@ -38,118 +37,44 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f1117] flex flex-col">
+    <div className="min-h-screen bg-[#F4F6F8] flex flex-col">
 
-      {/* ── INTERFACE 1: DEDICATED CUSTOMER / POLICYHOLDER NAVBAR ───── */}
+      {/* ── POLICYHOLDER TOP NAVBAR (When logged in as CUSTOMER) ── */}
       {!isAuthPage && user && user.role === 'CUSTOMER' && (
-        <header className="h-14 bg-[#0d161a] border-b border-emerald-500/20 flex items-center justify-between px-6 shrink-0 z-20">
+        <header className="h-14 bg-white border-b border-[#E1E6EB] flex items-center justify-between px-6 shrink-0 z-20">
           {/* Policyholder Brand */}
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-teal-700 rounded-lg flex items-center justify-center shadow-lg shadow-emerald-500/30">
+            <div className="w-8 h-8 bg-[#142B45] text-white rounded-lg flex items-center justify-center font-bold">
               <ShieldCheck className="h-4 w-4 text-white" />
             </div>
             <div>
-              <span className="font-bold text-white text-sm tracking-wide">InsureGuard Policyholder Services</span>
-              <span className="text-[10px] text-emerald-400 block leading-none font-mono">MyClaim Portal · Zero-Dep Auto Protection</span>
+              <span className="font-bold text-[#142B45] text-sm">ClaimShield AI</span>
+              <span className="text-[11px] text-[#526477] block leading-none">Policyholder Self-Service Portal</span>
             </div>
           </div>
 
           {/* Right: Policyholder Info & Logout */}
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-xs">
-              <Car className="h-3.5 w-3.5 text-emerald-400" />
-              <span className="font-mono text-emerald-300 font-semibold">DL05MN5678</span>
-              <span className="text-slate-500">|</span>
-              <span className="text-slate-400">POL-2026-9921</span>
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-lg bg-[#F4F6F8] border border-[#E1E6EB] text-xs">
+              <Car className="h-3.5 w-3.5 text-[#245B85]" />
+              <span className="font-mono text-[#0D1B2A] font-medium">DL05MN5678</span>
+              <span className="text-[#CBD5E1]">|</span>
+              <span className="text-[#526477]">POL-2026-9921</span>
             </div>
 
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
-              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-[10px] font-bold text-white">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#F4F6F8] border border-[#E1E6EB]">
+              <div className="w-6 h-6 rounded-full bg-[#25845A] flex items-center justify-center text-[10px] font-bold text-white">
                 {getUserInitials(user.full_name)}
               </div>
-              <span className="text-xs text-slate-200 font-medium">{user.full_name || 'Priya Verma'}</span>
-              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+              <span className="text-xs text-[#0D1B2A] font-medium">{user.full_name || 'Priya Verma'}</span>
+              <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-[#EBF5F0] text-[#25845A] border border-[#25845A]/25">
                 POLICYHOLDER
               </span>
             </div>
 
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-500/10 border border-white/8 transition text-xs font-semibold"
-              title="Sign out of session"
-            >
-              <LogOut className="h-3.5 w-3.5" />
-              <span>Log Out</span>
-            </button>
-          </div>
-        </header>
-      )}
-
-      {/* ── INTERFACE 2: DEDICATED ENTERPRISE ADMIN / INVESTIGATOR NAVBAR ─ */}
-      {!isAuthPage && user && (user.role === 'INVESTIGATOR' || user.role === 'ADMIN') && (
-        <header className="h-14 bg-[#141926] border-b border-[#ffffff12] flex items-center justify-between px-6 shrink-0 z-20">
-          {/* Enterprise Brand */}
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/30">
-              <Shield className="h-4 w-4 text-white" />
-            </div>
-            <div>
-              <span className="font-bold text-white text-sm tracking-wide">InsureGuard AI Enterprise</span>
-              <span className="text-[10px] text-blue-400 block leading-none font-mono">Fraud Intelligence & Forensics Suite v2.0</span>
-            </div>
-          </div>
-
-          {/* Nav Links for Enterprise */}
-          <nav className="flex items-center gap-1">
-            <NavLink
-              to="/investigator"
-              className={({ isActive }) =>
-                `flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium transition-all ${
-                  isActive ? 'bg-blue-600/20 text-blue-400 border border-blue-500/30 font-bold' : 'text-slate-400 hover:text-white hover:bg-white/5'
-                }`
-              }
-            >
-              <Search className="h-3.5 w-3.5" />
-              Investigation Workspace
-            </NavLink>
-
-            {user.role === 'ADMIN' && (
-              <NavLink
-                to="/admin"
-                className={({ isActive }) =>
-                  `flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium transition-all ${
-                    isActive ? 'bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 font-bold' : 'text-slate-400 hover:text-white hover:bg-white/5'
-                  }`
-                }
-              >
-                <Sliders className="h-3.5 w-3.5" />
-                Admin Governance
-              </NavLink>
-            )}
-          </nav>
-
-          {/* Right: User Pill & Logout Button */}
-          <div className="flex items-center gap-3">
-            <button className="relative p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition">
-              <Bell className="h-4 w-4" />
-              <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-red-500 rounded-full" />
-            </button>
-
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10">
-              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-[10px] font-bold text-white">
-                {getUserInitials(user.full_name)}
-              </div>
-              <span className="text-xs text-slate-200 font-medium">{user.full_name || user.email}</span>
-              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
-                user.role === 'ADMIN' ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30' : 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-              }`}>
-                {user.role}
-              </span>
-            </div>
-
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-500/10 border border-white/8 transition text-xs font-semibold"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[#526477] hover:text-[#C44747] hover:bg-[#FDF2F2] border border-[#E1E6EB] transition text-xs font-medium"
               title="Sign out of session"
             >
               <LogOut className="h-3.5 w-3.5" />
@@ -182,7 +107,7 @@ function AppContent() {
                 user.role === 'CUSTOMER' ? (
                   <Navigate to="/customer" replace />
                 ) : (
-                  <InvestigatorDashboard />
+                  <InvestigatorDashboard user={user} onLogout={handleLogout} />
                 )
               ) : (
                 <Navigate to="/login" replace />
@@ -196,7 +121,7 @@ function AppContent() {
             element={
               user ? (
                 user.role === 'ADMIN' ? (
-                  <AdminDashboard />
+                  <InvestigatorDashboard user={user} onLogout={handleLogout} />
                 ) : (
                   <Navigate to="/investigator" replace />
                 )
@@ -211,11 +136,7 @@ function AppContent() {
             path="/customer"
             element={
               user ? (
-                user.role === 'CUSTOMER' ? (
-                  <CustomerPortal />
-                ) : (
-                  <CustomerPortal />
-                )
+                <CustomerPortal />
               ) : (
                 <Navigate to="/login" replace />
               )
@@ -227,7 +148,7 @@ function AppContent() {
             path="/"
             element={
               user ? (
-                <Navigate to={user.role === 'CUSTOMER' ? '/customer' : (user.role === 'ADMIN' ? '/admin' : '/investigator')} replace />
+                <Navigate to={user.role === 'CUSTOMER' ? '/customer' : '/investigator'} replace />
               ) : (
                 <Navigate to="/login" replace />
               )
