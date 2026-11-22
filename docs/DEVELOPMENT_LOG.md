@@ -301,3 +301,34 @@ Investigators and compliance officers require an exportable, court-admissible In
 
 ### Rollback
 `git revert HEAD`
+
+
+---
+
+## [Entry 14] — 2026-11-23 03:15 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Bug Fix & Enhancement — Resilient Fraud Relationship Graph & Dynamic Entity Grounding  
+
+### Problem
+1. When Neo4j was offline or unreachable, `neo4j_client.execute_query` threw an unhandled `ServiceUnavailable` exception that caused `GET /api/v1/graph/{claim_number}` to crash with HTTP 500.
+2. In Pydantic `GraphEdge` model, fields were serialized as `from_node` and `to_node`, whereas `vis-network` strictly requires `from` and `to` properties, preventing edge connection rendering.
+3. Fallback graph data was static and did not reflect the actively analyzed claim, vehicle registration, or repair garage extracted from uploaded documents.
+4. The frontend graph canvas lacked interactive node inspection and clear visual differentiation across entity types.
+
+### Fix
+1. **Neo4j Resilience**: Wrapped `execute_query` in `app/core/neo4j_client.py` with try/except error handling, ensuring offline database states gracefully return empty query sets rather than unhandled server errors.
+2. **Dynamic Claim & Syndicate Grounding**: Refactored `RelationshipGraphService.get_claim_neighborhood` in `app/services/relationship_graph/graph_service.py` and `app/api/v1/graph.py` to retrieve active claim details from the database and ground the 2-hop neighborhood in the uploaded vehicle registration plate, repair garage, and claimant identity.
+3. **Vis-Network Compatible Serialization**: Added `@computed_field(alias="from")` and `@computed_field(alias="to")` in `app/schemas/graph.py` to supply both standard and vis-network edge attributes.
+4. **Interactive Node Inspector & Category Styling**: Upgraded `RelationshipGraphView.tsx` with high-contrast color badges, Barnes-Hut physics stabilization, an entity category legend (Claim, Claimant, Vehicle, Garage, Phone), and a clickable node inspector floating drawer.
+5. **Validation**: Built frontend with Vite (`npx vite build` passed in 22.58s with 0 errors across 1,643 modules), verified Python compilation, and confirmed live HTTP 200 graph response with 7 nodes and 8 edges.
+
+### Files Affected
+- `backend/app/core/neo4j_client.py`
+- `backend/app/schemas/graph.py`
+- `backend/app/services/relationship_graph/graph_service.py`
+- `backend/app/api/v1/graph.py`
+- `frontend/src/pages/investigator/RelationshipGraphView.tsx`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`

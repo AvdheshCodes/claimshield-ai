@@ -1,5 +1,5 @@
 from typing import List, Dict, Any, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, computed_field
 
 class GraphNode(BaseModel):
     id: str
@@ -13,6 +13,20 @@ class GraphEdge(BaseModel):
     to_node: str
     label: str # SUBMITTED, OWNS, REPAIRED_AT, SHARES_CONTACT, LINKED_TO
     properties: Dict[str, Any] = {}
+
+    @computed_field(alias="from")
+    @property
+    def edge_from(self) -> str:
+        return self.from_node
+
+    @computed_field(alias="to")
+    @property
+    def edge_to(self) -> str:
+        return self.to_node
+
+    model_config = {
+        "populate_by_name": True
+    }
 
 class GraphResponse(BaseModel):
     nodes: List[GraphNode]

@@ -30,8 +30,12 @@ class Neo4jManager:
             await self.connect()
         if not self._driver:
             return []
-        async with self._driver.session() as session:
-            result = await session.run(query, parameters or {})
-            return [record.data() async for record in result]
+        try:
+            async with self._driver.session() as session:
+                result = await session.run(query, parameters or {})
+                return [record.data() async for record in result]
+        except Exception as e:
+            logger.warning(f"Neo4j query execution failed: {e}")
+            return []
 
 neo4j_client = Neo4jManager()

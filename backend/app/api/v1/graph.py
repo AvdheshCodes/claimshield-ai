@@ -23,7 +23,16 @@ async def get_claim_graph_by_id(
     if not claim:
         raise HTTPException(status_code=404, detail="Claim not found")
 
-    graph_data = await RelationshipGraphService.get_claim_neighborhood(claim.claim_number)
+    customer = None
+    if claim.customer_id:
+        cust_res = await db.execute(select(User).where(User.id == claim.customer_id))
+        customer = cust_res.scalar_one_or_none()
+
+    graph_data = await RelationshipGraphService.get_claim_neighborhood(
+        claim.claim_number,
+        claim=claim,
+        customer=customer
+    )
     return graph_data
 
 @router.get("/graph/{claim_identifier}", response_model=GraphResponse)
@@ -32,11 +41,27 @@ async def get_claim_graph_by_identifier(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db)
 ):
-    # Lookup by claim_number or by ID
-    query = select(Claim).where(Claim.claim_number == claim_identifier)
-    result = await db.execute(query)
-    claim = result.scalar_one_or_none()
-    
+    claim = None
+    try:
+        c_uuid = UUID(claim_identifier)
+        result = await db.execute(select(Claim).where(Claim.id == c_uuid))
+        claim = result.scalar_one_or_none()
+    except (ValueError, TypeError):
+        pass
+
+    if not claim:
+        result = await db.execute(select(Claim).where(Claim.claim_number == claim_identifier))
+        claim = result.scalar_one_or_none()
+
+    customer = None
+    if claim and claim.customer_id:
+        cust_res = await db.execute(select(User).where(User.id == claim.customer_id))
+        customer = cust_res.scalar_one_or_none()
+
     target_number = claim.claim_number if claim else claim_identifier
-    graph_data = await RelationshipGraphService.get_claim_neighborhood(target_number)
+    graph_data = await RelationshipGraphService.get_claim_neighborhood(
+        target_number,
+        claim=claim,
+        customer=customer
+    )
     return graph_data
