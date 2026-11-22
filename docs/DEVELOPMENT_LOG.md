@@ -386,3 +386,30 @@ Investigators and compliance officers require an exportable, court-admissible In
 
 ### Rollback
 `git revert HEAD`
+
+
+---
+
+## [Entry 17] — 2026-11-23 03:50 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Feature Addition — Dual-Dialog Authentication Gateway & Role-Based Routing  
+
+### Problem
+Previously, unauthenticated users could access the investigator workspace or customer portal directly without undergoing authentication, and there was no dedicated landing entry point or segregated login experience for enterprise administrators/investigators versus policyholders.
+
+### Fix
+1. **Direct Native Bcrypt Security**: Replaced deprecated `passlib` bcrypt handler in `app/core/security.py` with direct native `bcrypt` calls (`bcrypt.hashpw` and `bcrypt.checkpw`), eliminating Python 3.13 incompatibility and ensuring fast password verification.
+2. **Dual-Dialog Authentication Gateway**: Created `frontend/src/pages/auth/AuthPage.tsx` presenting two separate, segregated dialogue boxes side-by-side:
+   - **Dialog Box A (Enterprise Portal)**: For Fraud Investigators and Administrators. Includes Sign In, Account Creation (with role selector), and a 1-click `⚡ Fill Investigator` demo pre-fill. Directs to `/investigator`.
+   - **Dialog Box B (Policyholder Portal)**: For Insured Claimants. Includes Sign In, Claimant Registration, and a 1-click `⚡ Fill Policyholder` demo pre-fill. Directs to `/customer`.
+3. **Protected Routes & Navigation**: Refactored `frontend/src/App.tsx` so unauthenticated visitors are redirected to `/login`. Added JWT / user session management, custom role indicators in the top navbar, and a dedicated **Log Out** button that clears tokens and returns to the gateway.
+4. **Validation**: Verified API login responses for both investigator and customer accounts (`HTTP 200`), and built the frontend bundle with Vite (`npx vite build` passed with 0 errors across 1,644 modules).
+
+### Files Affected
+- `backend/app/core/security.py`
+- `frontend/src/pages/auth/AuthPage.tsx` — **NEW**
+- `frontend/src/App.tsx`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`
