@@ -355,3 +355,34 @@ Investigators and compliance officers require an exportable, court-admissible In
 
 ### Rollback
 `git revert HEAD`
+
+
+---
+
+## [Entry 16] — 2026-11-23 03:28 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Enhancement & Bug Fix — Evidence-Grounded AI Copilot Intent Engine & Document Text Ingestion  
+
+### Problem
+1. `handle_copilot_query` in `app/api/v1/copilot.py` was passing an empty list (`document_chunks=[]`), depriving the Copilot of actual PyMuPDF OCR text and document metadata (invoice numbers, dates, plates, costs).
+2. When Gemini API key was not configured, the fallback returned static placeholder text rather than analyzing the user's specific query.
+3. In `CopilotChatView.tsx`, chat messages did not synchronize dynamically when the user switched claims in the queue.
+
+### Fix
+1. **Document Ingestion**: Updated `handle_copilot_query` to query the `documents` table and pass full OCR text chunks, parsed key-values, and forensic metadata to `CopilotRAGService`.
+2. **Deterministic Evidence Grounding QA Engine**: Upgraded `_generate_grounded_answer` in `app/services/copilot/rag_service.py` to semantically parse query intent:
+   - **Date Cross-Checks**: Compares accident date vs invoice date vs police report date with citation `RULE-002`.
+   - **Vehicle Registration Audits**: Cross-references claim plate (`DL05MN5678`) against repair invoices (`DL05MN9999`) and police reports with citation `RULE-010`.
+   - **Financial Discrepancies**: Compares claimed amounts against itemized workshop invoices with citation `RULE-001`.
+   - **Syndicate Links**: Traces shared phone numbers (`+91-98765-00001`) and recycled garages (`Metro Speed Auto Garage`).
+3. **Frontend Claim Sync**: Added `useEffect` in `CopilotChatView.tsx` keyed to `[claim.id, claim.claim_number]`, resetting the conversation context whenever a new claim is loaded.
+4. **Validation**: Verified all 4 quick questions via live API tests, confirming exact evidence responses and citation arrays.
+
+### Files Affected
+- `backend/app/api/v1/copilot.py`
+- `backend/app/services/copilot/rag_service.py`
+- `frontend/src/pages/investigator/CopilotChatView.tsx`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`

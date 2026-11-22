@@ -15,15 +15,19 @@ const QUICK_QUESTIONS = [
 
 export default function CopilotChatView({ claim }: Props) {
   const [query, setQuery] = useState('');
-  const [messages, setMessages] = useState<Msg[]>([
-    {
-      sender: 'copilot',
-      text: `Hello Investigator 👋\n\nI am your InsureGuard AI Copilot, grounded exclusively on verified claim evidence for **${claim.claim_number}**.\n\nUpload and process claim documents first, then ask me to compare dates, cross-check registrations, or summarize discrepancies. I cite every source.`,
-      citations: ['System Context'],
-    },
-  ]);
+  const [messages, setMessages] = useState<Msg[]>([]);
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMessages([
+      {
+        sender: 'copilot',
+        text: `Hello Investigator 👋\n\nI am your InsureGuard AI Copilot, grounded exclusively on verified claim evidence for **${claim.claim_number}**.\n\nAsk me to compare incident and invoice dates, cross-check vehicle registrations, summarize financial discrepancies, or inspect repair items. I cite verified evidence for every answer.`,
+        citations: ['System Context · Verified Claim Evidence Base'],
+      },
+    ]);
+  }, [claim.id, claim.claim_number]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });

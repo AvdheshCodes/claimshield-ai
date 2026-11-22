@@ -8,6 +8,7 @@ from app.api.v1.auth import get_current_user
 from app.models.user import User
 from app.models.claim import Claim
 from app.models.finding import FraudFinding
+from app.models.document import Document
 from app.schemas.copilot import CopilotQueryRequest, CopilotResponse
 from app.services.copilot.rag_service import CopilotRAGService
 
@@ -47,6 +48,22 @@ async def handle_copilot_query(
     findings_res = await db.execute(select(FraudFinding).where(FraudFinding.claim_id == claim.id))
     findings = findings_res.scalars().all()
 
+    # Load uploaded documents for full text & metadata grounding
+    docs_res = await db.execute(select(Document).where(Document.claim_id == claim.id))
+    docs = docs_res.scalars().all()
+    doc_chunks = [
+        {
+            "id": str(d.id),
+            "filename": d.original_filename,
+            "document_type": d.document_type,
+            "text": d.raw_extracted_text or "",
+            "metadata": d.extracted_metadata or {},
+            "tampering": d.has_tampering_indicators,
+            "forensic_details": d.forensic_details or {}
+        }
+        for d in docs
+    ]
+
     claim_ctx = {
         "claim_number": claim.claim_number,
         "category": claim.category,
@@ -69,7 +86,7 @@ async def handle_copilot_query(
     return await CopilotRAGService.query(
         claim_context=claim_ctx,
         findings_context=findings_ctx,
-        document_chunks=[],
+        document_chunks=doc_chunks,
         question=query_in.question
     )
 
