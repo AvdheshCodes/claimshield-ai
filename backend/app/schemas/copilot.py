@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Union
 from uuid import UUID
 from pydantic import BaseModel
 
@@ -10,7 +10,7 @@ class Citation(BaseModel):
     snippet: Optional[str] = None
 
 class CopilotQueryRequest(BaseModel):
-    claim_id: UUID
+    claim_id: Union[UUID, str]
     question: str
     conversation_id: Optional[str] = None
 

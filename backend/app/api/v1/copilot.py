@@ -21,9 +21,13 @@ async def handle_copilot_query(
     # Try finding claim by UUID or by claim_number
     claim = None
     try:
-        claim_res = await db.execute(select(Claim).where(Claim.id == query_in.claim_id))
+        if isinstance(query_in.claim_id, uuid.UUID):
+            c_uuid = query_in.claim_id
+        else:
+            c_uuid = uuid.UUID(str(query_in.claim_id))
+        claim_res = await db.execute(select(Claim).where(Claim.id == c_uuid))
         claim = claim_res.scalar_one_or_none()
-    except Exception:
+    except (ValueError, TypeError):
         pass
 
     if not claim:

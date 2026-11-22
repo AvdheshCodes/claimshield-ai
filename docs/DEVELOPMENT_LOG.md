@@ -332,3 +332,26 @@ Investigators and compliance officers require an exportable, court-admissible In
 
 ### Rollback
 `git revert HEAD`
+
+
+---
+
+## [Entry 15] — 2026-11-23 03:22 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Bug Fix — Evidence-Grounded AI Copilot UUID/Claim Number Schema Support  
+
+### Problem
+`CopilotQueryRequest` schema strictly typed `claim_id` as `UUID`. When clients or frontend components passed human-readable claim numbers (e.g., `CS-2026-68595`), FastAPI rejected the request with HTTP 422 `Input should be a valid UUID`.
+
+### Fix
+1. **Schema Polymorphism**: Changed `claim_id: Union[UUID, str]` in `app/schemas/copilot.py`.
+2. **Dual-Lookup Handler**: Updated `handle_copilot_query` in `app/api/v1/copilot.py` to seamlessly resolve either UUID or string claim numbers from SQLite/PostgreSQL.
+3. **Verification**: Successfully invoked `POST /api/v1/copilot/query` with claim `CS-2026-68595`. Confirmed response with 4 grounded citations, investigation recommendations, and PII masking.
+
+### Files Affected
+- `backend/app/schemas/copilot.py`
+- `backend/app/api/v1/copilot.py`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`
