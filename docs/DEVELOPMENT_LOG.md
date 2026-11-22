@@ -413,3 +413,34 @@ Previously, unauthenticated users could access the investigator workspace or cus
 
 ### Rollback
 `git revert HEAD`
+
+
+---
+
+## [Entry 18] — 2026-11-23 03:56 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Feature Architecture — Fully Segregated Interfaces for Admin, Investigator & Customer Portals  
+
+### Problem
+Previously, when policyholders or administrators logged in, they shared elements of the same header navigation and layout, which blurred the strict segregation required between enterprise internal fraud investigation and customer-facing claim transparency.
+
+### Fix
+1. **Dedicated Customer/Policyholder Interface**:
+   - Custom **Emerald/Teal Policyholder Navbar**: "InsureGuard Policyholder Services" displaying active policy number (`POL-2026-9921`), vehicle plate (`DL05MN5678`), and claimant identity.
+   - Comprehensive **Policyholder Dashboard (`CustomerPortal.tsx`)**: Welcome hero card, claim progress milestone tracker, supplemental evidence upload dropzone, customer claim history, and interactive **"File New Claim"** modal.
+   - Strict segregation: Policyholders have 0 access to internal risk scores, fraud weights, or investigator queues.
+2. **Dedicated Enterprise Admin & Fraud Operations Portal**:
+   - Custom **Dark Slate/Blue Enterprise Header**: "InsureGuard AI Enterprise" with role badge and workspace navigation.
+   - **Admin Governance Dashboard (`AdminDashboard.tsx`)**: Executive KPIs (Total Claims Evaluated, High-Risk Intercepted, ₹42.8 Lakhs Fraud Loss Prevented, 4 Syndicate Rings Tracked), 10 PRD explainable rule sensitivity sliders, and immutable audit trail telemetry.
+   - **Investigation Workspace (`InvestigatorDashboard.tsx`)**: Full technical queue with forensic OCR, vis-network syndicate graphs, grounded AI Copilot, and case dossier PDF export.
+3. **Route & Layout Isolation (`App.tsx`)**:
+   - Role-based redirect guard: Policyholders are permanently constrained to `/customer`; Administrators/Investigators land on their respective enterprise workspaces.
+
+### Files Affected
+- `frontend/src/pages/admin/AdminDashboard.tsx` — **NEW**
+- `frontend/src/pages/customer/CustomerPortal.tsx`
+- `frontend/src/App.tsx`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`
