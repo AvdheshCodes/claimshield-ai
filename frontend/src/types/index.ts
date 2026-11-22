@@ -21,6 +21,7 @@ export interface Claim {
   garage_name?: string;
   risk_score?: number;
   risk_band?: 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH';
+  findings?: FraudFinding[];
   created_at: string;
 }
 

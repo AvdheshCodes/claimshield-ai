@@ -3,7 +3,10 @@ import { ShieldAlert, HelpCircle, FileCheck, ChevronDown, ChevronUp, CheckCircle
 import { Claim, FraudFinding } from '../../types';
 import api from '../../services/api';
 
-interface Props { claim: Claim; }
+interface Props {
+  claim: Claim;
+  onClaimUpdated?: (updatedClaim: Claim) => void;
+}
 
 const SEV_CONFIG: Record<string, { label: string; cls: string }> = {
   CRITICAL: { label: 'CRITICAL', cls: 'bg-red-500/15 text-red-400 border-red-500/30' },
@@ -14,16 +17,22 @@ const SEV_CONFIG: Record<string, { label: string; cls: string }> = {
 
 type Feedback = 'UNRESOLVED' | 'VERIFIED' | 'DISMISSED';
 
-export default function WhySuspiciousView({ claim }: Props) {
+export default function WhySuspiciousView({ claim, onClaimUpdated }: Props) {
   const [findings, setFindings] = useState<FraudFinding[]>((claim as any).findings ?? []);
   const [loading, setLoading] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [feedbacks, setFeedbacks] = useState<Record<string, Feedback>>({});
+  const [updatingId, setUpdatingId] = useState<string | null>(null);
 
   useEffect(() => {
     if ((claim as any).findings && (claim as any).findings.length > 0) {
       setFindings((claim as any).findings);
       setExpanded((claim as any).findings[0]?.id ?? null);
+      const initialFb: Record<string, Feedback> = {};
+      (claim as any).findings.forEach((f: any) => {
+        initialFb[f.id] = (f.investigator_feedback as Feedback) || 'UNRESOLVED';
+      });
+      setFeedbacks(initialFb);
     } else {
       fetchFindings();
     }
@@ -37,6 +46,11 @@ export default function WhySuspiciousView({ claim }: Props) {
         setFindings(res.data);
         if (res.data.length > 0) {
           setExpanded(res.data[0].id);
+          const fbMap: Record<string, Feedback> = {};
+          res.data.forEach((f: any) => {
+            fbMap[f.id] = (f.investigator_feedback as Feedback) || 'UNRESOLVED';
+          });
+          setFeedbacks(fbMap);
         }
       }
     } catch {
@@ -46,7 +60,30 @@ export default function WhySuspiciousView({ claim }: Props) {
     }
   };
 
-  const totalPoints = findings.reduce((s, f) => s + f.points, 0);
+  const handleFeedbackChange = async (findingId: string, newFeedback: Feedback) => {
+    setUpdatingId(findingId);
+    try {
+      const res = await api.patch(`/claims/${claim.id}/findings/${findingId}`, {
+        feedback: newFeedback
+      });
+      setFeedbacks(prev => ({ ...prev, [findingId]: newFeedback }));
+
+      if (res.data?.updated_claim_score !== undefined && onClaimUpdated) {
+        onClaimUpdated({
+          ...claim,
+          risk_score: res.data.updated_claim_score,
+          risk_band: res.data.updated_risk_band
+        });
+      }
+    } catch (err) {
+      console.error("Failed to update feedback:", err);
+    } finally {
+      setUpdatingId(null);
+    }
+  };
+
+  const activeFindings = findings.filter(f => (feedbacks[f.id] || f.investigator_feedback) !== 'DISMISSED');
+  const activePoints = activeFindings.reduce((s, f) => s + f.points, 0);
 
   if (loading) {
     return (
@@ -83,10 +120,11 @@ export default function WhySuspiciousView({ claim }: Props) {
             </div>
             <div>
               <h3 className="text-base font-bold text-white">
-                Deterministic Risk Score: <span className="text-red-400">{claim.risk_score ?? totalPoints}/100</span>
+                Deterministic Risk Score: <span className="text-red-400">{claim.risk_score ?? activePoints}/100</span>
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                {findings.length} evidence indicator{findings.length !== 1 ? 's' : ''} · {totalPoints} cumulative risk points
+                {findings.length} evidence indicator{findings.length !== 1 ? 's' : ''} · {activePoints} active risk points
+                {findings.length - activeFindings.length > 0 && ` (${findings.length - activeFindings.length} dismissed by investigator)`}
               </p>
             </div>
           </div>
@@ -97,7 +135,7 @@ export default function WhySuspiciousView({ claim }: Props) {
         <div className="mt-4 h-2 bg-white/5 rounded-full overflow-hidden">
           <div
             className="h-full rounded-full bg-gradient-to-r from-orange-500 to-red-600 transition-all"
-            style={{ width: `${claim.risk_score ?? totalPoints}%` }}
+            style={{ width: `${claim.risk_score ?? activePoints}%` }}
           />
         </div>
         <div className="flex justify-between text-[9px] text-slate-600 mt-1 font-mono">
@@ -115,12 +153,17 @@ export default function WhySuspiciousView({ claim }: Props) {
           const sev = SEV_CONFIG[f.severity] ?? SEV_CONFIG['LOW'];
           const fb = feedbacks[f.id] ?? f.investigator_feedback ?? 'UNRESOLVED';
           const isOpen = expanded === f.id;
+          const isDismissed = fb === 'DISMISSED';
 
           return (
             <div
               key={f.id}
               className={`rounded-2xl border transition-all overflow-hidden ${
-                isOpen ? 'border-white/15 bg-[#1a2033]' : 'border-white/6 bg-[#161b27] hover:border-white/12'
+                isDismissed
+                  ? 'opacity-60 bg-[#121622] border-white/5'
+                  : isOpen
+                  ? 'border-white/15 bg-[#1a2033]'
+                  : 'border-white/6 bg-[#161b27] hover:border-white/12'
               }`}
             >
               <button
@@ -129,10 +172,14 @@ export default function WhySuspiciousView({ claim }: Props) {
               >
                 <span className={`shrink-0 text-[10px] font-bold px-2 py-0.5 rounded border ${sev.cls}`}>{sev.label}</span>
                 <span className="font-mono text-[10px] text-slate-600">{f.rule_id}</span>
-                <span className="flex-1 text-sm font-semibold text-slate-200">{f.rule_name}</span>
+                <span className={`flex-1 text-sm font-semibold ${isDismissed ? 'line-through text-slate-500' : 'text-slate-200'}`}>
+                  {f.rule_name}
+                </span>
                 <span className={`shrink-0 text-xs font-bold px-2 py-0.5 rounded-full bg-white/5 ${
-                  fb === 'VERIFIED' ? 'text-emerald-400' : fb === 'DISMISSED' ? 'text-slate-500' : 'text-amber-400'
-                }`}>+{f.points} pts</span>
+                  fb === 'VERIFIED' ? 'text-emerald-400' : isDismissed ? 'text-slate-600 line-through' : 'text-amber-400'
+                }`}>
+                  +{f.points} pts
+                </span>
                 {isOpen ? <ChevronUp className="h-4 w-4 text-slate-500 shrink-0" /> : <ChevronDown className="h-4 w-4 text-slate-500 shrink-0" />}
               </button>
 
@@ -165,23 +212,27 @@ export default function WhySuspiciousView({ claim }: Props) {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 pt-1">
-                    <span className="text-[10px] text-slate-600 uppercase tracking-wider mr-1">Mark as:</span>
-                    {(['VERIFIED', 'UNRESOLVED', 'DISMISSED'] as Feedback[]).map(opt => (
-                      <button
-                        key={opt}
-                        onClick={() => setFeedbacks(prev => ({ ...prev, [f.id]: opt }))}
-                        className={`text-[10px] font-bold px-2.5 py-1 rounded-lg border transition-all ${
-                          fb === opt
-                            ? opt === 'VERIFIED'   ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40'
-                            : opt === 'DISMISSED'  ? 'bg-slate-700 text-slate-400 border-slate-600'
-                            :                        'bg-amber-500/20 text-amber-400 border-amber-500/40'
-                            : 'bg-transparent text-slate-600 border-white/8 hover:border-white/20 hover:text-slate-400'
-                        }`}
-                      >
-                        {opt === 'VERIFIED' ? '✓ Verified' : opt === 'DISMISSED' ? '✗ Dismiss' : '⚠ Unresolved'}
-                      </button>
-                    ))}
+                  {/* Investigator feedback buttons */}
+                  <div className="flex items-center justify-between pt-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] text-slate-600 uppercase tracking-wider mr-1">Investigator Feedback:</span>
+                      {(['VERIFIED', 'UNRESOLVED', 'DISMISSED'] as Feedback[]).map(opt => (
+                        <button
+                          key={opt}
+                          disabled={updatingId === f.id}
+                          onClick={() => handleFeedbackChange(f.id, opt)}
+                          className={`text-[10px] font-bold px-2.5 py-1 rounded-lg border transition-all ${
+                            fb === opt
+                              ? opt === 'VERIFIED'   ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40'
+                              : opt === 'DISMISSED'  ? 'bg-slate-700 text-slate-400 border-slate-600'
+                              :                        'bg-amber-500/20 text-amber-400 border-amber-500/40'
+                              : 'bg-transparent text-slate-600 border-white/8 hover:border-white/20 hover:text-slate-400'
+                          }`}
+                        >
+                          {opt === 'VERIFIED' ? '✓ Verified by Investigator' : opt === 'DISMISSED' ? '✗ Dismiss (Benign)' : '⚠ Unresolved'}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )}

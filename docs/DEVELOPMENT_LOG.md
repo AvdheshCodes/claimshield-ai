@@ -221,3 +221,35 @@ The AI fraud detection engine, document forensics OCR pipeline, and backend serv
 
 ### Rollback
 `git revert HEAD` to return to commit `be188fc`.
+
+---
+
+## [Entry 12] — 2026-11-22 05:40 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Feature Progression — Case Decision Workflow & Documents View  
+
+### Problem
+1. Investigators lacked the ability to inspect uploaded documents side-by-side with PyMuPDF OCR text and parsed metadata.
+2. Investigators had no formal mechanism to record case decisions (`APPROVE`, `REJECT`, `REQUEST_MORE_INFO`) with mandatory rationale.
+3. Investigator feedback on findings (`VERIFIED`, `UNRESOLVED`, `DISMISSED`) was not persisted to the backend or dynamically recalculating risk scores.
+4. Customer portal supplemental uploads were not persisting to the database.
+
+### Fix
+1. **Documents & Forensics Tab**: Created `frontend/src/pages/investigator/DocumentsView.tsx` with side-by-side file list, integrity SHA-256 hash, forensic tampering badges, parsed entity key-value cards, and a scrollable PyMuPDF OCR text reader.
+2. **Case Determination Sign-Off**: Implemented `POST /api/v1/claims/{claim_id}/decision` in `app/api/v1/fraud.py` to record investigator decisions with mandatory rationale and immutable audit logging. Added a modal in `InvestigatorDashboard.tsx`.
+3. **Interactive Finding Feedback**: Added `PATCH /api/v1/claims/{claim_id}/findings/{finding_id}` to update feedback and dynamically recalculate claim risk scores (excluding dismissed findings).
+4. **Customer Upload Sync**: Wired `CustomerPortal.tsx` to post supplemental documents directly to `/api/v1/claims/{claim_id}/documents`.
+5. **Verified Production Build**: `npx vite build` passed in 7.72s with 0 errors across 1,643 modules.
+
+### Files Affected
+- `backend/app/api/v1/documents.py`
+- `backend/app/api/v1/fraud.py`
+- `frontend/src/pages/investigator/DocumentsView.tsx` — **NEW**
+- `frontend/src/pages/investigator/InvestigatorDashboard.tsx`
+- `frontend/src/pages/investigator/WhySuspiciousView.tsx`
+- `frontend/src/pages/customer/CustomerPortal.tsx`
+- `frontend/src/types/index.ts`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`

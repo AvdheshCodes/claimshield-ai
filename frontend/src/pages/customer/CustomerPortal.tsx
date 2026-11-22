@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
   CheckCircle2, Clock, UploadCloud, HelpCircle,
-  FileText, X, Send, Shield, ChevronRight, RefreshCw, Inbox
+  FileText, X, Send, Shield, ChevronRight, RefreshCw, Inbox, Loader2
 } from 'lucide-react';
 import api from '../../services/api';
 
@@ -20,6 +20,7 @@ export default function CustomerPortal() {
   const [appealRequested, setAppealRequested] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -52,9 +53,27 @@ export default function CustomerPortal() {
 
   const removeFile = (id: string) => setUploadedFiles(prev => prev.filter(f => f.id !== id));
 
-  const submitDocuments = () => {
-    if (uploadedFiles.length === 0) return;
-    setSubmitted(true);
+  const submitDocuments = async () => {
+    if (uploadedFiles.length === 0 || !claimStatus || submitting) return;
+    setSubmitting(true);
+    try {
+      for (const uf of uploadedFiles) {
+        const formData = new FormData();
+        formData.append('file', uf.file);
+        formData.append('document_type', 'supplemental_verification');
+        await api.post(`/claims/${claimStatus.claim_number}/documents`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+      }
+      setSubmitted(true);
+      setUploadedFiles([]);
+      fetchStatus();
+    } catch (err) {
+      console.error("Document upload failed:", err);
+      setSubmitted(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   /* ── Loading ─── */
@@ -77,7 +96,7 @@ export default function CustomerPortal() {
         <h2 className="text-lg font-bold text-slate-400 mb-2">No Claim Found</h2>
         <p className="text-sm text-slate-600 max-w-sm leading-relaxed">
           {error
-            ? 'Could not reach the backend. Make sure the FastAPI service is running and you are logged in as a customer.'
+            ? 'Could not reach the backend. Make sure the FastAPI service is running.'
             : 'No active claim is linked to your account.'}
         </p>
         <button
@@ -171,7 +190,7 @@ export default function CustomerPortal() {
                 >
                   <UploadCloud className={`h-8 w-8 mx-auto mb-2 ${isDragging ? 'text-amber-400' : 'text-slate-600'}`} />
                   <p className="text-sm font-medium text-slate-300">Drop files here or <span className="text-amber-400 underline underline-offset-2">browse</span></p>
-                  <p className="text-xs text-slate-600 mt-1">PDF · JPG · PNG · Max 10MB per file</p>
+                  <p className="text-xs text-slate-600 mt-1">Supported: PDF · JPG · PNG · Max 15MB</p>
                 </div>
                 <input ref={fileInputRef} type="file" multiple accept=".pdf,.jpg,.jpeg,.png" className="hidden" onChange={e => handleFiles(e.target.files)} />
 
@@ -191,10 +210,20 @@ export default function CustomerPortal() {
                     ))}
                     <button
                       onClick={submitDocuments}
-                      className="w-full py-2.5 bg-amber-500 hover:bg-amber-400 text-black font-bold text-sm rounded-xl transition flex items-center justify-center gap-2"
+                      disabled={submitting}
+                      className="w-full py-2.5 bg-amber-500 hover:bg-amber-400 disabled:opacity-50 text-black font-bold text-sm rounded-xl transition flex items-center justify-center gap-2"
                     >
-                      <Send className="h-4 w-4" />
-                      Submit {uploadedFiles.length} Document{uploadedFiles.length > 1 ? 's' : ''} to Claims Team
+                      {submitting ? (
+                        <>
+                          <Loader2 className="h-4 w-4 animate-spin text-black" />
+                          Uploading to Claims Team...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="h-4 w-4" />
+                          Submit {uploadedFiles.length} Document{uploadedFiles.length > 1 ? 's' : ''} to Claims Team
+                        </>
+                      )}
                     </button>
                   </div>
                 )}
@@ -204,7 +233,7 @@ export default function CustomerPortal() {
                 <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
                 <div>
                   <p className="text-sm font-bold text-emerald-300">Documents Submitted Successfully</p>
-                  <p className="text-xs text-slate-500 mt-0.5">Your investigator will review them within 2 business days.</p>
+                  <p className="text-xs text-slate-500 mt-0.5">Your investigator has received the supplemental verification documents.</p>
                 </div>
               </div>
             )}

@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
   AlertTriangle, Share2, MessageSquare, RefreshCw,
-  FileText, UploadCloud, X, Car, Inbox, Loader2
+  FileText, UploadCloud, X, Car, Inbox, Loader2, CheckCircle2, XCircle, HelpCircle, ShieldCheck
 } from 'lucide-react';
 import api from '../../services/api';
 import { Claim } from '../../types';
 import WhySuspiciousView from './WhySuspiciousView';
 import RelationshipGraphView from './RelationshipGraphView';
 import CopilotChatView from './CopilotChatView';
+import DocumentsView from './DocumentsView';
 
 const RISK_COLOR: Record<string, { bg: string; text: string; border: string; dot: string; bar: string }> = {
   VERY_HIGH: { bg: 'bg-red-500/15', text: 'text-red-400', border: 'border-red-500/30', dot: 'bg-red-500', bar: 'bg-red-500' },
@@ -21,12 +22,18 @@ type UploadedFile = { file: File; id: string };
 export default function InvestigatorDashboard() {
   const [claims, setClaims] = useState<Claim[]>([]);
   const [selectedClaim, setSelectedClaim] = useState<Claim | null>(null);
-  const [activeTab, setActiveTab] = useState<'why-suspicious' | 'graph' | 'copilot'>('why-suspicious');
+  const [activeTab, setActiveTab] = useState<'why-suspicious' | 'graph' | 'copilot' | 'documents'>('why-suspicious');
   const [loading, setLoading] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Decision Modal State
+  const [showDecisionModal, setShowDecisionModal] = useState(false);
+  const [decisionType, setDecisionType] = useState<'APPROVED' | 'REJECTED' | 'ADDITIONAL_INFORMATION_REQUIRED'>('APPROVED');
+  const [decisionRationale, setDecisionRationale] = useState('');
+  const [submittingDecision, setSubmittingDecision] = useState(false);
 
   useEffect(() => {
     refreshClaims();
@@ -90,10 +97,33 @@ export default function InvestigatorDashboard() {
     }
   };
 
+  const submitCaseDecision = async () => {
+    if (!selectedClaim || !decisionRationale.trim() || submittingDecision) return;
+    setSubmittingDecision(true);
+    try {
+      const res = await api.post(`/claims/${selectedClaim.id}/decision`, {
+        decision: decisionType,
+        rationale: decisionRationale
+      });
+      if (res.data?.new_status) {
+        const updated = { ...selectedClaim, status: res.data.new_status };
+        setSelectedClaim(updated);
+        setClaims(prev => prev.map(c => c.id === selectedClaim.id ? updated : c));
+        setShowDecisionModal(false);
+        setDecisionRationale('');
+      }
+    } catch (err) {
+      console.error("Failed to submit decision:", err);
+    } finally {
+      setSubmittingDecision(false);
+    }
+  };
+
   const riskColors = selectedClaim?.risk_band ? (RISK_COLOR[selectedClaim.risk_band] ?? RISK_COLOR['LOW']) : RISK_COLOR['LOW'];
 
   const tabs = [
     { key: 'why-suspicious', label: 'WHY SUSPICIOUS?', icon: AlertTriangle, color: 'text-red-400' },
+    { key: 'documents',      label: 'Documents & OCR', icon: FileText,      color: 'text-emerald-400' },
     { key: 'graph',          label: 'Fraud Graph',      icon: Share2,        color: 'text-blue-400' },
     { key: 'copilot',        label: 'AI Copilot',       icon: MessageSquare, color: 'text-purple-400' },
   ] as const;
@@ -106,7 +136,7 @@ export default function InvestigatorDashboard() {
         {/* Sidebar header */}
         <div className="px-4 pt-4 pb-3 border-b border-[#ffffff0a]">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Queue</span>
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Investigation Queue</span>
             <button
               onClick={refreshClaims}
               className={`p-1.5 rounded-md text-slate-500 hover:text-white hover:bg-white/5 transition ${loading ? 'animate-spin' : ''}`}
@@ -115,7 +145,7 @@ export default function InvestigatorDashboard() {
             </button>
           </div>
           <p className="text-xs text-slate-500">
-            {claims.length > 0 ? `${claims.length} claim${claims.length !== 1 ? 's' : ''} pending review` : 'No claims loaded'}
+            {claims.length > 0 ? `${claims.length} claim${claims.length !== 1 ? 's' : ''} in review` : 'No claims loaded'}
           </p>
         </div>
 
@@ -213,7 +243,7 @@ export default function InvestigatorDashboard() {
                 {analyzing ? (
                   <>
                     <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                    Analyzing Evidence...
+                    Extracting OCR & Forensics...
                   </>
                 ) : (
                   <>
@@ -239,12 +269,13 @@ export default function InvestigatorDashboard() {
                   <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${riskColors.bg} ${riskColors.text} border ${riskColors.border}`}>
                     {selectedClaim.risk_band?.replace('_', ' ')} RISK
                   </span>
-                  <span className="text-[10px] px-2 py-0.5 bg-white/5 text-slate-400 rounded-full border border-white/8">
+                  <span className="text-[10px] px-2 py-0.5 bg-white/5 text-slate-400 rounded-full border border-white/8 font-medium">
                     {selectedClaim.status.replace(/_/g, ' ')}
                   </span>
                 </div>
                 <p className="text-xs text-slate-500">{selectedClaim.incident_description}</p>
               </div>
+
               <div className="flex items-center gap-6 text-xs text-slate-400">
                 <div className="text-right">
                   <p className="text-[10px] text-slate-600 uppercase tracking-wider">Claimed</p>
@@ -260,6 +291,15 @@ export default function InvestigatorDashboard() {
                     {selectedClaim.risk_score ?? '—'}<span className="text-xs text-slate-600">/100</span>
                   </p>
                 </div>
+
+                {/* Final Decision Action Button */}
+                <button
+                  onClick={() => setShowDecisionModal(true)}
+                  className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-lg shadow-blue-600/20"
+                >
+                  <ShieldCheck className="h-3.5 w-3.5" />
+                  Record Case Decision
+                </button>
               </div>
             </div>
 
@@ -281,7 +321,16 @@ export default function InvestigatorDashboard() {
 
             {/* Tab content */}
             <div className="flex-1 overflow-y-auto p-6">
-              {activeTab === 'why-suspicious' && <WhySuspiciousView claim={selectedClaim} />}
+              {activeTab === 'why-suspicious' && (
+                <WhySuspiciousView
+                  claim={selectedClaim}
+                  onClaimUpdated={(upd) => {
+                    setSelectedClaim(upd);
+                    setClaims(prev => prev.map(c => c.id === upd.id ? upd : c));
+                  }}
+                />
+              )}
+              {activeTab === 'documents' && <DocumentsView claim={selectedClaim} />}
               {activeTab === 'graph' && <RelationshipGraphView claimNumber={selectedClaim.claim_number} />}
               {activeTab === 'copilot' && <CopilotChatView claim={selectedClaim} />}
             </div>
@@ -299,6 +348,90 @@ export default function InvestigatorDashboard() {
           </div>
         )}
       </div>
+
+      {/* ── CASE DECISION MODAL (Human-in-the-Loop Sign-off) ── */}
+      {showDecisionModal && selectedClaim && (
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[#161b27] border border-white/10 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-white/8 pb-3">
+              <div>
+                <h3 className="text-sm font-bold text-white">Record Final Investigation Decision</h3>
+                <p className="text-xs text-slate-500 font-mono mt-0.5">{selectedClaim.claim_number} · Risk {selectedClaim.risk_score}/100</p>
+              </div>
+              <button onClick={() => setShowDecisionModal(false)} className="text-slate-500 hover:text-white transition">
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            {/* Decision Select Buttons */}
+            <div className="grid grid-cols-3 gap-2">
+              <button
+                onClick={() => setDecisionType('APPROVED')}
+                className={`p-3 rounded-xl border text-center transition ${
+                  decisionType === 'APPROVED'
+                    ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300'
+                    : 'bg-white/4 border-white/6 text-slate-400 hover:border-white/12'
+                }`}
+              >
+                <CheckCircle2 className="h-4 w-4 mx-auto mb-1 text-emerald-400" />
+                <span className="text-xs font-bold block">Approve</span>
+              </button>
+              <button
+                onClick={() => setDecisionType('ADDITIONAL_INFORMATION_REQUIRED')}
+                className={`p-3 rounded-xl border text-center transition ${
+                  decisionType === 'ADDITIONAL_INFORMATION_REQUIRED'
+                    ? 'bg-amber-500/20 border-amber-500/40 text-amber-300'
+                    : 'bg-white/4 border-white/6 text-slate-400 hover:border-white/12'
+                }`}
+              >
+                <HelpCircle className="h-4 w-4 mx-auto mb-1 text-amber-400" />
+                <span className="text-xs font-bold block">Request Info</span>
+              </button>
+              <button
+                onClick={() => setDecisionType('REJECTED')}
+                className={`p-3 rounded-xl border text-center transition ${
+                  decisionType === 'REJECTED'
+                    ? 'bg-red-500/20 border-red-500/40 text-red-300'
+                    : 'bg-white/4 border-white/6 text-slate-400 hover:border-white/12'
+                }`}
+              >
+                <XCircle className="h-4 w-4 mx-auto mb-1 text-red-400" />
+                <span className="text-xs font-bold block">Reject</span>
+              </button>
+            </div>
+
+            {/* Rationale Input */}
+            <div className="space-y-1.5">
+              <label className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                Investigator Rationale & Audit Notes (Mandatory)
+              </label>
+              <textarea
+                value={decisionRationale}
+                onChange={e => setDecisionRationale(e.target.value)}
+                placeholder="Detail the evidence considered, verification checks performed, and reason for this determination..."
+                rows={4}
+                className="w-full bg-[#0f1117] border border-white/10 rounded-xl p-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-blue-500 transition"
+              />
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/8">
+              <button
+                onClick={() => setShowDecisionModal(false)}
+                className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={submitCaseDecision}
+                disabled={!decisionRationale.trim() || submittingDecision}
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5"
+              >
+                {submittingDecision ? 'Logging Decision...' : 'Confirm Decision & Sign Off'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
