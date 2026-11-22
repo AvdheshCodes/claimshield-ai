@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
   AlertTriangle, Share2, MessageSquare, RefreshCw,
-  FileText, UploadCloud, X, Car, Inbox, Loader2, CheckCircle2, XCircle, HelpCircle, ShieldCheck
+  FileText, UploadCloud, X, Car, Inbox, Loader2, CheckCircle2, XCircle, HelpCircle, ShieldCheck, Download
 } from 'lucide-react';
 import api from '../../services/api';
 import { Claim } from '../../types';
@@ -34,6 +34,7 @@ export default function InvestigatorDashboard() {
   const [decisionType, setDecisionType] = useState<'APPROVED' | 'REJECTED' | 'ADDITIONAL_INFORMATION_REQUIRED'>('APPROVED');
   const [decisionRationale, setDecisionRationale] = useState('');
   const [submittingDecision, setSubmittingDecision] = useState(false);
+  const [exportingDossier, setExportingDossier] = useState(false);
 
   useEffect(() => {
     refreshClaims();
@@ -116,6 +117,29 @@ export default function InvestigatorDashboard() {
       console.error("Failed to submit decision:", err);
     } finally {
       setSubmittingDecision(false);
+    }
+  };
+
+  const handleExportDossier = async () => {
+    if (!selectedClaim || exportingDossier) return;
+    setExportingDossier(true);
+    try {
+      const res = await api.get(`/claims/${selectedClaim.id}/dossier`, {
+        responseType: 'blob'
+      });
+      const blob = new Blob([res.data], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `InsureGuard_Dossier_${selectedClaim.claim_number}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode?.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Failed to download dossier:", err);
+    } finally {
+      setExportingDossier(false);
     }
   };
 
@@ -291,6 +315,21 @@ export default function InvestigatorDashboard() {
                     {selectedClaim.risk_score ?? '—'}<span className="text-xs text-slate-600">/100</span>
                   </p>
                 </div>
+
+                {/* Dossier PDF Export Button */}
+                <button
+                  onClick={handleExportDossier}
+                  disabled={exportingDossier}
+                  className="px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 disabled:opacity-50"
+                  title="Export court-admissible Investigation Dossier PDF"
+                >
+                  {exportingDossier ? (
+                    <Loader2 className="h-3.5 w-3.5 animate-spin text-blue-400" />
+                  ) : (
+                    <Download className="h-3.5 w-3.5 text-blue-400" />
+                  )}
+                  Export Dossier (PDF)
+                </button>
 
                 {/* Final Decision Action Button */}
                 <button

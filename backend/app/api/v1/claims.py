@@ -5,6 +5,7 @@ import uuid
 from datetime import datetime, timezone
 from typing import List, Optional, Dict, Any
 from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile, File, Form, status
+from fastapi.responses import FileResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, desc, delete
 from app.core.database import get_db
@@ -14,9 +15,11 @@ from app.models.user import User
 from app.models.claim import Claim
 from app.models.document import Document
 from app.models.finding import FraudFinding
+from app.models.case import InvestigationCase
 from app.schemas.claim import ClaimCreate, ClaimResponse, ClaimStatusUpdate
 from app.services.document_forensics.forensics import DocumentForensicsService
 from app.services.fraud_detection.engine import ExplainableFraudEngine
+from app.services.reporting.dossier_service import CaseDossierService
 
 router = APIRouter(prefix="/claims", tags=["Claims Management"])
 
@@ -329,3 +332,96 @@ async def get_claim(
             for f in findings
         ]
     }
+
+@router.get("/{claim_id}/dossier")
+async def download_claim_dossier(
+    claim_id: str,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Generates and returns an executive investigation PDF dossier for the specified claim.
+    Includes deterministic risk scoring, itemized observations, document integrity hashes,
+    syndicate ring detection notes, and human investigator audit sign-off.
+    """
+    try:
+        c_uuid = uuid.UUID(claim_id)
+        result = await db.execute(select(Claim).where(Claim.id == c_uuid))
+    except (ValueError, TypeError):
+        result = await db.execute(select(Claim).where(Claim.claim_number == claim_id))
+    
+    claim = result.scalar_one_or_none()
+    if not claim:
+        raise HTTPException(status_code=404, detail="Claim not found")
+
+    # Fetch documents
+    docs_res = await db.execute(select(Document).where(Document.claim_id == claim.id))
+    docs = docs_res.scalars().all()
+    docs_data = [
+        {
+            "original_filename": d.original_filename,
+            "document_type": d.document_type,
+            "file_size_bytes": d.file_size_bytes or 0,
+            "sha256_hash": d.sha256_hash or "",
+            "has_tampering_indicators": d.has_tampering_indicators
+        }
+        for d in docs
+    ]
+
+    # Fetch findings
+    findings_res = await db.execute(select(FraudFinding).where(FraudFinding.claim_id == claim.id))
+    findings = findings_res.scalars().all()
+    findings_data = [
+        {
+            "rule_id": f.rule_id,
+            "rule_name": f.rule_name,
+            "severity": f.severity,
+            "points": f.points,
+            "observation": f.observation,
+            "recommended_action": f.recommended_action,
+            "investigator_feedback": f.investigator_feedback
+        }
+        for f in findings
+    ]
+
+    # Check for case decision info
+    case_res = await db.execute(select(InvestigationCase).where(InvestigationCase.claim_id == claim.id))
+    case_obj = case_res.scalar_one_or_none()
+    decision_info = None
+    if case_obj and case_obj.final_decision:
+        decision_info = {
+            "decision": case_obj.final_decision,
+            "rationale": case_obj.decision_rationale,
+            "approved_amount": claim.approved_amount
+        }
+
+    claim_data = {
+        "claim_number": claim.claim_number,
+        "status": claim.status,
+        "category": claim.category,
+        "claimed_amount": float(claim.claimed_amount) if claim.claimed_amount else 0.0,
+        "approved_amount": float(claim.approved_amount) if claim.approved_amount else None,
+        "vehicle_registration": claim.vehicle_registration,
+        "garage_name": claim.garage_name,
+        "incident_description": claim.incident_description,
+        "risk_score": claim.risk_score,
+        "risk_band": claim.risk_band
+    }
+
+    dossier_dir = os.path.join(settings.UPLOAD_DIR, "dossiers")
+    os.makedirs(dossier_dir, exist_ok=True)
+    dossier_path = os.path.join(dossier_dir, f"{claim.claim_number}_Investigation_Dossier.pdf")
+
+    CaseDossierService.generate_dossier_pdf(
+        claim_data=claim_data,
+        documents=docs_data,
+        findings=findings_data,
+        decision_info=decision_info,
+        output_path=dossier_path
+    )
+
+    return FileResponse(
+        dossier_path,
+        media_type="application/pdf",
+        filename=f"InsureGuard_Dossier_{claim.claim_number}.pdf"
+    )

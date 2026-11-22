@@ -220,6 +220,30 @@ The AI fraud detection engine, document forensics OCR pipeline, and backend serv
 - `.gitignore`
 
 ### Rollback
+`git revert HEAD`
+
+---
+
+## [Entry 13] — 2026-11-22 06:15 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Feature Progression — Investigation Dossier PDF Export & Verification  
+
+### Problem
+Investigators and compliance officers require an exportable, court-admissible Investigation Dossier PDF summarizing the claim profile, deterministic risk scoring (0-100), itemized evidence findings (WHY SUSPICIOUS?), document integrity SHA-256 hashes, syndicate ring graph detection notes, and human investigator audit determinations.
+
+### Fix
+1. **Dossier Generation Service**: Verified `app/services/reporting/dossier_service.py` using PyMuPDF (`fitz`), creating a two-page executive case summary with risk badges, itemized evidence observations, tamper detection matrices, network syndicate intelligence notes, and immutable audit sign-off fields.
+2. **FastAPI Dossier Endpoint**: Added `GET /api/v1/claims/{claim_id}/dossier` in `app/api/v1/claims.py` returning `FileResponse` with dynamically generated PDF filenames (`InsureGuard_Dossier_{claim_number}.pdf`).
+3. **Frontend Export Button**: Added an interactive "Export Dossier (PDF)" button in `InvestigatorDashboard.tsx` with blob download handler and loading states.
+4. **Verification**: Executed Vite production build (`npx vite build` passed in 25.11s with 0 errors) and validated Python AST compilation across modified endpoints.
+
+### Files Affected
+- `backend/app/api/v1/claims.py`
+- `backend/app/services/reporting/dossier_service.py`
+- `frontend/src/pages/investigator/InvestigatorDashboard.tsx`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
 `git revert HEAD` to return to commit `be188fc`.
 
 ---
@@ -249,6 +273,30 @@ The AI fraud detection engine, document forensics OCR pipeline, and backend serv
 - `frontend/src/pages/investigator/WhySuspiciousView.tsx`
 - `frontend/src/pages/customer/CustomerPortal.tsx`
 - `frontend/src/types/index.ts`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`
+
+---
+
+## [Entry 13] — 2026-11-22 06:15 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Feature Progression — Investigation Dossier PDF Export & Verification  
+
+### Problem
+Investigators and compliance officers require an exportable, court-admissible Investigation Dossier PDF summarizing the claim profile, deterministic risk scoring (0-100), itemized evidence findings (WHY SUSPICIOUS?), document integrity SHA-256 hashes, syndicate ring graph detection notes, and human investigator audit determinations.
+
+### Fix
+1. **Dossier Generation Service**: Verified `app/services/reporting/dossier_service.py` using PyMuPDF (`fitz`), creating a two-page executive case summary with risk badges, itemized evidence observations, tamper detection matrices, network syndicate intelligence notes, and immutable audit sign-off fields.
+2. **FastAPI Dossier Endpoint**: Added `GET /api/v1/claims/{claim_id}/dossier` in `app/api/v1/claims.py` returning `FileResponse` with dynamically generated PDF filenames (`InsureGuard_Dossier_{claim_number}.pdf`).
+3. **Frontend Export Button**: Added an interactive "Export Dossier (PDF)" button in `InvestigatorDashboard.tsx` with blob download handler and loading states.
+4. **Verification**: Executed Vite production build (`npx vite build` passed in 25.11s with 0 errors) and validated Python AST compilation across modified endpoints.
+
+### Files Affected
+- `backend/app/api/v1/claims.py`
+- `backend/app/services/reporting/dossier_service.py`
+- `frontend/src/pages/investigator/InvestigatorDashboard.tsx`
 - `docs/DEVELOPMENT_LOG.md`
 
 ### Rollback
