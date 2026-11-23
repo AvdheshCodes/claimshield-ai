@@ -578,3 +578,25 @@ During Render deployment of the backend web service, the build succeeded, but Uv
 
 ### Rollback
 `git revert HEAD`
+
+
+---
+
+## [Entry 22] — 2026-11-23 06:48 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Bug Fix & Cloud Deployment — Pydantic EmailStr Email-Validator Dependency on Render  
+
+### Problem
+During Render deployment, Uvicorn crashed with:
+`ImportError: email-validator is not installed, run pip install 'pydantic[email]'` when importing `app.schemas.user.UserBase` (which defines `email: EmailStr`).
+
+### Fix
+1. **Added Email-Validator Packages**: Added `pydantic[email]>=2.7.4` and `email-validator>=2.1.0` to `backend/requirements.txt`.
+2. **Verification**: Executed verification command importing `email_validator`, `greenlet`, `sqlalchemy.ext.asyncio`, and `app.main` — all resolved with exit code 0.
+
+### Files Affected
+- `backend/requirements.txt`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`
