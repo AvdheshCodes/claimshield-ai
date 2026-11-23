@@ -1,7 +1,12 @@
 import axios from 'axios';
 
+// Support explicit environment variable for remote backend (e.g. Render),
+// with fallback to relative '/api/v1' for reverse proxies or local dev.
+const envApiUrl = (import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || '').trim();
+const baseURL = envApiUrl ? `${envApiUrl.replace(/\/+$/, '')}/api/v1` : '/api/v1';
+
 const api = axios.create({
-  baseURL: '/api/v1',
+  baseURL,
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json'

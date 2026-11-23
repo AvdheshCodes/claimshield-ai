@@ -9,6 +9,24 @@ logger = logging.getLogger("insureguard.database")
 
 Base = declarative_base()
 
+def resolve_database_url(raw_url: str) -> str:
+    url = (raw_url or "").strip()
+    if not url:
+        return "sqlite+aiosqlite:///./insureguard.db"
+
+    # Standardize Heroku / Render postgres prefix to postgresql+asyncpg
+    if url.startswith("postgres://"):
+        url = url.replace("postgres://", "postgresql+asyncpg://", 1)
+    elif url.startswith("postgresql://") and not url.startswith("postgresql+asyncpg://"):
+        url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
+
+    # In local development, if pointing to localhost and FORCE_POSTGRES is not true, default to SQLite
+    is_localhost = "localhost" in url or "127.0.0.1" in url
+    if is_localhost and os.getenv("FORCE_POSTGRES") != "true":
+        return "sqlite+aiosqlite:///./insureguard.db"
+
+    return url
+
 def create_engine_for_url(db_url: str):
     if "sqlite" in db_url:
         return create_async_engine(
@@ -24,13 +42,7 @@ def create_engine_for_url(db_url: str):
         pool_pre_ping=True
     )
 
-# Primary engine: default to sqlite for standalone local dev unless postgres is explicitly set in env
-effective_url = settings.DATABASE_URL
-# In local development if PostgreSQL is default url on localhost, check if we should fallback to sqlite
-if "postgresql" in effective_url and os.getenv("FORCE_POSTGRES") != "true":
-    # Default to sqlite for local dev reliability unless docker is active
-    effective_url = "sqlite+aiosqlite:///./insureguard.db"
-
+effective_url = resolve_database_url(settings.DATABASE_URL)
 engine = create_engine_for_url(effective_url)
 
 AsyncSessionLocal = async_sessionmaker(

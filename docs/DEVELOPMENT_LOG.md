@@ -505,3 +505,53 @@ The frontend interface exhibited generic AI tropes (dark neon gradients, glowing
 
 ### Rollback
 `git revert HEAD`
+
+
+---
+
+## [Entry 20] — 2026-11-23 06:25 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Deployment Architecture — Production Vercel & Render Infrastructure Configuration  
+
+### Problem
+The project needed production deployment readiness for both the FastAPI backend (on Render) and the React/Vite frontend (on Vercel), with dynamic remote API routing, CORS compliance, SPA rewrite rules, and automated cloud blueprints.
+
+### Fix
+1. **Dynamic Remote Backend Connection (`frontend/src/services/api.ts`)**:
+   - Added environment variable resolution (`VITE_API_URL` / `VITE_API_BASE_URL`) with fallback to relative `/api/v1`.
+   - Created `frontend/src/vite-env.d.ts` defining `ImportMetaEnv` for clean TypeScript compilation.
+2. **Vercel SPA Deployment Configurations**:
+   - Created `frontend/vercel.json` and root `vercel.json` with SPA wildcard rewrite rules (`/(.*)` -> `/index.html`) preventing 404s on browser reloads of `/investigator`, `/customer`, and `/login`.
+   - Added asset caching headers for `/assets/*` with `max-age=31536000, immutable`.
+   - Provided `frontend/.env.production.example`.
+3. **Render Backend Blueprint & Containerization**:
+   - Created `render.yaml` defining an Infrastructure-as-Code Blueprint with Python 3.11.9 runtime, pip dependency install, uvicorn execution on `$PORT`, and health check probe at `/api/health`.
+   - Created `backend/Dockerfile` with Python 3.11-slim, PyMuPDF, libpq-dev, and uvicorn.
+   - Added `backend/runtime.txt` and `backend/.python-version` locking Python version to `3.11.9`.
+   - Removed obsolete `passlib[bcrypt]` from `backend/requirements.txt`.
+   - Enhanced `database.py` to auto-normalize Render PostgreSQL URLs (`postgres://` -> `postgresql+asyncpg://`) while gracefully maintaining SQLite fallback.
+   - Updated FastAPI CORS middleware in `main.py` with `allow_origin_regex=r"https?://.*"` for seamless cross-origin API calls from Vercel.
+4. **Documentation**:
+   - Authored comprehensive guide in `docs/DEPLOYMENT_GUIDE.md` with step-by-step instructions for 1-click Blueprint and manual Web Service setup.
+5. **Build & Validation**:
+   - `tsc && vite build` compiled with 0 errors across 1,645 modules in 21s.
+
+### Files Affected
+- `render.yaml` — **NEW**
+- `vercel.json` — **NEW**
+- `frontend/vercel.json` — **NEW**
+- `frontend/src/vite-env.d.ts` — **NEW**
+- `frontend/.env.production.example` — **NEW**
+- `frontend/src/services/api.ts`
+- `backend/Dockerfile` — **NEW**
+- `backend/runtime.txt` — **NEW**
+- `backend/.python-version` — **NEW**
+- `backend/.env.production.example` — **NEW**
+- `backend/requirements.txt`
+- `backend/app/core/database.py`
+- `backend/app/main.py`
+- `docs/DEPLOYMENT_GUIDE.md` — **NEW**
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`
