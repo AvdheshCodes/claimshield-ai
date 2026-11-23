@@ -555,3 +555,26 @@ The project needed production deployment readiness for both the FastAPI backend 
 
 ### Rollback
 `git revert HEAD`
+
+
+---
+
+## [Entry 21] — 2026-11-23 06:45 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Bug Fix & Cloud Deployment — SQLAlchemy AsyncIO Greenlet Dependency on Render  
+
+### Problem
+During Render deployment of the backend web service, the build succeeded, but Uvicorn failed at startup with:
+`ImportError: The SQLAlchemy asyncio module requires that the Python 'greenlet' library is installed. In order to ensure this dependency is available, use the 'sqlalchemy[asyncio]' install target: 'pip install sqlalchemy[asyncio]'`.
+
+### Fix
+1. **Explicit AsyncIO & Greenlet Target**: Added `sqlalchemy[asyncio]>=2.0.31` and explicit `greenlet>=3.0.3` to `backend/requirements.txt`.
+2. **Pinned Compatible Generative AI Version**: Updated `google-generativeai>=0.8.0` to eliminate pip dependency resolution backtracking during Render builds.
+3. **Verification**: Verified import of `app.main` in Python (`Successfully imported app.main!`).
+
+### Files Affected
+- `backend/requirements.txt`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`
