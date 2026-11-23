@@ -1,0 +1,24 @@
+================================================================================
+                    METRO SPEED AUTO GARAGE & WORKSHOP
+                        REPAIR TAX INVOICE
+================================================================================
+
+Invoice Number: INV-REPAIR-999
+Invoice Date: 28/10/2024
+Customer: Priya Verma
+
+Vehicle Registration No: DL05MN9999
+[NOTE: This registration DL05MN9999 does not match the policy or claim registration DL05MN5678]
+
+Description of Repair Work:
+  1. Rear boot door panel replacement
+  2. Rear bumper denting and painting
+  3. Tail lamp assembly replacement
+
+Labor Charges: Rs. 15,000
+Parts Cost: Rs. 45,000
+--------------------------------------------------------------------------------
+Total Amount: Rs. 60000
+--------------------------------------------------------------------------------
+[NOTE: Total invoice is Rs. 60,000 whereas claim form requested Rs. 95,000]
+================================================================================

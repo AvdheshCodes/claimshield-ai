@@ -18,19 +18,22 @@
 
 | Task | Owner | Status | Notes |
 |------|-------|--------|-------|
-| GitHub repository created | Avdhesh | IN PROGRESS | Manual creation needed (token scope) |
+| GitHub repository created | Avdhesh | COMPLETED | Live at github.com/AvdheshCodes/claimshield-ai |
 | Folder structure | Avdhesh | COMPLETED | All dirs created |
 | README.md | Avdhesh | COMPLETED | |
 | .gitignore | Avdhesh | COMPLETED | |
 | .env.example | Avdhesh | COMPLETED | |
 | docs/PROJECT_STATUS.md | Avdhesh | COMPLETED | |
-| Backend package.json + scaffold | Avdhesh | NOT STARTED | |
-| Frontend package.json + Vite | Ayush | NOT STARTED | |
-| MongoDB connection | Avdhesh | NOT STARTED | |
-| Mongoose schemas | Avdhesh | NOT STARTED | |
-| API contracts document | Avdhesh | NOT STARTED | |
-| GitHub issues created | Avdhesh | NOT STARTED | |
-| Synthetic test documents | Manaswi | NOT STARTED | |
+| Backend package.json + scaffold | Avdhesh | COMPLETED | All 5 models, 4 controllers, 4 routes |
+| Frontend package.json + Vite | Ayush | COMPLETED | React 18, Tailwind CSS, Recharts |
+| MongoDB connection | Avdhesh | COMPLETED | Mongoose config ready |
+| Mongoose schemas | Avdhesh | COMPLETED | User, Claim, Document, RiskAssessment, InvReport, AuditLog |
+| API contracts document | Avdhesh | COMPLETED | docs/architecture/API_CONTRACTS.md |
+| Architecture document | Avdhesh | COMPLETED | docs/architecture/ARCHITECTURE.md |
+| Team contribution matrix | Avdhesh | COMPLETED | docs/TEAM_CONTRIBUTIONS.md |
+| GitHub issues created | Avdhesh | COMPLETED | docs/GITHUB_ISSUES.md (12 issues) |
+| Synthetic test documents | Manaswi | COMPLETED | sample-data/claims/ & sample-data/documents/ |
+| Scenario verification script | Manaswi | TESTED | sample-data/verify_scenarios.js (All 3 scenarios PASSED) |
 
 ---
 

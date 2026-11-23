@@ -1,0 +1,72 @@
+{
+  "scenario": "Scenario B — Suspicious Claim (Enhanced Review / High Priority)",
+  "expectedOutcome": {
+    "scoreRange": "75 - 100",
+    "riskCategory": "high_priority",
+    "expectedFlagsCount": 4,
+    "triggeredRuleIds": [
+      "DUPLICATE_INVOICE",
+      "VEHICLE_MISMATCH",
+      "DATE_CONFLICT",
+      "AMOUNT_ANOMALY"
+    ],
+    "recommendedStatus": "investigation"
+  },
+  "claim": {
+    "claimantName": "Priya Verma",
+    "policyNumber": "POL-2024-SUSP-002",
+    "vehicleRegistration": "DL05MN5678",
+    "accidentDate": "2024-10-20T00:00:00.000Z",
+    "accidentDescription": "Rear-end collision at city intersection resulting in boot and suspension damage.",
+    "claimedAmount": 95000,
+    "contactPhone": "9876500001",
+    "contactEmail": "priya@demo.com"
+  },
+  "documents": [
+    {
+      "documentType": "policy",
+      "fileName": "Policy_Schedule_POL-2024-SUSP-002.txt",
+      "fields": {
+        "policyNumber": "POL-2024-SUSP-002",
+        "policyholderName": "Priya Verma",
+        "vehicleRegistration": "DL05MN5678",
+        "insurerName": "Apex Motor Insurance Ltd",
+        "policyStartDate": "01/03/2024",
+        "policyEndDate": "28/02/2025"
+      }
+    },
+    {
+      "documentType": "claim_form",
+      "fileName": "Claim_Form_CS-2026-00002.txt",
+      "fields": {
+        "claimNumber": "CS-2026-00002",
+        "policyNumber": "POL-2024-SUSP-002",
+        "policyholderName": "Priya Verma",
+        "vehicleRegistration": "DL05MN5678",
+        "accidentDate": "20/10/2024"
+      }
+    },
+    {
+      "documentType": "repair_invoice",
+      "fileName": "Invoice_Recycled_INV-REPAIR-999.txt",
+      "notes": "MISMATCH: Invoice shows vehicle DL05MN9999 and amount 60,000. Recycled invoice number.",
+      "fields": {
+        "invoiceNumber": "INV-REPAIR-999",
+        "invoiceAmount": 60000,
+        "invoiceDate": "28/10/2024",
+        "vehicleRegistration": "DL05MN9999",
+        "repairDescription": "Boot panel replacement, rear axle inspection, chassis alignment."
+      }
+    },
+    {
+      "documentType": "accident_report",
+      "fileName": "Accident_Report_Contradictory_Date.txt",
+      "notes": "MISMATCH: Date of accident reported as 25/10/2024 instead of 20/10/2024.",
+      "fields": {
+        "accidentDate": "25/10/2024",
+        "vehicleRegistration": "DL05MN5678",
+        "policyholderName": "Priya Verma"
+      }
+    }
+  ]
+}

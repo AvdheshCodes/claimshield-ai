@@ -64,3 +64,11 @@ __pycache__/
 *.egg-info/
 venv/
 .venv/
+
+# Python & SQLite
+backend/.venv/
+.venv/
+venv/
+*.db
+backend/insureguard.db
+backend/uploads/

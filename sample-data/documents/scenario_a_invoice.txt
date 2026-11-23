@@ -1,0 +1,25 @@
+================================================================================
+                    AUTOFIX SERVICE CENTRE & BODYSHOP
+                        REPAIR TAX INVOICE
+================================================================================
+
+Invoice Number: INV-REPAIR-001
+Invoice Date: 18/10/2024
+Customer Name: Rahul Sharma
+Vehicle Registration No: MH12AB1234
+Policy Reference: POL-2024-NORMAL-001
+
+Description of Repair Work:
+  1. Front bumper replacement and paint matching
+  2. Right-side headlamp assembly renewal
+  3. Front grille alignment and bracket adjustment
+  4. Wheel alignment and suspension health check
+
+Labor Charges: Rs. 12,000
+Parts & Materials: Rs. 33,000
+--------------------------------------------------------------------------------
+Total Amount: Rs. 45000
+--------------------------------------------------------------------------------
+Payment Status: Pending Insurance Settlement
+Authorized Workshop Signatory: AutoFix Bodyshop Manager
+================================================================================

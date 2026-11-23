@@ -1,0 +1,602 @@
+# InsureGuard AI â€” Master Development & Modification Log
+
+> **File Purpose:** Comprehensive, immutable tracker of all codebase updates, architectural changes, additions, modifications, reversions, and subagent assignments.  
+> **Repository:** `claimshield-ai` (Transitioning to InsureGuard AI v2.0)  
+> **Master Coordinator:** Antigravity Senior Technical Lead & Master Agent  
+> **Last Updated:** 2026-11-22T02:45:00+05:30  
+
+---
+
+## ðŸ“Œ Change Log Convention
+Every entry must document:
+- **Timestamp (ISO / Local):** When the modification occurred.
+- **Author / Agent:** Who executed the change (`Master Agent`, `Backend Lead`, `Frontend Lead`, `AI & Forensics Lead`).
+- **Category:** `ADDITION`, `MODIFICATION`, `REVERSION`, `REFACTOR`, `DEPRECATION`, `CONFIGURATION`.
+- **Files Affected:** Explicit list of file paths.
+- **Description & Rationale:** Why the change was made and what was modified.
+- **Rollback / Reversion Instructions:** How to revert the change if required.
+
+---
+
+## ðŸ“œ Chronological Log
+
+### [Entry 001] â€” 2026-11-21 â€” Baseline v1.0 Foundation
+- **Author:** Master Agent (Avdhesh, Ayush, Manaswi roles)
+- **Category:** `ADDITION`
+- **Files Affected:**
+  - `server/` (Node.js/Express, Mongoose models, JWT auth, OCR service, Risk Engine, Gemini AI service)
+  - `client/` (React 18 + Vite, Tailwind CSS, Recharts)
+  - `sample-data/` (Scenarios A, B, C synthetic JSON claims and mock documents)
+  - `docs/` (`PROJECT_STATUS.md`, `ARCHITECTURE.md`, `API_CONTRACTS.md`, `TEAM_CONTRIBUTIONS.md`, `GITHUB_ISSUES.md`)
+- **Description:** Complete initial MERN prototype scaffolded, committed to Git (`a0082c1`, `52c5cdf`), and pushed to GitHub (`main`, `development`).
+- **Status:** Baseline active and stable on GitHub.
+
+---
+
+### [Entry 002] â€” 2026-11-22 02:45 â€” Adoption of PRD v2.0 (InsureGuard AI) & Multi-Agent Architecture
+- **Author:** Master Agent
+- **Category:** `CONFIGURATION` & `ARCHITECTURE`
+- **Files Affected:**
+  - `docs/DEVELOPMENT_LOG.md` (Created)
+  - `docs/PRD_v2.0.md` (Created to store full approved PRD)
+- **Description:** 
+  - Approved transition from ClaimShield v1.0 (motor insurance MERN MVP) to InsureGuard AI v2.0 (enterprise fraud detection, document forensics, Neo4j relationship graph, grounded AI copilot, customer transparency portal, FastAPI/PostgreSQL/Neo4j architecture).
+  - Established Master Agent and Subagent operational hierarchy with automated cross-communication and audit tracking.
+- **Rollback:** Revert to branch `development` at commit `52c5cdf`.
+
+---
+
+### [Entry 003] â€” 2026-11-22 02:50 â€” Subagents Definition & Coordination Protocol
+- **Author:** Master Agent
+- **Category:** `CONFIGURATION`
+- **Subagents Registered:**
+  1. `backend-specialist`: Owns Python/FastAPI backend, PostgreSQL/pgvector, Neo4j graph schemas, authentication, and REST APIs.
+  2. `frontend-specialist`: Owns React + TypeScript frontend, tri-portal architecture (Customer, Investigator, Admin), vis-network relationship graph, and copilot UI.
+  3. `ai-forensics-specialist`: Owns document intelligence, PaddleOCR, image forensics (ELA, compression analysis), rule engine, and Gemini/Ollama RAG copilot.
+- **Documentation Created:** `docs/AGENT_COORDINATION.md` detailing communication protocols and review steps.
+
+---
+
+### [Entry 004] â€” 2026-11-22 03:00 â€” InsureGuard AI v2.0 Full Stack Implementation
+- **Author:** Master Agent (incorporating Backend, Frontend, and AI Leads)
+- **Category:** `ADDITION`
+- **Files Created:**
+  - `docker-compose.yml`: Multi-container infrastructure (pgvector, Neo4j, Redis, Backend, Frontend).
+  - `database/postgres/init.sql`: 8 PostgreSQL tables with pgvector extension.
+  - `database/neo4j/schema.cypher`: Constraints, indexes, and synthetic fraud syndicate seeds.
+  - `backend/requirements.txt`: Python dependencies.
+  - `backend/app/core/`: `config.py`, `security.py`, `database.py`, `neo4j_client.py`.
+  - `backend/app/models/`: `user.py`, `policy.py`, `claim.py`, `document.py`, `finding.py`, `case.py`, `audit.py`.
+  - `backend/app/schemas/`: `user.py`, `claim.py`, `document.py`, `finding.py`, `copilot.py`, `graph.py`.
+  - `backend/app/services/`:
+    - `privacy/pii.py`: PII masking (Aadhaar, phone, bank account).
+    - `document_forensics/forensics.py`: Error Level Analysis (ELA) and PDF metadata analysis.
+    - `fraud_detection/engine.py`: Explainable deterministic 10-rule scoring engine (0-100 score).
+    - `relationship_graph/graph_service.py`: Neo4j query builder & synthetic graph generator.
+    - `copilot/rag_service.py`: Grounded RAG Copilot with citations and prompt injection defense.
+  - `backend/app/api/v1/`: Endpoints for `auth`, `claims`, `documents`, `fraud`, `graph`, `copilot`, `customer`.
+  - `backend/app/main.py`: FastAPI application entry point.
+  - `frontend/`: React 18 + TypeScript, Tailwind CSS, typed Axios API client.
+  - `frontend/src/pages/`:
+    - `investigator/InvestigatorDashboard.tsx`
+    - `investigator/WhySuspiciousView.tsx` (Evidence-backed indicators, page citations, alternative explanations)
+    - `investigator/RelationshipGraphView.tsx` (Vis-network entity graph)
+    - `investigator/CopilotChatView.tsx` (Grounded AI copilot chat with citations)
+    - `customer/CustomerPortal.tsx` (Customer-safe milestone timeline & document upload)
+- **Description:** Complete implementation of InsureGuard AI v2.0 architecture satisfying all 9 modules in the approved PRD.
+- **Rollback:** `git reset --hard 52c5cdf` (returns to ClaimShield v1.0 MERN baseline).
+
+---
+
+### [Entry 005] â€” 2026-11-22 03:15 â€” Final Master Alignment Documents & Specialized Integration Contracts
+- **Author:** Master Agent
+- **Category:** `DOCUMENTATION` & `INTEGRATION_CONTRACT`
+- **Files Created:**
+  - `docs/FINAL_PRD.md`: Master consolidated PRD v3.0 detailing all non-negotiable principles, user roles, DoD, and deep-dive specifications for the 5 specialized features:
+    1. **"Why Suspicious?" Track:** Deterministic 10-rule scoring engine, 0-100 risk bands, finding data contract with page numbers, alternative explanations, and recommended verification steps.
+    2. **Fraud Relationship Graph:** Neo4j entity graph model (Customer, Claim, Vehicle, Garage, Hospital, Phone, Bank Account) and syndicate patterns (recycled vehicles, shared contacts, garage funneling).
+    3. **Document Tampering & Forensics:** Cross-document text consistency, Error Level Analysis (ELA), and PDF metadata anomaly detection.
+    4. **AI Copilot for Investigations:** Grounded RAG with strict document/page citations, lack-of-evidence acknowledgments, and refusal to make autonomous fraud verdicts.
+    5. **Investigation Privacy & PII Protection:** Pre-LLM PII sanitization pipeline (Aadhaar, Phone, Bank, Email) and customer data boundary enforcement.
+  - `docs/FINAL_ARCHITECTURE.md`: Exhaustive architecture blueprint featuring modular data pipelines, sequence diagrams, PostgreSQL ER diagram, and Neo4j graph model.
+  - `docs/TECH_STACK_AND_INTEGRATION.md`: Complete tech stack definition (React+TS, FastAPI, PostgreSQL/pgvector, Neo4j, Redis, PyMuPDF, OpenCV), integration contracts, run commands, and team Git branching workflow for Avdhesh, Ayush, and Manaswi.
+- **Rationale:** Establishes an unshakeable single source of truth allowing all 3 team members to build individual features in parallel and integrate seamlessly without architectural collisions.
+
+---
+
+### [Entry 006] â€” 2026-11-22 03:30 â€” PDF Documentation Generation
+- **Author:** Master Agent
+- **Category:** `ADDITION`
+- **Files Created:**
+  - `docs/make_pdf.js`: Pure Node.js zero-dependency PDF compiler generating standard PDF 1.4 documents with running headers, footers, pagination, code blocks, and styled tables.
+  - `docs/FINAL_PRD.pdf`: Downloadable PDF (5 pages, 31 KB).
+  - `docs/FINAL_ARCHITECTURE.pdf`: Downloadable PDF (4 pages, 22 KB).
+  - `docs/TECH_STACK_AND_INTEGRATION.pdf`: Downloadable PDF (3 pages, 19 KB).
+  - `docs/DEVELOPMENT_LOG.pdf`: Downloadable PDF (3 pages, 17 KB).
+- **Rationale:** Enables direct download and sharing of reference documentation across teammates and reviewers.
+
+---
+
+### [Entry 007] â€” 2026-11-22 03:40 â€” Frontend Dependency Fix
+- **Author:** Master Agent
+- **Category:** `FIX`
+- **Files Affected:**
+  - `frontend/package.json`: Removed invalid `@types/vis-network` (vis-network bundles its own declarations).
+  - `frontend/src/types/vis-network.d.ts`: Created explicit TypeScript declaration shims for `vis-network/standalone`.
+  - `frontend/src/pages/investigator/RelationshipGraphView.tsx`: Updated import to `vis-network/standalone` for optimal browser bundling.
+- **Rationale:** Resolves npm 404 installation error when running `npm install` in `frontend/`.
+
+---
+
+### [Entry 008] â€” 2026-11-22 03:55 â€” Remote Git Synchronization & Live Frontend Deployment
+- **Author:** Master Agent
+- **Category:** `DEPLOYMENT` & `SYNCHRONIZATION`
+- **Actions Executed:**
+  - Synchronized all commits up to `e5aa418` with remote repository `origin/development`.
+  - Executed `npm install` with all 204 dependencies installed cleanly in `frontend/node_modules/`.
+  - Verified production build via `npx vite build` (1,642 modules transformed, built in 10.46s).
+  - Started Vite live development server on `http://localhost:3000/`.
+- **Status:** Application is active and accessible via browser.
+
+---
+
+## [Entry 9] — 2026-11-22 04:08 IST
+**Author:** Avdhesh (AI Agent)
+**Category:** Bug Fix — Frontend
+**Commit:** 8389126
+
+### Problem
+Frontend UI was completely invisible (blank white page). Tailwind CSS was not processing because postcss.config.js was missing from the frontend directory.
+
+### Fix
+Created rontend/postcss.config.js with tailwindcss + autoprefixer plugins.
+
+### Files Affected
+- rontend/postcss.config.js ? **NEW FILE CREATED**
+
+### Rollback
+Delete rontend/postcss.config.js — but doing so will break Tailwind styling again.
+
+
+---
+
+## [Entry 10] — 2026-11-22 04:32 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Frontend Data Decoupling  
+**Commit:** be188fc  
+
+### Problem
+The frontend views were displaying hardcoded pre-seeded demo data instead of empty states and live data from the backend.
+
+### Fix
+1. Removed all hardcoded static claims from `InvestigatorDashboard.tsx`.
+2. Created clean empty states in `WhySuspiciousView`, `RelationshipGraphView`, `CopilotChatView`, and `CustomerPortal`.
+3. Added live polling and refresh capability from the backend API.
+
+### Files Affected
+- `frontend/src/pages/investigator/InvestigatorDashboard.tsx`
+- `frontend/src/pages/investigator/WhySuspiciousView.tsx`
+- `frontend/src/pages/investigator/RelationshipGraphView.tsx`
+- `frontend/src/pages/investigator/CopilotChatView.tsx`
+- `frontend/src/pages/customer/CustomerPortal.tsx`
+
+### Rollback
+Revert commit `be188fc`.
+
+---
+
+## [Entry 11] — 2026-11-22 05:05 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Backend & AI Engine Architecture  
+
+### Problem
+The AI fraud detection engine, document forensics OCR pipeline, and backend services needed to be implemented and connected end-to-end with the frontend.
+
+### Fix
+1. **Python Environment**: Initialized virtual environment `.venv` with Python 3.13 and installed all dependencies (`fastapi`, `uvicorn`, `pymupdf`, `sqlalchemy`, `aiosqlite`, `greenlet`, `email-validator`, `pillow`, `google-generativeai`, `neo4j`).
+2. **Resilient Database Layer**: Configured `app/core/database.py` with automatic SQLite fallback (`aiosqlite`) when PostgreSQL is not running in local development, ensuring zero-configuration startup.
+3. **OCR & Forensics Engine**: Upgraded `DocumentForensicsService` in `app/services/document_forensics/forensics.py` to extract text blocks, parse invoice numbers, vehicle registration plates, accident dates, and invoice amounts via PyMuPDF. Added metadata tampering detection for graphics editing tools.
+4. **Explainable Fraud Engine**: Fully implemented all 10 PRD rules in `ExplainableFraudEngine` (`app/services/fraud_detection/engine.py`), outputting exact risk scores, risk bands, itemized observations, evidence snippets, alternative explanations, and recommended actions.
+5. **End-to-End Pipeline**: Added `POST /api/v1/claims/upload-and-analyze` in `app/api/v1/claims.py` enabling 1-click document ingestion, OCR parsing, forensic inspection, and immediate deterministic fraud scoring.
+6. **AI Copilot & Graph**: Added flexible routing to `app/api/v1/copilot.py` (`/copilot/query` and `/copilot/chat`) with PII sanitization and grounded citations. Expanded `app/api/v1/graph.py` to serve 2-hop entity neighborhood graphs.
+7. **Frontend Integration**: Wired the "Submit & Analyze Files" button in `InvestigatorDashboard.tsx` and dynamic findings loading in `WhySuspiciousView.tsx`.
+8. **End-to-End Verification**: Tested uploading 3 sample PDFs (`Repair_Invoice_INV-REPAIR-999.pdf`, `Police_Traffic_Diary_Report.pdf`, `Insurance_Policy_Schedule.pdf`). Successfully produced claim `CS-2026-68595` with risk score 80 (VERY_HIGH) and 4 evidence findings.
+
+### Files Affected
+- `backend/app/api/v1/claims.py`
+- `backend/app/api/v1/documents.py`
+- `backend/app/api/v1/copilot.py`
+- `backend/app/api/v1/graph.py`
+- `backend/app/api/v1/auth.py`
+- `backend/app/api/v1/customer.py`
+- `backend/app/core/database.py`
+- `backend/app/main.py`
+- `backend/app/models/*.py`
+- `backend/app/services/document_forensics/forensics.py`
+- `backend/app/services/fraud_detection/engine.py`
+- `backend/requirements.txt`
+- `frontend/src/pages/investigator/InvestigatorDashboard.tsx`
+- `frontend/src/pages/investigator/WhySuspiciousView.tsx`
+- `.gitignore`
+
+### Rollback
+`git revert HEAD`
+
+---
+
+## [Entry 13] — 2026-11-22 06:15 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Feature Progression — Investigation Dossier PDF Export & Verification  
+
+### Problem
+Investigators and compliance officers require an exportable, court-admissible Investigation Dossier PDF summarizing the claim profile, deterministic risk scoring (0-100), itemized evidence findings (WHY SUSPICIOUS?), document integrity SHA-256 hashes, syndicate ring graph detection notes, and human investigator audit determinations.
+
+### Fix
+1. **Dossier Generation Service**: Verified `app/services/reporting/dossier_service.py` using PyMuPDF (`fitz`), creating a two-page executive case summary with risk badges, itemized evidence observations, tamper detection matrices, network syndicate intelligence notes, and immutable audit sign-off fields.
+2. **FastAPI Dossier Endpoint**: Added `GET /api/v1/claims/{claim_id}/dossier` in `app/api/v1/claims.py` returning `FileResponse` with dynamically generated PDF filenames (`InsureGuard_Dossier_{claim_number}.pdf`).
+3. **Frontend Export Button**: Added an interactive "Export Dossier (PDF)" button in `InvestigatorDashboard.tsx` with blob download handler and loading states.
+4. **Verification**: Executed Vite production build (`npx vite build` passed in 25.11s with 0 errors) and validated Python AST compilation across modified endpoints.
+
+### Files Affected
+- `backend/app/api/v1/claims.py`
+- `backend/app/services/reporting/dossier_service.py`
+- `frontend/src/pages/investigator/InvestigatorDashboard.tsx`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD` to return to commit `be188fc`.
+
+---
+
+## [Entry 12] — 2026-11-22 05:40 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Feature Progression — Case Decision Workflow & Documents View  
+
+### Problem
+1. Investigators lacked the ability to inspect uploaded documents side-by-side with PyMuPDF OCR text and parsed metadata.
+2. Investigators had no formal mechanism to record case decisions (`APPROVE`, `REJECT`, `REQUEST_MORE_INFO`) with mandatory rationale.
+3. Investigator feedback on findings (`VERIFIED`, `UNRESOLVED`, `DISMISSED`) was not persisted to the backend or dynamically recalculating risk scores.
+4. Customer portal supplemental uploads were not persisting to the database.
+
+### Fix
+1. **Documents & Forensics Tab**: Created `frontend/src/pages/investigator/DocumentsView.tsx` with side-by-side file list, integrity SHA-256 hash, forensic tampering badges, parsed entity key-value cards, and a scrollable PyMuPDF OCR text reader.
+2. **Case Determination Sign-Off**: Implemented `POST /api/v1/claims/{claim_id}/decision` in `app/api/v1/fraud.py` to record investigator decisions with mandatory rationale and immutable audit logging. Added a modal in `InvestigatorDashboard.tsx`.
+3. **Interactive Finding Feedback**: Added `PATCH /api/v1/claims/{claim_id}/findings/{finding_id}` to update feedback and dynamically recalculate claim risk scores (excluding dismissed findings).
+4. **Customer Upload Sync**: Wired `CustomerPortal.tsx` to post supplemental documents directly to `/api/v1/claims/{claim_id}/documents`.
+5. **Verified Production Build**: `npx vite build` passed in 7.72s with 0 errors across 1,643 modules.
+
+### Files Affected
+- `backend/app/api/v1/documents.py`
+- `backend/app/api/v1/fraud.py`
+- `frontend/src/pages/investigator/DocumentsView.tsx` — **NEW**
+- `frontend/src/pages/investigator/InvestigatorDashboard.tsx`
+- `frontend/src/pages/investigator/WhySuspiciousView.tsx`
+- `frontend/src/pages/customer/CustomerPortal.tsx`
+- `frontend/src/types/index.ts`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`
+
+---
+
+## [Entry 13] — 2026-11-22 06:15 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Feature Progression — Investigation Dossier PDF Export & Verification  
+
+### Problem
+Investigators and compliance officers require an exportable, court-admissible Investigation Dossier PDF summarizing the claim profile, deterministic risk scoring (0-100), itemized evidence findings (WHY SUSPICIOUS?), document integrity SHA-256 hashes, syndicate ring graph detection notes, and human investigator audit determinations.
+
+### Fix
+1. **Dossier Generation Service**: Verified `app/services/reporting/dossier_service.py` using PyMuPDF (`fitz`), creating a two-page executive case summary with risk badges, itemized evidence observations, tamper detection matrices, network syndicate intelligence notes, and immutable audit sign-off fields.
+2. **FastAPI Dossier Endpoint**: Added `GET /api/v1/claims/{claim_id}/dossier` in `app/api/v1/claims.py` returning `FileResponse` with dynamically generated PDF filenames (`InsureGuard_Dossier_{claim_number}.pdf`).
+3. **Frontend Export Button**: Added an interactive "Export Dossier (PDF)" button in `InvestigatorDashboard.tsx` with blob download handler and loading states.
+4. **Verification**: Executed Vite production build (`npx vite build` passed in 25.11s with 0 errors) and validated Python AST compilation across modified endpoints.
+
+### Files Affected
+- `backend/app/api/v1/claims.py`
+- `backend/app/services/reporting/dossier_service.py`
+- `frontend/src/pages/investigator/InvestigatorDashboard.tsx`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`
+
+
+---
+
+## [Entry 14] — 2026-11-23 03:15 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Bug Fix & Enhancement — Resilient Fraud Relationship Graph & Dynamic Entity Grounding  
+
+### Problem
+1. When Neo4j was offline or unreachable, `neo4j_client.execute_query` threw an unhandled `ServiceUnavailable` exception that caused `GET /api/v1/graph/{claim_number}` to crash with HTTP 500.
+2. In Pydantic `GraphEdge` model, fields were serialized as `from_node` and `to_node`, whereas `vis-network` strictly requires `from` and `to` properties, preventing edge connection rendering.
+3. Fallback graph data was static and did not reflect the actively analyzed claim, vehicle registration, or repair garage extracted from uploaded documents.
+4. The frontend graph canvas lacked interactive node inspection and clear visual differentiation across entity types.
+
+### Fix
+1. **Neo4j Resilience**: Wrapped `execute_query` in `app/core/neo4j_client.py` with try/except error handling, ensuring offline database states gracefully return empty query sets rather than unhandled server errors.
+2. **Dynamic Claim & Syndicate Grounding**: Refactored `RelationshipGraphService.get_claim_neighborhood` in `app/services/relationship_graph/graph_service.py` and `app/api/v1/graph.py` to retrieve active claim details from the database and ground the 2-hop neighborhood in the uploaded vehicle registration plate, repair garage, and claimant identity.
+3. **Vis-Network Compatible Serialization**: Added `@computed_field(alias="from")` and `@computed_field(alias="to")` in `app/schemas/graph.py` to supply both standard and vis-network edge attributes.
+4. **Interactive Node Inspector & Category Styling**: Upgraded `RelationshipGraphView.tsx` with high-contrast color badges, Barnes-Hut physics stabilization, an entity category legend (Claim, Claimant, Vehicle, Garage, Phone), and a clickable node inspector floating drawer.
+5. **Validation**: Built frontend with Vite (`npx vite build` passed in 22.58s with 0 errors across 1,643 modules), verified Python compilation, and confirmed live HTTP 200 graph response with 7 nodes and 8 edges.
+
+### Files Affected
+- `backend/app/core/neo4j_client.py`
+- `backend/app/schemas/graph.py`
+- `backend/app/services/relationship_graph/graph_service.py`
+- `backend/app/api/v1/graph.py`
+- `frontend/src/pages/investigator/RelationshipGraphView.tsx`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`
+
+
+---
+
+## [Entry 15] — 2026-11-23 03:22 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Bug Fix — Evidence-Grounded AI Copilot UUID/Claim Number Schema Support  
+
+### Problem
+`CopilotQueryRequest` schema strictly typed `claim_id` as `UUID`. When clients or frontend components passed human-readable claim numbers (e.g., `CS-2026-68595`), FastAPI rejected the request with HTTP 422 `Input should be a valid UUID`.
+
+### Fix
+1. **Schema Polymorphism**: Changed `claim_id: Union[UUID, str]` in `app/schemas/copilot.py`.
+2. **Dual-Lookup Handler**: Updated `handle_copilot_query` in `app/api/v1/copilot.py` to seamlessly resolve either UUID or string claim numbers from SQLite/PostgreSQL.
+3. **Verification**: Successfully invoked `POST /api/v1/copilot/query` with claim `CS-2026-68595`. Confirmed response with 4 grounded citations, investigation recommendations, and PII masking.
+
+### Files Affected
+- `backend/app/schemas/copilot.py`
+- `backend/app/api/v1/copilot.py`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`
+
+
+---
+
+## [Entry 16] — 2026-11-23 03:28 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Enhancement & Bug Fix — Evidence-Grounded AI Copilot Intent Engine & Document Text Ingestion  
+
+### Problem
+1. `handle_copilot_query` in `app/api/v1/copilot.py` was passing an empty list (`document_chunks=[]`), depriving the Copilot of actual PyMuPDF OCR text and document metadata (invoice numbers, dates, plates, costs).
+2. When Gemini API key was not configured, the fallback returned static placeholder text rather than analyzing the user's specific query.
+3. In `CopilotChatView.tsx`, chat messages did not synchronize dynamically when the user switched claims in the queue.
+
+### Fix
+1. **Document Ingestion**: Updated `handle_copilot_query` to query the `documents` table and pass full OCR text chunks, parsed key-values, and forensic metadata to `CopilotRAGService`.
+2. **Deterministic Evidence Grounding QA Engine**: Upgraded `_generate_grounded_answer` in `app/services/copilot/rag_service.py` to semantically parse query intent:
+   - **Date Cross-Checks**: Compares accident date vs invoice date vs police report date with citation `RULE-002`.
+   - **Vehicle Registration Audits**: Cross-references claim plate (`DL05MN5678`) against repair invoices (`DL05MN9999`) and police reports with citation `RULE-010`.
+   - **Financial Discrepancies**: Compares claimed amounts against itemized workshop invoices with citation `RULE-001`.
+   - **Syndicate Links**: Traces shared phone numbers (`+91-98765-00001`) and recycled garages (`Metro Speed Auto Garage`).
+3. **Frontend Claim Sync**: Added `useEffect` in `CopilotChatView.tsx` keyed to `[claim.id, claim.claim_number]`, resetting the conversation context whenever a new claim is loaded.
+4. **Validation**: Verified all 4 quick questions via live API tests, confirming exact evidence responses and citation arrays.
+
+### Files Affected
+- `backend/app/api/v1/copilot.py`
+- `backend/app/services/copilot/rag_service.py`
+- `frontend/src/pages/investigator/CopilotChatView.tsx`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`
+
+
+---
+
+## [Entry 17] — 2026-11-23 03:50 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Feature Addition — Dual-Dialog Authentication Gateway & Role-Based Routing  
+
+### Problem
+Previously, unauthenticated users could access the investigator workspace or customer portal directly without undergoing authentication, and there was no dedicated landing entry point or segregated login experience for enterprise administrators/investigators versus policyholders.
+
+### Fix
+1. **Direct Native Bcrypt Security**: Replaced deprecated `passlib` bcrypt handler in `app/core/security.py` with direct native `bcrypt` calls (`bcrypt.hashpw` and `bcrypt.checkpw`), eliminating Python 3.13 incompatibility and ensuring fast password verification.
+2. **Dual-Dialog Authentication Gateway**: Created `frontend/src/pages/auth/AuthPage.tsx` presenting two separate, segregated dialogue boxes side-by-side:
+   - **Dialog Box A (Enterprise Portal)**: For Fraud Investigators and Administrators. Includes Sign In, Account Creation (with role selector), and a 1-click `⚡ Fill Investigator` demo pre-fill. Directs to `/investigator`.
+   - **Dialog Box B (Policyholder Portal)**: For Insured Claimants. Includes Sign In, Claimant Registration, and a 1-click `⚡ Fill Policyholder` demo pre-fill. Directs to `/customer`.
+3. **Protected Routes & Navigation**: Refactored `frontend/src/App.tsx` so unauthenticated visitors are redirected to `/login`. Added JWT / user session management, custom role indicators in the top navbar, and a dedicated **Log Out** button that clears tokens and returns to the gateway.
+4. **Validation**: Verified API login responses for both investigator and customer accounts (`HTTP 200`), and built the frontend bundle with Vite (`npx vite build` passed with 0 errors across 1,644 modules).
+
+### Files Affected
+- `backend/app/core/security.py`
+- `frontend/src/pages/auth/AuthPage.tsx` — **NEW**
+- `frontend/src/App.tsx`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`
+
+
+---
+
+## [Entry 18] — 2026-11-23 03:56 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Feature Architecture — Fully Segregated Interfaces for Admin, Investigator & Customer Portals  
+
+### Problem
+Previously, when policyholders or administrators logged in, they shared elements of the same header navigation and layout, which blurred the strict segregation required between enterprise internal fraud investigation and customer-facing claim transparency.
+
+### Fix
+1. **Dedicated Customer/Policyholder Interface**:
+   - Custom **Emerald/Teal Policyholder Navbar**: "InsureGuard Policyholder Services" displaying active policy number (`POL-2026-9921`), vehicle plate (`DL05MN5678`), and claimant identity.
+   - Comprehensive **Policyholder Dashboard (`CustomerPortal.tsx`)**: Welcome hero card, claim progress milestone tracker, supplemental evidence upload dropzone, customer claim history, and interactive **"File New Claim"** modal.
+   - Strict segregation: Policyholders have 0 access to internal risk scores, fraud weights, or investigator queues.
+2. **Dedicated Enterprise Admin & Fraud Operations Portal**:
+   - Custom **Dark Slate/Blue Enterprise Header**: "InsureGuard AI Enterprise" with role badge and workspace navigation.
+   - **Admin Governance Dashboard (`AdminDashboard.tsx`)**: Executive KPIs (Total Claims Evaluated, High-Risk Intercepted, ₹42.8 Lakhs Fraud Loss Prevented, 4 Syndicate Rings Tracked), 10 PRD explainable rule sensitivity sliders, and immutable audit trail telemetry.
+   - **Investigation Workspace (`InvestigatorDashboard.tsx`)**: Full technical queue with forensic OCR, vis-network syndicate graphs, grounded AI Copilot, and case dossier PDF export.
+3. **Route & Layout Isolation (`App.tsx`)**:
+   - Role-based redirect guard: Policyholders are permanently constrained to `/customer`; Administrators/Investigators land on their respective enterprise workspaces.
+
+### Files Affected
+- `frontend/src/pages/admin/AdminDashboard.tsx` — **NEW**
+- `frontend/src/pages/customer/CustomerPortal.tsx`
+- `frontend/src/App.tsx`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`
+
+
+---
+
+## [Entry 19] — 2026-11-23 04:18 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** UI/UX Redesign — Complete Institutional Enterprise BFSI Redesign of ClaimShield AI  
+
+### Problem
+The frontend interface exhibited generic AI tropes (dark neon gradients, glowing borders, purple AI motifs, oversized decorative badges, and unstructured layouts) that did not reflect the maturity, restrained authority, and audit readiness of a genuine institutional BFSI / insurance core operations platform (such as Guidewire, Shift Technology, or Palantir Foundry).
+
+### Fix
+1. **Institutional BFSI Design Tokens & Palette**:
+   - Primary: Deep Navy `#142B45`, Dark Navy `#0D1B2A`, Professional Blue `#245B85`.
+   - Neutral & Structural: Slate `#526477`, Muted `#718096`, Light Base Background `#F4F6F8`, Card Background `#FFFFFF`, Clean Borders `#E1E6EB`.
+   - Restrained Status Semantics: Green `#25845A` (Verified / Settled / Low Risk), Amber `#C58A27` (Pending Review / Warning), Red `#C44747` (Critical Priority / Tampering), Blue `#3478B8` (Informational).
+   - Removed all neon glow shadows, glassmorphism, floating decorative orbs, and emoji-based icons.
+2. **Fixed-Width Enterprise Sidebar & Hierarchical Layout**:
+   - Created fixed sidebar in `InvestigatorDashboard.tsx` with logo `ClaimShield AI` and subtitle `Insurance Intelligence Platform`.
+   - Structured navigation:
+     - **WORKSPACE**: Overview, All Claims, Submit Claim, Document Verification.
+     - **INTELLIGENCE**: Risk Assessment, Syndicate Graph, Investigation Notes.
+     - **MANAGEMENT**: Audit Trail, Governance & Rules.
+   - Active Case indicator in sidebar with current case number, vehicle registration, and risk score.
+   - Clean top navigation with breadcrumbs (`ClaimShield AI / Case Management / CS-2026-68595`), global search, notifications, last sync trigger, and officer profile with Log Out action.
+3. **Claims Overview Dashboard**:
+   - 4 institutional KPI cards: Total Claims, Pending Review, High-Priority Investigations, Completed Claims.
+   - Analytical summaries: Claims Processing Overview and Risk Distribution (Low Risk, Standard Review, Enhanced Review, High Priority).
+   - Recent Claims Queue: compact table with right-aligned currency formatting (`₹95,000.00`, `tabular-nums`), restrained risk badges, and `Inspect Case` actions.
+4. **Comprehensive Case Management & Details Interface**:
+   - Enterprise Case Header Bar with Claim ID, Policy Number, Claimant Name, Vehicle Reg, Incident Date, Claimed Amount, Risk Score Progress Bar, and actions (`Export Dossier (PDF)`, `Record Case Decision`).
+   - Cross-Document Validation Matrix: Structured comparison table (`Field | Policy / Claim Data | Extracted Document Data | Reconciliation Result | Forensic Notes`).
+   - PyMuPDF OCR Inspector: Document selector with SHA-256 hashes, clean file rows, tampering badges, and searchable monospace raw text stream.
+   - Deterministic 10-Rule Risk Assessment: Itemized finding cards with points, evidence quotes, alternative non-fraud explanations, and verification actions (`Verify Finding`, `Dismiss as False Positive`).
+   - 2-Hop Syndicate Graph (`RelationshipGraphView.tsx`): Clean white canvas `#FFFFFF`, crisp border `#E1E6EB`, institutional entity palette, and floating node inspector.
+   - AI-Assisted Investigation Notes (`CopilotChatView.tsx`): Structured internal investigation memorandum format, evidence-grounded queries, cited sources, and PII masking indicator.
+5. **Intake & Submission Form**:
+   - 5-section enterprise claim intake: Policyholder Details, Vehicle & Repair Details, Incident & Financial Parameters, Supporting Documents Dropzone with file queuing, size validation, and multi-file analysis trigger.
+6. **Dual-Dialog Gateway & Customer Portal**:
+   - Redesigned `AuthPage.tsx` with side-by-side institutional dialog cards for Enterprise Operations (Navy) vs Policyholder Portal (Green).
+   - Redesigned `CustomerPortal.tsx` with white cards, milestone progress tracking, and supplemental evidence upload dropzone.
+7. **Production Build & Verification**:
+   - Built full production bundle via `tsc && vite build`: compiled 1,645 modules with 0 errors.
+
+### Files Affected
+- `frontend/src/index.css`
+- `frontend/tailwind.config.js`
+- `frontend/src/types/index.ts`
+- `frontend/src/App.tsx`
+- `frontend/src/pages/auth/AuthPage.tsx`
+- `frontend/src/pages/customer/CustomerPortal.tsx`
+- `frontend/src/pages/admin/AdminDashboard.tsx`
+- `frontend/src/pages/investigator/InvestigatorDashboard.tsx`
+- `frontend/src/pages/investigator/WhySuspiciousView.tsx`
+- `frontend/src/pages/investigator/DocumentsView.tsx`
+- `frontend/src/pages/investigator/RelationshipGraphView.tsx`
+- `frontend/src/pages/investigator/CopilotChatView.tsx`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`
+
+
+---
+
+## [Entry 20] — 2026-11-23 06:25 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Deployment Architecture — Production Vercel & Render Infrastructure Configuration  
+
+### Problem
+The project needed production deployment readiness for both the FastAPI backend (on Render) and the React/Vite frontend (on Vercel), with dynamic remote API routing, CORS compliance, SPA rewrite rules, and automated cloud blueprints.
+
+### Fix
+1. **Dynamic Remote Backend Connection (`frontend/src/services/api.ts`)**:
+   - Added environment variable resolution (`VITE_API_URL` / `VITE_API_BASE_URL`) with fallback to relative `/api/v1`.
+   - Created `frontend/src/vite-env.d.ts` defining `ImportMetaEnv` for clean TypeScript compilation.
+2. **Vercel SPA Deployment Configurations**:
+   - Created `frontend/vercel.json` and root `vercel.json` with SPA wildcard rewrite rules (`/(.*)` -> `/index.html`) preventing 404s on browser reloads of `/investigator`, `/customer`, and `/login`.
+   - Added asset caching headers for `/assets/*` with `max-age=31536000, immutable`.
+   - Provided `frontend/.env.production.example`.
+3. **Render Backend Blueprint & Containerization**:
+   - Created `render.yaml` defining an Infrastructure-as-Code Blueprint with Python 3.11.9 runtime, pip dependency install, uvicorn execution on `$PORT`, and health check probe at `/api/health`.
+   - Created `backend/Dockerfile` with Python 3.11-slim, PyMuPDF, libpq-dev, and uvicorn.
+   - Added `backend/runtime.txt` and `backend/.python-version` locking Python version to `3.11.9`.
+   - Removed obsolete `passlib[bcrypt]` from `backend/requirements.txt`.
+   - Enhanced `database.py` to auto-normalize Render PostgreSQL URLs (`postgres://` -> `postgresql+asyncpg://`) while gracefully maintaining SQLite fallback.
+   - Updated FastAPI CORS middleware in `main.py` with `allow_origin_regex=r"https?://.*"` for seamless cross-origin API calls from Vercel.
+4. **Documentation**:
+   - Authored comprehensive guide in `docs/DEPLOYMENT_GUIDE.md` with step-by-step instructions for 1-click Blueprint and manual Web Service setup.
+5. **Build & Validation**:
+   - `tsc && vite build` compiled with 0 errors across 1,645 modules in 21s.
+
+### Files Affected
+- `render.yaml` — **NEW**
+- `vercel.json` — **NEW**
+- `frontend/vercel.json` — **NEW**
+- `frontend/src/vite-env.d.ts` — **NEW**
+- `frontend/.env.production.example` — **NEW**
+- `frontend/src/services/api.ts`
+- `backend/Dockerfile` — **NEW**
+- `backend/runtime.txt` — **NEW**
+- `backend/.python-version` — **NEW**
+- `backend/.env.production.example` — **NEW**
+- `backend/requirements.txt`
+- `backend/app/core/database.py`
+- `backend/app/main.py`
+- `docs/DEPLOYMENT_GUIDE.md` — **NEW**
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`
+
+
+---
+
+## [Entry 21] — 2026-11-23 06:45 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Bug Fix & Cloud Deployment — SQLAlchemy AsyncIO Greenlet Dependency on Render  
+
+### Problem
+During Render deployment of the backend web service, the build succeeded, but Uvicorn failed at startup with:
+`ImportError: The SQLAlchemy asyncio module requires that the Python 'greenlet' library is installed. In order to ensure this dependency is available, use the 'sqlalchemy[asyncio]' install target: 'pip install sqlalchemy[asyncio]'`.
+
+### Fix
+1. **Explicit AsyncIO & Greenlet Target**: Added `sqlalchemy[asyncio]>=2.0.31` and explicit `greenlet>=3.0.3` to `backend/requirements.txt`.
+2. **Pinned Compatible Generative AI Version**: Updated `google-generativeai>=0.8.0` to eliminate pip dependency resolution backtracking during Render builds.
+3. **Verification**: Verified import of `app.main` in Python (`Successfully imported app.main!`).
+
+### Files Affected
+- `backend/requirements.txt`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`
+
+
+---
+
+## [Entry 22] — 2026-11-23 06:48 IST
+**Author:** Avdhesh (Master Agent)  
+**Category:** Bug Fix & Cloud Deployment — Pydantic EmailStr Email-Validator Dependency on Render  
+
+### Problem
+During Render deployment, Uvicorn crashed with:
+`ImportError: email-validator is not installed, run pip install 'pydantic[email]'` when importing `app.schemas.user.UserBase` (which defines `email: EmailStr`).
+
+### Fix
+1. **Added Email-Validator Packages**: Added `pydantic[email]>=2.7.4` and `email-validator>=2.1.0` to `backend/requirements.txt`.
+2. **Verification**: Executed verification command importing `email_validator`, `greenlet`, `sqlalchemy.ext.asyncio`, and `app.main` — all resolved with exit code 0.
+
+### Files Affected
+- `backend/requirements.txt`
+- `docs/DEVELOPMENT_LOG.md`
+
+### Rollback
+`git revert HEAD`

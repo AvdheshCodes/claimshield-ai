@@ -1,0 +1,1169 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [6 0 R 8 0 R 10 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 9351 >>
+stream
+BT
+0.4 0.5 0.6 rg
+/F1 8 Tf
+1 0 0 1 45 818 Tm
+(InsureGuard AI   Tech Stack & Integration Guide) Tj
+1 0 0 1 500 30 Tm
+(Page 1 of 3) Tj
+1 0 0 1 45 30 Tm
+(InsureGuard AI · Visionet Techthon 2026) Tj
+ET
+0.85 0.88 0.92 RG 0.5 w
+45 812 m 550 812 l S
+45 42 m 550 42 l S
+BT
+0.05 0.10 0.25 rg
+/F2 17 Tf
+1 0 0 1 45 775.00 Tm
+(InsureGuard AI   Final Tech Stack & Team Integration Guide) Tj
+ET
+0.15 0.35 0.85 RG
+1.5 w
+45 769.00 m 550 769.00 l S
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 751.00 Tm
+(Document Version: 3.0) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 736.00 Tm
+(Target: Enable 3 Developers to Build Features Individually and Integrate Without) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 723.00 Tm
+(Conflicts) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 708.00 Tm
+(Team Allocation:) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 693.00 Tm
+(  Avdhesh: Backend Architecture, PostgreSQL, Neo4j, Security & REST APIs) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 680.00 Tm
+(  Ayush: Frontend Tri-Portal, Tailwind CSS, Vis-Network Graph & User Experience) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 667.00 Tm
+(  Manaswi: Document Forensics, Explainable Fraud Engine, AI Copilot & Privacy) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 654.00 Tm
+(---) Tj
+ET
+BT
+0.10 0.20 0.50 rg
+/F2 13 Tf
+1 0 0 1 45 627.00 Tm
+(1. Definitive Technology Stack) Tj
+ET
+0.8 0.85 0.9 RG
+0.8 w
+45 623.00 m 550 623.00 l S
+0.92 0.94 0.98 rg
+45 589.00 505 16 re f
+0.75 0.8 0.88 RG
+0.5 w
+45 589.00 505 16 re S
+BT
+0.05 0.1 0.2 rg
+/F2 8 Tf
+1 0 0 1 49.00 601.00 Tm
+(Layer) Tj
+ET
+BT
+0.05 0.1 0.2 rg
+/F2 8 Tf
+1 0 0 1 175.25 601.00 Tm
+(Technology) Tj
+ET
+BT
+0.05 0.1 0.2 rg
+/F2 8 Tf
+1 0 0 1 301.50 601.00 Tm
+(Version) Tj
+ET
+BT
+0.05 0.1 0.2 rg
+/F2 8 Tf
+1 0 0 1 427.75 601.00 Tm
+(Purpose / Rationale) Tj
+ET
+1.0 1.0 1.0 rg
+45 573.00 505 16 re f
+0.85 0.88 0.92 RG
+0.5 w
+45 573.00 505 16 re S
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 49.00 585.00 Tm
+(Frontend Framework) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 175.25 585.00 Tm
+(React + TypeScript) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 301.50 585.00 Tm
+(18.3+ / 5.6+) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 427.75 585.00 Tm
+(Type safety across tea) Tj
+ET
+0.98 0.99 1.0 rg
+45 557.00 505 16 re f
+0.85 0.88 0.92 RG
+0.5 w
+45 557.00 505 16 re S
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 49.00 569.00 Tm
+(Frontend Build Tool) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 175.25 569.00 Tm
+(Vite) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 301.50 569.00 Tm
+(5.4+) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 427.75 569.00 Tm
+(Instant HMR developmen) Tj
+ET
+1.0 1.0 1.0 rg
+45 541.00 505 16 re f
+0.85 0.88 0.92 RG
+0.5 w
+45 541.00 505 16 re S
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 49.00 553.00 Tm
+(Frontend Styling) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 175.25 553.00 Tm
+(Tailwind CSS) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 301.50 553.00 Tm
+(3.4+) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 427.75 553.00 Tm
+(Rapid utility styling ) Tj
+ET
+0.98 0.99 1.0 rg
+45 525.00 505 16 re f
+0.85 0.88 0.92 RG
+0.5 w
+45 525.00 505 16 re S
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 49.00 537.00 Tm
+(Network Visualization) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 175.25 537.00 Tm
+(`vis-network`) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 301.50 537.00 Tm
+(9.1+) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 427.75 537.00 Tm
+(High-performance inter) Tj
+ET
+1.0 1.0 1.0 rg
+45 509.00 505 16 re f
+0.85 0.88 0.92 RG
+0.5 w
+45 509.00 505 16 re S
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 49.00 521.00 Tm
+(Backend Framework) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 175.25 521.00 Tm
+(Python + FastAPI) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 301.50 521.00 Tm
+(3.11+ / 0.111+) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 427.75 521.00 Tm
+(High-performance async) Tj
+ET
+0.98 0.99 1.0 rg
+45 493.00 505 16 re f
+0.85 0.88 0.92 RG
+0.5 w
+45 493.00 505 16 re S
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 49.00 505.00 Tm
+(Relational Database) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 175.25 505.00 Tm
+(PostgreSQL + `pgvector) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 301.50 505.00 Tm
+(16) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 427.75 505.00 Tm
+(ACID transactions, JSO) Tj
+ET
+1.0 1.0 1.0 rg
+45 477.00 505 16 re f
+0.85 0.88 0.92 RG
+0.5 w
+45 477.00 505 16 re S
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 49.00 489.00 Tm
+(Graph Database) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 175.25 489.00 Tm
+(Neo4j Community) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 301.50 489.00 Tm
+(5.19+) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 427.75 489.00 Tm
+(Native graph traversal) Tj
+ET
+0.98 0.99 1.0 rg
+45 461.00 505 16 re f
+0.85 0.88 0.92 RG
+0.5 w
+45 461.00 505 16 re S
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 49.00 473.00 Tm
+(Task Queue / Cache) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 175.25 473.00 Tm
+(Redis) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 301.50 473.00 Tm
+(7.0+) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 427.75 473.00 Tm
+(Asynchronous OCR and h) Tj
+ET
+1.0 1.0 1.0 rg
+45 445.00 505 16 re f
+0.85 0.88 0.92 RG
+0.5 w
+45 445.00 505 16 re S
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 49.00 457.00 Tm
+(Document Processing) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 175.25 457.00 Tm
+(PyMuPDF \(`fitz`\)) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 301.50 457.00 Tm
+(1.24+) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 427.75 457.00 Tm
+(Lightning-fast PDF tex) Tj
+ET
+0.98 0.99 1.0 rg
+45 429.00 505 16 re f
+0.85 0.88 0.92 RG
+0.5 w
+45 429.00 505 16 re S
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 49.00 441.00 Tm
+(Image Forensics) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 175.25 441.00 Tm
+(OpenCV & Pillow) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 301.50 441.00 Tm
+(4.10+ / 10.3+) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 427.75 441.00 Tm
+(Error Level Analysis \() Tj
+ET
+1.0 1.0 1.0 rg
+45 413.00 505 16 re f
+0.85 0.88 0.92 RG
+0.5 w
+45 413.00 505 16 re S
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 49.00 425.00 Tm
+(AI / LLM Engine) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 175.25 425.00 Tm
+(Google Gemini 1.5 Flas) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 301.50 425.00 Tm
+(SDK 0.7+) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 427.75 425.00 Tm
+(Free-tier available, f) Tj
+ET
+0.98 0.99 1.0 rg
+45 397.00 505 16 re f
+0.85 0.88 0.92 RG
+0.5 w
+45 397.00 505 16 re S
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 49.00 409.00 Tm
+(Local LLM Fallback) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 175.25 409.00 Tm
+(Ollama / Template Fall) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 301.50 409.00 Tm
+(-) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 427.75 409.00 Tm
+(Offline/local executio) Tj
+ET
+1.0 1.0 1.0 rg
+45 381.00 505 16 re f
+0.85 0.88 0.92 RG
+0.5 w
+45 381.00 505 16 re S
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 49.00 393.00 Tm
+(Containerization) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 175.25 393.00 Tm
+(Docker & Docker Compos) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 301.50 393.00 Tm
+(3.8+) Tj
+ET
+BT
+0.15 0.2 0.25 rg
+/F1 8 Tf
+1 0 0 1 427.75 393.00 Tm
+(Zero-drift local envir) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 369.00 Tm
+(---) Tj
+ET
+BT
+0.10 0.20 0.50 rg
+/F2 13 Tf
+1 0 0 1 45 342.00 Tm
+(2. Module Boundaries & Team Assignment Matrix) Tj
+ET
+0.8 0.85 0.9 RG
+0.8 w
+45 338.00 m 550 338.00 l S
+0.94 0.96 0.98 rg
+41 184.00 513 142 re f
+0.85 0.88 0.92 RG
+0.5 w
+41 184.00 513 142 re S
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 318.00 Tm
+(                                                                              ) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 307.00 Tm
+(                                    INSUREGUARD AI PLATFORM                   ) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 296.00 Tm
+(                                                                              ) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 285.00 Tm
+(                                                ) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 274.00 Tm
+(                                                                                  ) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 263.00 Tm
+(                                                                                  ) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 252.00 Tm
+(     [AVDHESH - BACKEND]               [AYUSH - FRONTEND]            [MANASWI - AI/FORENSICS]) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 241.00 Tm
+(    FastAPI Router Gateway            Tri-Portal Shell \(App.tsx\)     ELA & Metadata Forensics) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 230.00 Tm
+(    PostgreSQL SQLAlchemy Models      Investigator Dashboard         10-Rule Fraud Engine) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 219.00 Tm
+(    Neo4j Graph Queries               'Why Suspicious?' UI           Grounded RAG Copilot) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 208.00 Tm
+(    JWT RBAC Authorization            Vis-Network Graph UI           PII Masking Engine) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 197.00 Tm
+(    Asynchronous Task Workers         Customer Transparency View     Synthetic Test Scenarios) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 180.00 Tm
+(---) Tj
+ET
+BT
+0.10 0.20 0.50 rg
+/F2 13 Tf
+1 0 0 1 45 153.00 Tm
+(3. Clear Integration Contracts) Tj
+ET
+0.8 0.85 0.9 RG
+0.8 w
+45 149.00 m 550 149.00 l S
+BT
+0.15 0.20 0.30 rg
+/F2 11 Tf
+1 0 0 1 45 125.00 Tm
+(Contract 1: Why Suspicious Engine Contract) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 113.00 Tm
+(  Function Signature:) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 9 0 R >>
+endobj
+9 0 obj
+<< /Length 5660 >>
+stream
+BT
+0.4 0.5 0.6 rg
+/F1 8 Tf
+1 0 0 1 45 818 Tm
+(InsureGuard AI   Tech Stack & Integration Guide) Tj
+1 0 0 1 500 30 Tm
+(Page 2 of 3) Tj
+1 0 0 1 45 30 Tm
+(InsureGuard AI · Visionet Techthon 2026) Tj
+ET
+0.85 0.88 0.92 RG 0.5 w
+45 812 m 550 812 l S
+45 42 m 550 42 l S
+0.94 0.96 0.98 rg
+41 727.00 513 65 re f
+0.85 0.88 0.92 RG
+0.5 w
+41 727.00 513 65 re S
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 784.00 Tm
+(  ExplainableFraudEngine.evaluate\() Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 773.00 Tm
+(      claim_data: dict,) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 762.00 Tm
+(      extracted_docs: list[dict],) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 751.00 Tm
+(      historical_duplicates: dict) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 740.00 Tm
+(  \) -> tuple[int, str, list[dict]]) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 723.00 Tm
+(  Returns: `\(risk_score, risk_band, findings\)`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 710.00 Tm
+(  Finding Fields Required:) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 697.00 Tm
+(`rule_id`, `rule_name`, `severity`, `points`, `observation`, `evidence_document_id`,) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 684.00 Tm
+(`evidence_page_number`, `evidence_snippet`, `potential_alternative_explanation`,) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 671.00 Tm
+(`recommended_action`, `investigator_feedback`.) Tj
+ET
+BT
+0.15 0.20 0.30 rg
+/F2 11 Tf
+1 0 0 1 45 646.00 Tm
+(Contract 2: Relationship Graph Contract) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 634.00 Tm
+(  Endpoint: `GET /api/v1/claims/{claim_id}/graph`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 621.00 Tm
+(  Output JSON Schema:) Tj
+ET
+0.94 0.96 0.98 rg
+41 534.00 513 76 re f
+0.85 0.88 0.92 RG
+0.5 w
+41 534.00 513 76 re S
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 602.00 Tm
+(  interface GraphResponse {) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 591.00 Tm
+(    nodes: Array<{ id: string; label: string; name: string; group: string; properties?: any }>;) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 580.00 Tm
+(    edges: Array<{ from_node: string; to_node: string; label: string; properties?: any }>;) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 569.00 Tm
+(    suspicious_clusters_detected: number;) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 558.00 Tm
+(    summary?: string;) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 547.00 Tm
+(  }) Tj
+ET
+BT
+0.15 0.20 0.30 rg
+/F2 11 Tf
+1 0 0 1 45 520.00 Tm
+(Contract 3: AI Copilot RAG Contract) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 508.00 Tm
+(  Endpoint: `POST /api/v1/copilot/chat`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 495.00 Tm
+(  Input: `{ claim_id: UUID, question: string }`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 482.00 Tm
+(  Output:) Tj
+ET
+0.94 0.96 0.98 rg
+41 395.00 513 76 re f
+0.85 0.88 0.92 RG
+0.5 w
+41 395.00 513 76 re S
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 463.00 Tm
+(  interface CopilotResponse {) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 452.00 Tm
+(    answer: string;) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 441.00 Tm
+(    citations: Array<{ document_type?: string; page_number?: number; source_reference?: string;) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 430.00 Tm
+(    investigation_suggestions: string[];) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 419.00 Tm
+(    disclaimer: string;) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 408.00 Tm
+(  }) Tj
+ET
+BT
+0.15 0.20 0.30 rg
+/F2 11 Tf
+1 0 0 1 45 381.00 Tm
+(Contract 4: PII Masking Contract) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 369.00 Tm
+(  Function: `PIIMasker.sanitize_for_external_ai\(data: dict\) -> dict`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 356.00 Tm
+(  Guarantees: Strips/masks Aadhaar \(`XXXX-XXXX-1234`\), Phone \(`+91-XXXXX-XX123`\),) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 344.00 Tm
+(  Email \(`r*@demo.com`\), and Bank Accounts before sending to any LLM.) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 331.00 Tm
+(---) Tj
+ET
+BT
+0.10 0.20 0.50 rg
+/F2 13 Tf
+1 0 0 1 45 304.00 Tm
+(4. Local Execution & Testing Commands) Tj
+ET
+0.8 0.85 0.9 RG
+0.8 w
+45 300.00 m 550 300.00 l S
+BT
+0.15 0.20 0.30 rg
+/F2 11 Tf
+1 0 0 1 45 276.00 Tm
+(Backend \(Python FastAPI\):) Tj
+ET
+0.94 0.96 0.98 rg
+41 157.00 513 109 re f
+0.85 0.88 0.92 RG
+0.5 w
+41 157.00 513 109 re S
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 258.00 Tm
+(cd backend) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 247.00 Tm
+(python -m venv venv) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 236.00 Tm
+(# Windows:) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 225.00 Tm
+(.\\venv\\Scripts\\activate) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 214.00 Tm
+(# Linux/Mac:) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 203.00 Tm
+(source venv/bin/activate) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 192.00 Tm
+() Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 181.00 Tm
+(pip install -r requirements.txt) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 170.00 Tm
+(uvicorn app.main:app --reload --port 8000) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 153.00 Tm
+(  Interactive Swagger API Documentation: `http://localhost:8000/docs`) Tj
+ET
+BT
+0.15 0.20 0.30 rg
+/F2 11 Tf
+1 0 0 1 45 130.00 Tm
+(Frontend \(React + TypeScript\):) Tj
+ET
+0.94 0.96 0.98 rg
+41 77.00 513 43 re f
+0.85 0.88 0.92 RG
+0.5 w
+41 77.00 513 43 re S
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 112.00 Tm
+(cd frontend) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 101.00 Tm
+(npm install) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 90.00 Tm
+(npm run dev) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 73.00 Tm
+(  Frontend Application: `http://localhost:3000`) Tj
+ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 11 0 R >>
+endobj
+11 0 obj
+<< /Length 2689 >>
+stream
+BT
+0.4 0.5 0.6 rg
+/F1 8 Tf
+1 0 0 1 45 818 Tm
+(InsureGuard AI   Tech Stack & Integration Guide) Tj
+1 0 0 1 500 30 Tm
+(Page 3 of 3) Tj
+1 0 0 1 45 30 Tm
+(InsureGuard AI · Visionet Techthon 2026) Tj
+ET
+0.85 0.88 0.92 RG 0.5 w
+45 812 m 550 812 l S
+45 42 m 550 42 l S
+BT
+0.15 0.20 0.30 rg
+/F2 11 Tf
+1 0 0 1 45 780.00 Tm
+(Complete Docker Stack:) Tj
+ET
+0.94 0.96 0.98 rg
+41 749.00 513 21 re f
+0.85 0.88 0.92 RG
+0.5 w
+41 749.00 513 21 re S
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 762.00 Tm
+(docker compose up -d) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 745.00 Tm
+(Starts PostgreSQL \(5432\), Neo4j \(7474/7687\), Redis \(6379\), Backend \(8000\), and) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 732.00 Tm
+(Frontend \(3000\).) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 717.00 Tm
+(---) Tj
+ET
+BT
+0.10 0.20 0.50 rg
+/F2 13 Tf
+1 0 0 1 45 690.00 Tm
+(5. Team Git Workflow for Clean Integration) Tj
+ET
+0.8 0.85 0.9 RG
+0.8 w
+45 686.00 m 550 686.00 l S
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 672.00 Tm
+(To ensure teammates can work simultaneously without breaking each other's code:) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 657.00 Tm
+(1. Branch Naming Standard:) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 642.00 Tm
+(  Avdhesh: `feature/avdhesh-backend-api`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 629.00 Tm
+(  Ayush: `feature/ayush-frontend-ui`) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 616.00 Tm
+(  Manaswi: `feature/manaswi-ai-forensics`) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 603.00 Tm
+(2. Always pull from `development` before starting:) Tj
+ET
+0.94 0.96 0.98 rg
+41 547.00 513 43 re f
+0.85 0.88 0.92 RG
+0.5 w
+41 547.00 513 43 re S
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 582.00 Tm
+(   git checkout development) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 571.00 Tm
+(   git pull origin development) Tj
+ET
+BT
+0.10 0.15 0.20 rg
+/F3 8 Tf
+1 0 0 1 45 560.00 Tm
+(   git checkout -b feature/my-feature-name) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 543.00 Tm
+(3. Commit often with descriptive prefixes:) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 528.00 Tm
+(  `feat\(...\)`: New feature implementation) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 515.00 Tm
+(  `fix\(...\)`: Bug fix) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 502.00 Tm
+(  `docs\(...\)`: Documentation updates) Tj
+ET
+BT
+0.15 0.18 0.22 rg
+/F1 9.5 Tf
+1 0 0 1 45 489.00 Tm
+(4. Merge through Pull Request \(PR\):) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 474.00 Tm
+(  Open a PR from your feature branch to `development`.) Tj
+ET
+BT
+0.15 0.20 0.25 rg
+/F1 9 Tf
+1 0 0 1 45 461.00 Tm
+(  Ensure the DoD criteria from `FINAL_PRD.md` are met before merging.) Tj
+ET
+endstream
+endobj
+xref
+0 12
+0000000000 65535 f 
+0000000019 00000 n 
+0000000068 00000 n 
+0000000138 00000 n 
+0000000235 00000 n 
+0000000337 00000 n 
+0000000432 00000 n 
+0000000584 00000 n 
+0000009987 00000 n 
+0000010139 00000 n 
+0000015851 00000 n 
+0000016005 00000 n 
+trailer
+<< /Size 12 /Root 1 0 R >>
+startxref
+18747
+%%EOF

@@ -1,0 +1,48 @@
+{
+  "scenario": "Scenario C — Incomplete Claim (Missing Documents)",
+  "expectedOutcome": {
+    "scoreRange": "10 - 24",
+    "riskCategory": "low",
+    "expectedFlagsCount": 1,
+    "triggeredRuleIds": [
+      "MISSING_DOCUMENT"
+    ],
+    "recommendedStatus": "additional_info_required",
+    "notes": "System must NOT falsely accuse incomplete claims of fraud; instead requests missing documents."
+  },
+  "claim": {
+    "claimantName": "Amit Kumar",
+    "policyNumber": "POL-2024-INCMPL-003",
+    "vehicleRegistration": "KA05XY9012",
+    "accidentDate": "2024-11-01T00:00:00.000Z",
+    "accidentDescription": "Side swipe collision in multi-level parking lot damaging passenger door.",
+    "claimedAmount": 32000,
+    "contactPhone": "9876500002",
+    "contactEmail": "amit@demo.com"
+  },
+  "documents": [
+    {
+      "documentType": "policy",
+      "fileName": "Policy_Schedule_POL-2024-INCMPL-003.txt",
+      "fields": {
+        "policyNumber": "POL-2024-INCMPL-003",
+        "policyholderName": "Amit Kumar",
+        "vehicleRegistration": "KA05XY9012",
+        "insurerName": "Prudence General Insurance",
+        "policyStartDate": "15/06/2024",
+        "policyEndDate": "14/06/2025"
+      }
+    },
+    {
+      "documentType": "claim_form",
+      "fileName": "Claim_Form_CS-2026-00003.txt",
+      "fields": {
+        "claimNumber": "CS-2026-00003",
+        "policyNumber": "POL-2024-INCMPL-003",
+        "policyholderName": "Amit Kumar",
+        "vehicleRegistration": "KA05XY9012",
+        "accidentDate": "01/11/2024"
+      }
+    }
+  ]
+}
